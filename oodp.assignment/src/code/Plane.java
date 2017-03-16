@@ -14,7 +14,7 @@ public class Plane {
 			seat[i] = new PlaneSeat(i+1);
 		}
 		
-		numEmptySeat = 12;
+		numEmptySeat = 14;
 	}
 	
 	//sortSeats() – a method to sort the seats according to ascending order of customerID. A copy of the original seat array is used for sorting instead of the original.
