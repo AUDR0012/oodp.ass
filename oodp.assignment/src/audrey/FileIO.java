@@ -1,10 +1,10 @@
-package kinsum;
+package audrey;
 
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class SerializeDB {
+public class FileIO {
 
 	public static Object readSerializedObject(String filename)
 	{
@@ -28,9 +28,6 @@ public class SerializeDB {
 		{
 			ex.printStackTrace();
 		}
-		// print out the size
-		// System.out.println(" Details Size: " + pDetails.size());
-		// System.out.println();
 		return pDetails;
 	}
 
@@ -46,7 +43,6 @@ public class SerializeDB {
 			out = new ObjectOutputStream(fos);
 			out.writeObject(obj);
 			out.close();
-			// System.out.println("Object Persisted");
 		}
 		catch (IOException ex)
 		{

@@ -1,6 +1,8 @@
 package audrey;
 
-public class Admin implements User {
+import java.io.Serializable;
+
+public class Admin implements User, Serializable {
 
 	private String username;
 	private String password;
@@ -11,21 +13,25 @@ public class Admin implements User {
 	{
 		this.username = username;
 		this.password = password;
-		
+
 		this.name = name;
 	}
 
 	@Override
 	public String getUsername()
 	{
-		// TODO Auto-generated method stub
 		return username;
 	}
 
 	@Override
 	public String getPassword()
 	{
-		// TODO Auto-generated method stub
 		return password;
+	}
+
+	@Override
+	public void print()
+	{
+		System.out.println(username + " : " + password + " : " + name);
 	}
 }

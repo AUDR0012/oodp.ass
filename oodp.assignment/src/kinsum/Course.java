@@ -3,8 +3,8 @@ package kinsum;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Course implements Serializable
-{
+public class Course implements Serializable {
+	
 	private String name;
 	private String[] test;
 	private ArrayList<Group> groups;

@@ -3,8 +3,7 @@ package kinsum;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MyStars
-{
+public class MyStars {
 
 	public static void main(String[] args)
 	{
