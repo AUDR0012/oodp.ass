@@ -2,36 +2,29 @@ package audrey;
 
 import java.io.Serializable;
 
-public class Admin implements User, Serializable {
-
-	private String username;
-	private String password;
+public class Admin implements Comparable, Serializable {
 
 	private String name;
 
-	public Admin(String username, String password, String name)
+	public Admin(String name)
 	{
-		this.username = username;
-		this.password = password;
-
 		this.name = name;
 	}
 
 	@Override
-	public String getUsername()
+	public int compareTo(Object arg0)
 	{
-		return username;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	@Override
-	public String getPassword()
+	public String getName()
 	{
-		return password;
+		return name;
 	}
 
-	@Override
-	public void print()
+	public void setName(String name)
 	{
-		System.out.println(username + " : " + password + " : " + name);
+		this.name = name;
 	}
 }

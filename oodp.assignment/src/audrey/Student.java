@@ -1,72 +1,133 @@
 package audrey;
 
-import java.util.Date;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Student implements User, Serializable {
+public class Student implements Comparable, Serializable {
 
-	private String username;
-	private String password;
+	enum Student_Gender {
+		MALE, FEMALE;
+	}
 
 	private String name;
-	private char gender;
-	private String matric_no;
-	private int study_year;
+	private Student_Gender gender;
+	private String matricNo;
+	private int studyYear;
+	private String email;
 	private Date dob;
 	private String nationality;
-	private String phone_no;
-	private ArrayList<Course> course_list;
+	private String phoneNo;
+	private ArrayList<Group> courseGroups;
 
-	public Student(String username, String password, String name, char gender, String matric_no, int study_year,
-			String dob, String nationality, String phone_no)
+	public Student(String name, Student_Gender gender, String matricNo, int studyYear, String email, String dob,
+			String nationality, String phoneNo, ArrayList<Group> courseGroups)
 	{
-		this.username = username;
-		this.password = password;
-
 		this.name = name;
 		this.gender = gender;
-		this.matric_no = matric_no;
-		this.study_year = study_year;
-		// this.dob = dob;
+		this.matricNo = matricNo;
+		this.studyYear = studyYear;
+		this.email = email;
+		this.dob = FormatString.getDate(dob, "dd-MM-yy");
 		this.nationality = nationality;
-		this.phone_no = phone_no;
-		this.course_list = new ArrayList<Course>();
-
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
-		try
-		{
-			this.dob = df.parse(dob);
-		}
-		catch (ParseException e)
-		{
-			e.printStackTrace();
-		}
+		this.phoneNo = phoneNo;
+		this.courseGroups = courseGroups;
 	}
 
 	@Override
-	public String getUsername()
+	public int compareTo(Object arg0)
 	{
-		return username;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	@Override
-	public String getPassword()
+	public String getName()
 	{
-		return password;
+		return name;
 	}
 
-	@Override
-	public void print()
+	public void setName(String name)
 	{
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
-		
-		System.out.println(username + " : " + password + " : " + name + " : " + gender + " : " + matric_no + " : " + study_year + " : " + df.format(dob) + " : " + nationality + " : " + phone_no);
-		for (Course e : course_list)
-		{
-			e.print();
-		}
+		this.name = name;
+	}
+
+	public String getGender()
+	{
+		return Enumerator.replaceString(gender);
+	}
+
+	public void setGender(Student_Gender gender)
+	{
+		this.gender = gender;
+	}
+
+	public String getMatricNo()
+	{
+		return matricNo;
+	}
+
+	public void setMatricNo(String matricNo)
+	{
+		this.matricNo = matricNo;
+	}
+
+	public int getStudyYear()
+	{
+		return studyYear;
+	}
+
+	public void setStudyYear(int studyYear)
+	{
+		this.studyYear = studyYear;
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+	public Date getDob()
+	{
+		return dob;
+	}
+
+	public void setDob(Date dob)
+	{
+		this.dob = dob;
+	}
+
+	public String getNationality()
+	{
+		return nationality;
+	}
+
+	public void setNationality(String nationality)
+	{
+		this.nationality = nationality;
+	}
+
+	public String getPhoneNo()
+	{
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo)
+	{
+		this.phoneNo = phoneNo;
+	}
+
+	public ArrayList<Group> getCourseGroups()
+	{
+		return courseGroups;
+	}
+
+	public void setCourseGroups(ArrayList<Group> courseGroups)
+	{
+		this.courseGroups = courseGroups;
 	}
 }
