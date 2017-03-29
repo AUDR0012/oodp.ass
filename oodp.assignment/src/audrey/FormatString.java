@@ -1,5 +1,8 @@
 package audrey;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,25 +36,30 @@ public class FormatString {
 			return "";
 	}
 
-	public static String tabString(String text, int length, String delimiter)
+	public static String tabs(int length, String delimiter, String text)
 	{
 		String tabs = "\t";
-		int size = length - text.length();
+		int size = length - text.length() - delimiter.length() - 1;
 		while (size > 7)
 		{
 			tabs += "\t";
-			size -= 7;
+			size -= 8;
 		}
 		return text + tabs + delimiter;
 	}
 
-	public static String getBar(int count, String character)
+	public static String hashPassword(String password)
 	{
-		String bar = character;
-		for (int i = 1; i < count; i++)
+		try
 		{
-			bar += character;
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes(), 0, password.length());
+			return (new BigInteger(1, md.digest()).toString());
 		}
-		return bar;
+		catch (NoSuchAlgorithmException x)
+		{
+			// return x.toString();
+			return null;
+		}
 	}
 }

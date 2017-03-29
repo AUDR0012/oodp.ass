@@ -24,6 +24,18 @@ public class Group implements Serializable {
 		this.registered = registered;
 		this.waitlist = waitlist;
 	}
+	
+	public Course getCourse(ArrayList<Course> courseList)
+	{
+		for (Course co : courseList)
+		{
+			if (co.findGroup(this.getIndexNo()) != null)
+			{
+				return co;
+			}
+		}
+		return null;
+	}
 
 	public void addStudentToGroup(Student st)
 	{
@@ -31,12 +43,29 @@ public class Group implements Serializable {
 		{
 			registered.add(st);
 			vacancy--;
-			System.out.println("Registering.");
+			System.out.println("Registering " + this.getIndexNo() + ".");
 		}
 		else
 		{
 			waitlist.add(st);
-			System.out.println("Adding to waitlist.");
+			System.out.println("Adding " + this.getIndexNo() + " to waitlist.");
+		}
+	}
+
+	public void dropStudentFromGroup(Student st)
+	{
+		if (Enumerator.string(Group_StudentStatus.REGISTERED).equals((String) findStudent(st, "status")))
+		{
+			registered.remove(st);
+			vacancy++;
+			System.out.println("Removing " + this.getIndexNo() + " from course.");
+
+			updateWaitlist();
+		}
+		else
+		{
+			waitlist.remove(st);
+			System.out.println("Removing " + this.getIndexNo() + "from waitlist.");
 		}
 	}
 
@@ -49,7 +78,7 @@ public class Group implements Serializable {
 				if (returning.equals("boolean"))
 					return true;
 				else // if (returning.equals("status"))
-					return Enumerator.replaceString(Group_StudentStatus.REGISTERED);
+					return Enumerator.string(Group_StudentStatus.REGISTERED);
 			}
 		}
 		for (Student s : waitlist)
@@ -59,13 +88,18 @@ public class Group implements Serializable {
 				if (returning.equals("boolean"))
 					return true;
 				else // if (returning.equals("status"))
-					return Enumerator.replaceString(Group_StudentStatus.WAITLIST);
+					return Enumerator.string(Group_StudentStatus.WAITLIST);
 			}
 		}
 		if (returning.equals("boolean"))
 			return false;
 		else // if (returning.equals("status"))
 			return "";
+	}
+
+	public void updateWaitlist()
+	{
+
 	}
 
 	public int getIndexNo()

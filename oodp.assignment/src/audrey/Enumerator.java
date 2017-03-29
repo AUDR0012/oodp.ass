@@ -27,12 +27,12 @@ public class Enumerator {
 		int i = pos;
 		for (E constant : obj.getEnumConstants())
 		{
-			System.out.println("\t" + i + ". " + replaceString(constant));
+			System.out.println("\t" + i + ". " + string(constant));
 			i++;
 		}
 	}
 	
-	public static <E extends Enum<E>> String replaceString(E constant)
+	public static <E extends Enum<E>> String string(E constant)
 	{
 		return constant.toString().replaceAll("_", " ");
 	}

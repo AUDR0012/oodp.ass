@@ -34,17 +34,18 @@ public class Session implements Serializable {
 		this.remark = remark;
 	}
 
-	public void print(int length, String delimiter)
+	public void printSession(int length, String delimiter)
 	{
-		System.out.println(delimiter + FormatString.tabString(this.getType(), length, delimiter)
-				+ FormatString.tabString(this.getGroup(), length, delimiter)
-				+ FormatString.tabString(this.getDay(), length, delimiter)
-				+ FormatString.tabString(this.getTimeString(), length, delimiter)
-				+ FormatString.tabString(this.getVenue(), length, delimiter)
-				+ FormatString.tabString(this.getRemark(), length + 7, delimiter));
+		System.out.print(delimiter
+				+ FormatString.tabs(length * 2, delimiter, this.getType())
+				+ FormatString.tabs(length * 1, delimiter, this.getGroup())
+				+ FormatString.tabs(length * 2, delimiter, this.getDay())
+				+ FormatString.tabs(length * 2, delimiter, this.getTimePeriod())
+				+ FormatString.tabs(length * 2, delimiter, this.getVenue())
+				+ FormatString.tabs(length * 3, delimiter, this.getRemark()));
 	}
 
-	public String getTimeString()
+	public String getTimePeriod()
 	{
 		String format = "hhmm";
 		if (startTime != null)
@@ -56,7 +57,7 @@ public class Session implements Serializable {
 
 	public String getType()
 	{
-		return Enumerator.replaceString(type);
+		return Enumerator.string(type);
 	}
 
 	public void setType(Session_Type type)
@@ -76,7 +77,7 @@ public class Session implements Serializable {
 
 	public String getDay()
 	{
-		return Enumerator.replaceString(day);
+		return Enumerator.string(day);
 	}
 
 	public void setDay(Session_Day day)

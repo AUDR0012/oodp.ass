@@ -2,7 +2,6 @@ package audrey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Course implements Serializable {
 
@@ -24,7 +23,7 @@ public class Course implements Serializable {
 		this.credit = credit;
 		this.groups = groups;
 	}
-
+	
 	public Group findGroup(int indexNo)
 	{
 		for (Group gr : groups)
@@ -36,12 +35,12 @@ public class Course implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public boolean findStudent(Student st)
 	{
 		for (Group gr : groups)
 		{
-			if ((boolean)gr.findStudent(st, "boolean"))
+			if ((boolean) gr.findStudent(st, "boolean"))
 			{
 				return true;
 			}
@@ -51,28 +50,47 @@ public class Course implements Serializable {
 
 	public void printCourse(Group gr, int length, String delimiter, Student user)
 	{
-		System.out.println(delimiter + FormatString.tabString(this.getId(), length, delimiter)
-				+ FormatString.tabString(String.valueOf(this.getCredit()), length - 7, delimiter)
-				+ FormatString.tabString(this.getName(), length + 15, delimiter)
-				+ FormatString.tabString(this.getType(), length, delimiter)
-				+ FormatString.tabString(String.valueOf(gr.getIndexNo()), length, delimiter)
-				+ FormatString.tabString(gr.findStudent(user, "status").toString(), length, delimiter));
+		System.out.print(delimiter
+				+ FormatString.tabs(length * 2, delimiter, this.getId())
+				+ FormatString.tabs(length * 1, delimiter, String.valueOf(this.getCredit()))
+				+ FormatString.tabs(length * 3, delimiter, this.getName())
+				+ FormatString.tabs(length * 2, delimiter, this.getType())
+				+ FormatString.tabs(length * 1, delimiter, String.valueOf(gr.getIndexNo()))
+				+ FormatString.tabs(length * 3, delimiter, gr.findStudent(user, "status").toString()));
 	}
 
 	public void printGroup(Group gr, int length, String delimiter)
 	{
-		String bar = FormatString.getBar(105, "=");
+		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(length, delimiter, "group");
 		if (gr.getSessions().size() > 0)
 		{
-			System.out.println(FormatString.tabString("Index Number: " + String.valueOf(gr.getIndexNo()), 40, "")
+			System.out.println(FormatString.tabs(40, "", "Index Number: " + String.valueOf(gr.getIndexNo()))
 					+ "Course: " + this.getId());
-			System.out.println(bar + "\n| Class Type\t| Group\t\t| Day\t\t| Time\t\t| Venue\t\t| Remark\t\t|\n" + bar);
+			System.out.println(bar + "\n" + header + "\n" + bar);
 			for (Session s : gr.getSessions())
 			{
-				s.print(length, delimiter);
+				s.printSession(length, delimiter);
+				System.out.println();
 			}
 			System.out.println(bar);
 		}
+	}
+	
+	public void print2Groups(Group gr1, Group gr2, int length, String delimiter)
+	{
+		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(length, delimiter, "group");
+		System.out.println("Subject: " + this.getId());
+		System.out.println(FormatString.tabs(100, "", "Current Index Number: " + String.valueOf(gr1.getIndexNo()))
+				+ "New Index Number: " + String.valueOf(gr2.getIndexNo()));
+		System.out.println(bar + "\t" + bar
+				+ "\n" + header + "\t" + header
+				+ "\n" + bar + "\t" + bar);
+		for (int i = 0; i < gr1.getSessions().size(); i++)
+		{
+			gr1.getSessions().get(i).printSession(length, delimiter); System.out.print("\t");
+			gr2.getSessions().get(i).printSession(length, delimiter); System.out.println();
+		}
+		System.out.println(bar + "\t" + bar);
 	}
 
 	public String getId()
@@ -97,7 +115,7 @@ public class Course implements Serializable {
 
 	public String getType()
 	{
-		return Enumerator.replaceString(type);
+		return Enumerator.string(type);
 	}
 
 	public void setType(Course_Type type)
