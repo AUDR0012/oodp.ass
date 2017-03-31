@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Fujitsu user/Downloads/javax.mail.jar"/>
+	<classpathentry kind="lib" path="E:/TNL/Lecture Notes/Year 1 Semester 2/CZ2002 Object Oriented Programming/github/oodp.ass/oodp.assignment/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
