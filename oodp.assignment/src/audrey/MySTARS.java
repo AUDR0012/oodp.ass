@@ -13,7 +13,7 @@ public class MySTARS {
 	public static void main(String[] args)
 	{
 		Scanner in = new Scanner(System.in);
-
+		
 		final int PARSE_LENGTH = 8;
 		final String PARSE_DELIMITER = "| ";
 
@@ -691,15 +691,15 @@ public class MySTARS {
 				{
 					if (l.getUser() instanceof Student)
 					{
-						Date today = new Date(System.nanoTime());
+						Date today = new Date();
 						if (today.after(l.getAccessSTime()) && today.before(l.getAccessETime()))
 						{
 							return l.getUser();
 						}
 						else
 						{
-							System.out.println("You can only access between" + FormatString.getString(l.getAccessSTime(), "dd-MM-yyyy hh:mm")
-									+ " to " + FormatString.getString(l.getAccessETime(), "dd-MM-yyyy hh:mm"));
+							System.out.println("You can only access between " + FormatString.getString(l.getAccessSTime(), "dd-MM-yyyy hh:mm a")
+									+ " to " + FormatString.getString(l.getAccessETime(), "dd-MM-yyyy hh:mm a"));
 							return null;
 						}
 					}

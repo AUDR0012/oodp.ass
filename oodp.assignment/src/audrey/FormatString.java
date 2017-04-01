@@ -36,23 +36,23 @@ public class FormatString {
 		int day = 0, month = 0, year = 0, hour = 0, minute = 0;
 		if (type.contains("date"))
 		{
-			System.out.print("Day:");
+			System.out.print("Day: ");
 			day = in.nextInt();
-			System.out.print("Month:");
+			System.out.print("Month: ");
 			month = in.nextInt();
-			System.out.print("Year:");
+			System.out.print("Year: ");
 			year = in.nextInt();
 		}
 		
 		if (type.contains("time"))
 		{
-			System.out.print("Hour:");
+			System.out.print("Hour: ");
 			hour = in.nextInt();
-			System.out.print("Minute:");
+			System.out.print("Minute: ");
 			minute = in.nextInt();
 		}
-
-		return getDate(String.format("{00}", day) + "-" + String.format("{00}", month) + "-" + year + " " + hour + ":" + minute,
+		
+		return getDate(String.format("%02d", day) + "-" + String.format("%02d", month) + "-" + year + " " + hour + ":" + minute,
 				"dd-MM-yyyy hh:mm");
 	}
 	

@@ -231,6 +231,8 @@ public class Developer {
 
 		for (Logger l : userList)
 		{
+			l.setAccessSTime(FormatString.getDate("01-04-2017 00:00", "dd-MM-yyyy hh:mm"));
+			l.setAccessETime(FormatString.getDate("01-05-2017 00:00", "dd-MM-yyyy hh:mm"));
 			if (l.getUser() instanceof Student)
 			{
 				studentList.add((Student) l.getUser());
