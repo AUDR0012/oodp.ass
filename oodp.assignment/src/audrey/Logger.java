@@ -8,13 +8,25 @@ public class Logger implements Serializable {
 	private String username;
 	private String password;
 	private Comparable user;
-	private Date accessTime;
+	private Date accessSTime;
+	private Date accessETime;
+	
+	public Logger()
+	{
+		this.username = null;
+		this.password = null;
+		this.user = null;
+		this.accessSTime = null;
+		this.accessETime = null;
+	}
 	
 	public Logger(String username, String password, Comparable user)
 	{
 		this.username = username;
 		this.password = password;
 		this.user = user;
+		this.accessSTime = null;
+		this.accessETime = null;
 	}
 
 	public String getUsername()
@@ -47,13 +59,23 @@ public class Logger implements Serializable {
 		this.user = user;
 	}
 
-	public Date getAccessTime()
+	public Date getAccessSTime()
 	{
-		return accessTime;
+		return accessSTime;
 	}
 
-	public void setAccessTime(Date accessTime)
+	public void setAccessSTime(Date accessSTime)
 	{
-		this.accessTime = accessTime;
+		this.accessSTime = accessSTime;
+	}
+
+	public Date getAccessETime()
+	{
+		return accessETime;
+	}
+
+	public void setAccessETime(Date accessETime)
+	{
+		this.accessETime = accessETime;
 	}
 }

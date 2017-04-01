@@ -2,12 +2,10 @@ package audrey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
+import audrey.Enumerator.*;
 
 public class Group implements Serializable {
-
-	enum Group_StudentStatus {
-		REGISTERED, WAITLIST, EXEMPTED;
-	}
 
 	private int indexNo;
 	private int vacancy;
@@ -15,21 +13,29 @@ public class Group implements Serializable {
 	private ArrayList<Student> registered;
 	private ArrayList<Student> waitlist;
 
-	public Group(int indexNo, int vacancy, ArrayList<Session> sessions, ArrayList<Student> registered,
-			ArrayList<Student> waitlist)
+	public Group()
+	{
+		this.indexNo = 0;
+		this.vacancy = 0;
+		this.sessions = new ArrayList<Session>();
+		this.registered = new ArrayList<Student>();
+		this.waitlist = new ArrayList<Student>();
+	}
+
+	public Group(int indexNo, int vacancy, ArrayList<Session> sessions)
 	{
 		this.indexNo = indexNo;
 		this.vacancy = vacancy;
 		this.sessions = sessions;
-		this.registered = registered;
-		this.waitlist = waitlist;
+		this.registered = new ArrayList<Student>();
+		this.waitlist = new ArrayList<Student>();
 	}
-	
+
 	public Course getCourse(ArrayList<Course> courseList)
 	{
 		for (Course co : courseList)
 		{
-			if (co.findGroup(this.getIndexNo()) != null)
+			if (!co.findGroup(indexNo).equals(null))
 			{
 				return co;
 			}
@@ -54,7 +60,7 @@ public class Group implements Serializable {
 
 	public void dropStudentFromGroup(Student st)
 	{
-		if (Enumerator.string(Group_StudentStatus.REGISTERED).equals((String) findStudent(st, "status")))
+		if (Enumerator.string(Group_Status.REGISTERED).equals(this.findStudent(st, "status")))
 		{
 			registered.remove(st);
 			vacancy++;
@@ -71,35 +77,55 @@ public class Group implements Serializable {
 
 	public Comparable findStudent(Student st, String returning)
 	{
+		Group_Status status = Group_Status.NOT_FOUND;
 		for (Student s : registered)
 		{
 			if (s.equals(st))
 			{
-				if (returning.equals("boolean"))
-					return true;
-				else // if (returning.equals("status"))
-					return Enumerator.string(Group_StudentStatus.REGISTERED);
+				status = Group_Status.REGISTERED;
 			}
 		}
 		for (Student s : waitlist)
 		{
 			if (s.equals(st))
 			{
-				if (returning.equals("boolean"))
-					return true;
-				else // if (returning.equals("status"))
-					return Enumerator.string(Group_StudentStatus.WAITLIST);
+				status = Group_Status.WAITLIST;
 			}
 		}
-		if (returning.equals("boolean"))
-			return false;
-		else // if (returning.equals("status"))
-			return "";
+		return returning.equals("boolean") ? status != Group_Status.NOT_FOUND : Enumerator.string(status);
 	}
 
 	public void updateWaitlist()
 	{
+		System.out.println("Yet to Develop!"); //TODO:SMS/EMAIL
+	}
 
+	public void printStudents(int length, String delimiter)
+	{
+		String bar = Menu.getBar(48, "="), header = Menu.getTableHeader(length, delimiter, "student");
+		System.out.println(bar + "\n" + header + "\n" + bar);
+		for (Student st : registered)
+		{
+			st.printStudent(length, delimiter);
+		}
+		System.out.println(bar);
+	}
+
+	public void addSession(Session se)
+	{
+		boolean duplicate = false;
+		for (Session s : sessions)
+		{
+			if (Objects.equals(s, se))
+			{
+				duplicate = true;
+				System.out.println("Session already exist.");
+			}
+		}
+		if (!duplicate)
+		{
+			sessions.add(se);
+		} 
 	}
 
 	public int getIndexNo()

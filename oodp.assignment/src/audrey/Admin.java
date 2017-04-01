@@ -5,6 +5,11 @@ import java.io.Serializable;
 public class Admin implements Comparable, Serializable {
 
 	private String name;
+	
+	public Admin()
+	{
+		this.name = null;
+	}
 
 	public Admin(String name)
 	{

@@ -3,35 +3,48 @@ package audrey;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import audrey.Enumerator.*;
 
 public class Student implements Comparable, Serializable {
 
-	enum Student_Gender {
-		MALE, FEMALE;
-	}
-
 	private String name;
-	private Student_Gender gender;
+	private Gender gender;
 	private String matricNo;
 	private int studyYear;
 	private String email;
 	private Date dob;
 	private String nationality;
 	private String phoneNo;
+	private Notification_Status notification;
 	private ArrayList<Group> courseGroups;
 
-	public Student(String name, Student_Gender gender, String matricNo, int studyYear, String email, String dob,
-			String nationality, String phoneNo, ArrayList<Group> courseGroups)
+	public Student()
+	{
+		this.name = null;
+		this.gender = null;
+		this.matricNo = null;
+		this.studyYear = 0;
+		this.email = null;
+		this.dob = null;
+		this.nationality = null;
+		this.phoneNo = null;
+		this.notification = null;
+		this.courseGroups = new ArrayList<Group>();
+	}
+
+	public Student(String name, Gender gender, String matricNo, int studyYear, String email, Date dob,
+			String nationality, String phoneNo, Notification_Status notification)
 	{
 		this.name = name;
 		this.gender = gender;
 		this.matricNo = matricNo;
 		this.studyYear = studyYear;
 		this.email = email;
-		this.dob = FormatString.getDate(dob, "dd-MM-yy");
+		this.dob = dob;
 		this.nationality = nationality;
 		this.phoneNo = phoneNo;
-		this.courseGroups = courseGroups;
+		this.notification = notification;
+		this.courseGroups = new ArrayList<Group>();
 	}
 
 	public void printCourses(ArrayList<Course> courseList, int length, String delimiter)
@@ -40,10 +53,10 @@ public class Student implements Comparable, Serializable {
 		String bar = Menu.getBar(97, "=");
 		for (Group gr : courseGroups)
 		{
-			System.out.println(bar + "\n" + Menu.getTableHeader(length, delimiter, "column") + "\n" + bar);
+			System.out.println(bar + "\n" + Menu.getTableHeader(length, delimiter, "course") + "\n" + bar);
 			for (Course co : courseList)
 			{
-				if (co.findGroup(gr.getIndexNo()) != null)
+				if (!co.findGroup(gr.getIndexNo()).equals(null))
 				{
 					co.printCourse(gr, length, delimiter, this);
 					System.out.println();
@@ -62,10 +75,9 @@ public class Student implements Comparable, Serializable {
 		Course co;
 		for (Group gr : courseGroups)
 		{
-			if ((co = gr.getCourse(courseList)) != null)
+			if (!(co = gr.getCourse(courseList)).equals(null))
 			{
-				System.out.println(i++ + ". " + gr.getIndexNo() + " "
-						+ co.getId() + " " + gr.findStudent(this, "status"));
+				System.out.println("\t" + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
 			}
 		}
 		System.out.println("0. Back to Menu");
@@ -94,6 +106,51 @@ public class Student implements Comparable, Serializable {
 		}
 	}
 
+	public void printStudent(int length, String delimiter)
+	{
+		System.out.println(delimiter
+				+ FormatString.tabs(length * 3, delimiter, this.getName())
+				+ FormatString.tabs(length * 1, delimiter, this.getGender())
+				+ FormatString.tabs(length * 2, delimiter, this.getNationality()));
+	}
+
+	public Group isOverlap(Group gr)
+	{
+		for (Group group : this.getCourseGroups())
+		{
+			for (Session sCur : group.getSessions())
+			{
+				for (Session sNew : gr.getSessions())
+				{
+					if (sCur.getDay().equals(sNew.getDay())
+							&& sCur.getAlternateWeek() == sNew.getAlternateWeek()
+							&& sCur.getAlternateWeek() != Alternate_Week.NONE)
+					{
+						if ((sCur.getSTime().equals(sNew.getSTime()) && sCur.getETime().equals(sNew.getETime())) /*	sCur [__]
+																														sNew [__]
+																													*/
+								&& (sCur.getSTime().after(sNew.getSTime()) && sCur.getSTime().before(sNew.getETime())) /*	sCur [__]
+																															sNew   [__]
+																														*/
+								&& (sCur.getETime().after(sNew.getSTime()) && sCur.getETime().before(sNew.getETime())) /*	sCur   [__]
+																															sNew [__]
+																														*/
+								&& (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getETime())) /*	sCur   [__]
+																															sNew [______]
+																														*/
+								&& (sCur.getSTime().after(sNew.getSTime()) && sCur.getETime().before(sNew.getETime()))) /*	sCur [______]
+																															sNew   [__]
+																														*/
+						{
+							return group;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public int compareTo(Object arg0)
 	{
@@ -116,7 +173,7 @@ public class Student implements Comparable, Serializable {
 		return Enumerator.string(gender);
 	}
 
-	public void setGender(Student_Gender gender)
+	public void setGender(Gender gender)
 	{
 		this.gender = gender;
 	}
@@ -179,6 +236,16 @@ public class Student implements Comparable, Serializable {
 	public void setPhoneNo(String phoneNo)
 	{
 		this.phoneNo = phoneNo;
+	}
+
+	public String getNotification()
+	{
+		return Enumerator.string(notification);
+	}
+
+	public void setNotification(Notification_Status notification)
+	{
+		this.notification = notification;
 	}
 
 	public ArrayList<Group> getCourseGroups()

@@ -14,6 +14,7 @@ public class Menu {
 			System.out.println("4. Check Vacancies");
 			System.out.println("5. Change Index Number of Course");
 			System.out.println("6. Swop Index Number with Another Student");
+			System.out.println("7. Update Particulars");
 		}
 		else // if (user instanceof Student)
 		{
@@ -64,7 +65,7 @@ public class Menu {
 					+ FormatString.tabs(length * 1, delimiter, "Index")
 					+ FormatString.tabs(length * 3, delimiter, "Status");
 		}
-		else // if (table.equals("group"))
+		else if (table.equals("group"))
 		{
 			header += FormatString.tabs(length * 2, delimiter, "Class Type")
 					+ FormatString.tabs(length * 1, delimiter, "Group")
@@ -72,6 +73,12 @@ public class Menu {
 					+ FormatString.tabs(length * 2, delimiter, "Time")
 					+ FormatString.tabs(length * 2, delimiter, "Venue")
 					+ FormatString.tabs(length * 3, delimiter, "Remark");
+		}
+		else if (table.equals("student"))
+		{
+			header += FormatString.tabs(length * 3, delimiter, "Name")
+					+ FormatString.tabs(length * 1, delimiter, "Gender")
+					+ FormatString.tabs(length * 2, delimiter, "Nationality");
 		}
 		return header;
 	}

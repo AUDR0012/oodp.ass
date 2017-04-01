@@ -2,10 +2,38 @@ package audrey;
 
 public class Enumerator {
 
+	enum Alternate_Week { // Does Session occurs on Alternate Weeks
+		ODD, EVEN, NONE;
+	}
+
+	enum Course_Type { // Course Type
+		CORE, CORE_ELECTIVE, GER_CORE, GER_ELECTIVE, UNRESTRICTED_ELECTIVE;
+	}
+
+	enum Day { // Day of the Week
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
+	}
+
+	enum Gender { // Gender of the Student
+		MALE, FEMALE;
+	}
+
+	enum Group_Status { // Student's Status in the Group
+		REGISTERED, WAITLIST, EXEMPTED, NOT_FOUND;
+	}
+
+	enum Notification_Status { // How the student wish to be notified
+		SMS, EMAIL
+	}
+
+	enum Session_Type { // Type of Session
+		LECTURE, TUTORIAL, LAB;
+	}
+
 	private static int pos = 1;
 
 	/*
-	 * Enumerator.print(Course_Type.class);
+	 * Enumerator.printAll(Course_Type.class);
 	 * System.out.println(Enumerator.nextEnum(Course_Type.class, in.nextInt()));
 	 * System.out.println(Course_Type.CORE_ELECTIVE.toString());
 	 */
@@ -22,18 +50,20 @@ public class Enumerator {
 		return null;
 	}
 
-	public static <E extends Enum<E>> void print(Class<E> obj)
+	public static <E extends Enum<E>> void printAll(Class<E> obj)
 	{
 		int i = pos;
+		System.out.println(FormatString.replaceString(obj.getSimpleName(), "_", " ") + ": ");
 		for (E constant : obj.getEnumConstants())
 		{
 			System.out.println("\t" + i + ". " + string(constant));
 			i++;
 		}
+		System.out.print("Enter your option: ");
 	}
-	
+
 	public static <E extends Enum<E>> String string(E constant)
 	{
-		return constant.toString().replaceAll("_", " ");
+		return FormatString.replaceString(constant.toString(), "_", " ");
 	}
 }

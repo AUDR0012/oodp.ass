@@ -2,18 +2,25 @@ package audrey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
+import audrey.Enumerator.*;
 
 public class Course implements Serializable {
-
-	enum Course_Type {
-		CORE, CORE_ELECTIVE, GER_CORE, GER_ELECTIVE, UNRESTRICTED_ELECTIVE;
-	}
 
 	private String id;
 	private String name;
 	private Course_Type type;
 	private int credit;
 	private ArrayList<Group> groups;
+	
+	public Course ()
+	{
+		this.id = null;
+		this.name = null;
+		this.type = null;
+		this.credit = 0;
+		this.groups = new ArrayList<Group>();
+	}
 
 	public Course(String id, String name, Course_Type type, int credit, ArrayList<Group> groups)
 	{
@@ -23,7 +30,7 @@ public class Course implements Serializable {
 		this.credit = credit;
 		this.groups = groups;
 	}
-	
+
 	public Group findGroup(int indexNo)
 	{
 		for (Group gr : groups)
@@ -62,35 +69,83 @@ public class Course implements Serializable {
 	public void printGroup(Group gr, int length, String delimiter)
 	{
 		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(length, delimiter, "group");
-		if (gr.getSessions().size() > 0)
+		System.out.println(bar + "\n" + header + "\n" + bar);
+		for (Session s : gr.getSessions())
 		{
-			System.out.println(FormatString.tabs(40, "", "Index Number: " + String.valueOf(gr.getIndexNo()))
-					+ "Course: " + this.getId());
-			System.out.println(bar + "\n" + header + "\n" + bar);
-			for (Session s : gr.getSessions())
-			{
-				s.printSession(length, delimiter);
-				System.out.println();
-			}
-			System.out.println(bar);
+			s.printSession(length, delimiter);
+			System.out.println();
 		}
+		System.out.println(bar);
 	}
-	
+
 	public void print2Groups(Group gr1, Group gr2, int length, String delimiter)
 	{
 		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(length, delimiter, "group");
-		System.out.println("Subject: " + this.getId());
-		System.out.println(FormatString.tabs(100, "", "Current Index Number: " + String.valueOf(gr1.getIndexNo()))
-				+ "New Index Number: " + String.valueOf(gr2.getIndexNo()));
 		System.out.println(bar + "\t" + bar
 				+ "\n" + header + "\t" + header
 				+ "\n" + bar + "\t" + bar);
 		for (int i = 0; i < gr1.getSessions().size(); i++)
 		{
-			gr1.getSessions().get(i).printSession(length, delimiter); System.out.print("\t");
-			gr2.getSessions().get(i).printSession(length, delimiter); System.out.println();
+			gr1.getSessions().get(i).printSession(length, delimiter);
+			System.out.print("\t");
+			gr2.getSessions().get(i).printSession(length, delimiter);
+			System.out.println();
 		}
 		System.out.println(bar + "\t" + bar);
+	}
+
+	public void printStudents(int length, String delimiter)
+	{
+		String bar = Menu.getBar(48, "="), header = Menu.getTableHeader(length, delimiter, "student");
+		System.out.println(bar + "\n" + header + "\n" + bar);
+		for (Group gr : groups)
+		{
+			for (Student st : gr.getRegistered())
+			{
+				st.printStudent(length, delimiter);
+			}
+		}
+		System.out.println(bar);
+	}
+
+	public int countStudentInGroups()
+	{
+		int count = 0;
+		for (Group gr : groups)
+		{
+			count += gr.getRegistered().size();
+		}
+		return count;
+	}
+	
+	public boolean dupIndexNo(int indexNo)
+	{
+		for (Group gr : groups)
+		{
+			if (gr.getIndexNo() == indexNo)
+			{
+				System.out.println("Index Number " + indexNo + " has already been used.");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addGroup(Group gr)
+	{
+		boolean duplicate = false;
+		for (Group g : groups)
+		{
+			if (Objects.equals(g, gr))
+			{
+				duplicate = true;
+				System.out.println("Class already exist.");
+			}
+		}
+		if (!duplicate)
+		{
+			groups.add(gr);
+		} 
 	}
 
 	public String getId()

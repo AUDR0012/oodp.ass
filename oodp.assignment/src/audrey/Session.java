@@ -2,34 +2,37 @@ package audrey;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import audrey.Enumerator.*;
 
 public class Session implements Serializable {
 
-	enum Session_Type {
-		LECTURE, TUTORIAL, LAB;
-	}
-
-	enum Session_Day {
-		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
-	}
-
 	private Session_Type type;
 	private String group;
-	private Session_Day day;
-	private Date startTime;
-	private Date endTime;
+	private Day day;
+	private Date sTime;
+	private Date eTime;
 	private String venue;
 	private String remark;
+	
+	public Session()
+	{
+		this.type = null;
+		this.group = null;
+		this.day = null;
+		this.sTime = null;
+		this.eTime = null;
+		this.venue = null;
+		this.remark = null;
+	}
 
-	public Session(Session_Type type, String group, Session_Day day, String startTime, int hours, String venue,
+	public Session(Session_Type type, String group, Day day, Date sTime, int hours, String venue,
 			String remark)
 	{
 		this.type = type;
 		this.group = group;
 		this.day = day;
-		this.startTime = FormatString.getDate(startTime, "hh:mm");
-		this.endTime = new Date(this.startTime.getTime() + TimeUnit.HOURS.toMillis(hours));
+		this.sTime = sTime;
+		this.eTime = FormatString.addHours(this.getSTime(), hours);
 		this.venue = venue;
 		this.remark = remark;
 	}
@@ -40,19 +43,25 @@ public class Session implements Serializable {
 				+ FormatString.tabs(length * 2, delimiter, this.getType())
 				+ FormatString.tabs(length * 1, delimiter, this.getGroup())
 				+ FormatString.tabs(length * 2, delimiter, this.getDay())
-				+ FormatString.tabs(length * 2, delimiter, this.getTimePeriod())
+				+ FormatString.tabs(length * 2, delimiter, FormatString.getTimePeriod(sTime, eTime, "hhmm"))
 				+ FormatString.tabs(length * 2, delimiter, this.getVenue())
 				+ FormatString.tabs(length * 3, delimiter, this.getRemark()));
 	}
-
-	public String getTimePeriod()
+	
+	public Alternate_Week getAlternateWeek()
 	{
-		String format = "hhmm";
-		if (startTime != null)
+		if (remark.equalsIgnoreCase("Wk1,3,5,7,9,11,13"))
 		{
-			return FormatString.getString(this.getStartTime(), "hhmm") + "-" + FormatString.getString(this.getEndTime(), "hhmm");
+			return Alternate_Week.ODD;
 		}
-		return "";
+		else if (remark.equalsIgnoreCase("Wk2,4,6,8,10,12"))
+		{
+			return Alternate_Week.EVEN;
+		}
+		else
+		{
+			return Alternate_Week.NONE;
+		}
 	}
 
 	public String getType()
@@ -80,29 +89,29 @@ public class Session implements Serializable {
 		return Enumerator.string(day);
 	}
 
-	public void setDay(Session_Day day)
+	public void setDay(Day day)
 	{
 		this.day = day;
 	}
 
-	public Date getStartTime()
+	public Date getSTime()
 	{
-		return startTime;
+		return sTime;
 	}
 
-	public void setStartTime(Date startTime)
+	public void setSTime(Date sTime)
 	{
-		this.startTime = startTime;
+		this.sTime = sTime;
 	}
 
-	public Date getEndTime()
+	public Date getETime()
 	{
-		return endTime;
+		return eTime;
 	}
 
-	public void setEndTime(Date endTime)
+	public void setETime(Date eTime)
 	{
-		this.endTime = endTime;
+		this.eTime = eTime;
 	}
 
 	public String getVenue()
