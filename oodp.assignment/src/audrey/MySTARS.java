@@ -680,8 +680,8 @@ public class MySTARS {
 		System.out.print("Username: ");
 		username = in.next();
 		System.out.print("Password: ");
-		// password = in.next();															// TEMPORARY
-		password = String.copyValueOf(console.readPassword());
+		password = in.next();															// TEMPORARY
+		//password = String.copyValueOf(console.readPassword());
 
 		for (Logger l : userList)
 		{
