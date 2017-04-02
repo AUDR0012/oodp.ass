@@ -13,7 +13,7 @@ public class MySTARS {
 	public static void main(String[] args)
 	{
 		Scanner in = new Scanner(System.in);
-		
+
 		final int PARSE_LENGTH = 8;
 		final String PARSE_DELIMITER = "| ";
 
@@ -50,7 +50,6 @@ public class MySTARS {
 				{
 					case 1:
 					{ // Edit Student Access Period
-						//TODO:Continue
 						Date start, end;
 
 						System.out.println("Enter the Start Date of Access Time");
@@ -69,8 +68,6 @@ public class MySTARS {
 					}
 					case 2:
 					{ // Add a Student
-						//TODO:Continue
-
 						Logger lo;
 						Student st;
 
@@ -89,7 +86,7 @@ public class MySTARS {
 						st.setName(in.nextLine());
 						// Gender
 						Enumerator.printAll(Gender.class);
-						st.setGender(Enumerator.nextEnum(Gender.class, in.nextInt()));
+						st.setGender(Enumerator.nextEnum(Gender.class, in));
 						// Matric Number
 						System.out.print("Enter Matric Number: ");
 						st.setMatricNo(in.next());
@@ -117,7 +114,7 @@ public class MySTARS {
 						} while (st.getPhoneNo().length() != 8);
 						// Notification
 						Enumerator.printAll(Notification_Status.class);
-						st.setNotification(Enumerator.nextEnum(Notification_Status.class, in.nextInt()));
+						st.setNotification(Enumerator.nextEnum(Notification_Status.class, in));
 
 						lo.setUser(st);
 
@@ -127,8 +124,6 @@ public class MySTARS {
 					}
 					case 3:
 					{ // Add/ Update a Course
-						//TODO:Continue
-
 						course = new Course();
 						// Id
 						do
@@ -142,7 +137,7 @@ public class MySTARS {
 						course.setName(in.nextLine());
 						// Type
 						Enumerator.printAll(Course_Type.class);
-						course.setType(Enumerator.nextEnum(Course_Type.class, in.nextInt()));
+						course.setType(Enumerator.nextEnum(Course_Type.class, in));
 						// Credit
 						System.out.print("Enter Number of Credits: ");
 						course.setCredit(in.nextInt());
@@ -173,13 +168,13 @@ public class MySTARS {
 								session = new Session();
 								// Type
 								Enumerator.printAll(Session_Type.class);
-								session.setType(Enumerator.nextEnum(Session_Type.class, in.nextInt()));
+								session.setType(Enumerator.nextEnum(Session_Type.class, in));
 								// Group
 								System.out.print("Enter Group name: ");
 								session.setGroup(in.next());
 								// Day
 								Enumerator.printAll(Day.class);
-								session.setDay(Enumerator.nextEnum(Day.class, in.nextInt()));
+								session.setDay(Enumerator.nextEnum(Day.class, in));
 								// Start Time
 								System.out.print("Enter Start Time: ");
 								session.setSTime(FormatString.enterDateTime(in, "date"));
@@ -459,7 +454,7 @@ public class MySTARS {
 									}
 									else
 									{
-										if (Objects.equals(null, groupExist(courseList, in_int2)))
+										if (!Objects.equals(null, groupExist(courseList, in_int2)))
 										{
 											System.out.println("Index Number " + in_int2 + " exist in a different Course.");
 										}
@@ -481,7 +476,7 @@ public class MySTARS {
 						}
 						else
 						{
-							if (Objects.equals(null, groupExist(courseList, in_int)))
+							if (!Objects.equals(null, groupExist(courseList, in_int)))
 							{
 								System.out.println("Index Number " + in_int + " is not registered.");
 							}
@@ -568,7 +563,7 @@ public class MySTARS {
 									}
 									else
 									{
-										if (Objects.equals(null, groupExist(courseList, in_int)))
+										if (!Objects.equals(null, groupExist(courseList, in_int)))
 										{
 											System.out.println("Student " + ((Student) peer).getMatricNo() + " is not registerd in Index Number " + in_int2 + ".");
 										}
@@ -590,7 +585,7 @@ public class MySTARS {
 						}
 						else
 						{
-							if (Objects.equals(null, groupExist(courseList, in_int)))
+							if (!Objects.equals(null, groupExist(courseList, in_int)))
 							{
 								System.out.println("Student " + student.getMatricNo() + " is not registerd in Index Number " + in_int + ".");
 							}
@@ -614,23 +609,39 @@ public class MySTARS {
 						{
 							case 1:
 							{ // Email
-								System.out.println("Current email:" + student.getEmail());
-								System.out.print("Enter the new email:");
-								student.setEmail(in.next());
+								System.out.println("Current Email:" + student.getEmail());
+								System.out.print("Enter the new Email:");
+								in_string = in.next();
+								if (FormatString.emailValid(in_string))
+								{
+									student.setEmail(in.next());
+								}
+								else
+								{
+									System.out.println(in_string + " is not valid Email.");
+								}
 								break;
 							}
 							case 2:
 							{ // Phone Number
-								System.out.println("Current phone number:" + student.getPhoneNo());
-								System.out.print("Enter the new phone number:");
-								student.setPhoneNo(in.next());
+								System.out.println("Current Phone Number:" + student.getPhoneNo());
+								System.out.print("Enter the new Phone Number:");
+								in_string = in.next();
+								if (in_string.length() != 8)
+								{
+									student.setPhoneNo(in_string);
+								}
+								else
+								{
+									System.out.println(in_string + " is not valid Local Phone Number.");
+								}
 								break;
 							}
 							case 3:
 							{ // Notification Status
-								System.out.println("Current notification status: " + student.getNotification());
+								System.out.println("Current Notification Status: " + student.getNotification());
 								Enumerator.printAll(Notification_Status.class);
-								student.setNotification(Enumerator.nextEnum(Notification_Status.class, in.nextInt()));
+								student.setNotification(Enumerator.nextEnum(Notification_Status.class, in));
 								break;
 							}
 							case 4:

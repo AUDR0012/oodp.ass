@@ -1,5 +1,7 @@
 package audrey;
 
+import java.util.Scanner;
+
 public class Enumerator {
 
 	enum Alternate_Week { // Does Session occurs on Alternate Weeks
@@ -38,16 +40,22 @@ public class Enumerator {
 	 * System.out.println(Course_Type.CORE_ELECTIVE.toString());
 	 */
 
-	public static <E extends Enum<E>> E nextEnum(Class<E> obj, int value)
+	public static <E extends Enum<E>> E nextEnum(Class<E> obj, Scanner in)
 	{
-		for (E constant : obj.getEnumConstants())
+		int value;
+		do
 		{
-			if ((value - pos) == constant.ordinal())
+			value = in.nextInt();
+			for (E constant : obj.getEnumConstants())
 			{
-				return constant;
+				if ((value - pos) == constant.ordinal())
+				{
+					return constant;
+				}
 			}
-		}
-		return null;
+			
+			System.out.println("Please enter a valid input.");
+		} while (true);
 	}
 
 	public static <E extends Enum<E>> void printAll(Class<E> obj)

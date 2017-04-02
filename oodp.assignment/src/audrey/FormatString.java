@@ -9,8 +9,24 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class FormatString {
+
+	public static String hashPassword(String password)
+	{
+		try
+		{
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes(), 0, password.length());
+			return (new BigInteger(1, md.digest()).toString());
+		}
+		catch (NoSuchAlgorithmException x)
+		{
+			// return x.toString();
+			return null;
+		}
+	}
 
 	public static Date getDate(String dateTime, String format)
 	{
@@ -70,6 +86,20 @@ public class FormatString {
 			return "";
 	}
 
+	public static String getTimePeriod(Date time1, Date time2, String format)
+	{
+		if (!Objects.equals(null, time1) && !Objects.equals(null, time2))
+		{
+			return FormatString.getString(time1, format) + "-" + FormatString.getString(time2, format);
+		}
+		return "";
+	}
+	
+	public static boolean emailValid(String email)
+	{
+		return Pattern.compile("^(.+)@(.+)$").matcher(email).matches();
+	}
+
 	public static String tabs(int length, String delimiter, String text)
 	{
 		String tabs = "\t";
@@ -85,29 +115,5 @@ public class FormatString {
 	public static String replaceString(String text, String tCur, String tNew)
 	{
 		return text.replaceAll(tCur, tNew);
-	}
-
-	public static String getTimePeriod(Date time1, Date time2, String format)
-	{
-		if (!Objects.equals(null, time1) && !Objects.equals(null, time2))
-		{
-			return FormatString.getString(time1, format) + "-" + FormatString.getString(time2, format);
-		}
-		return "";
-	}
-
-	public static String hashPassword(String password)
-	{
-		try
-		{
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(password.getBytes(), 0, password.length());
-			return (new BigInteger(1, md.digest()).toString());
-		}
-		catch (NoSuchAlgorithmException x)
-		{
-			// return x.toString();
-			return null;
-		}
 	}
 }
