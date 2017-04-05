@@ -32,7 +32,7 @@ public class Session implements Serializable {
 		this.group = group;
 		this.day = day;
 		this.sTime = sTime;
-		this.eTime = FormatString.addHours(this.getSTime(), hours);
+		this.eTime = Formatter.addHours(this.getSTime(), hours);
 		this.venue = venue;
 		this.remark = remark;
 	}
@@ -40,12 +40,12 @@ public class Session implements Serializable {
 	public void printSession(int length, String delimiter)
 	{
 		System.out.print(delimiter
-				+ FormatString.tabs(length * 2, delimiter, this.getType())
-				+ FormatString.tabs(length * 1, delimiter, this.getGroup())
-				+ FormatString.tabs(length * 2, delimiter, this.getDay())
-				+ FormatString.tabs(length * 2, delimiter, FormatString.getTimePeriod(sTime, eTime, "hhmm"))
-				+ FormatString.tabs(length * 2, delimiter, this.getVenue())
-				+ FormatString.tabs(length * 3, delimiter, this.getRemark()));
+				+ Formatter.tabs(length * 2, delimiter, this.getType())
+				+ Formatter.tabs(length * 1, delimiter, this.getGroup())
+				+ Formatter.tabs(length * 2, delimiter, this.getDay())
+				+ Formatter.tabs(length * 2, delimiter, Formatter.getTimePeriod(sTime, eTime, "hhmm"))
+				+ Formatter.tabs(length * 2, delimiter, this.getVenue())
+				+ Formatter.tabs(length * 3, delimiter, this.getRemark()));
 	}
 	
 	public Alternate_Week getAlternateWeek()

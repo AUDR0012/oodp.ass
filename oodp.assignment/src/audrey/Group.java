@@ -58,20 +58,38 @@ public class Group implements Serializable {
 		}
 	}
 
-	public void dropStudentFromGroup(Student st)
+	public boolean dropStudentFromGroup(Student st)
 	{
 		if (Enumerator.string(Group_Status.REGISTERED).equals(this.findStudent(st, "status")))
 		{
 			registered.remove(st);
 			vacancy++;
 			System.out.println("Removing " + this.getIndexNo() + " from course.");
-
-			updateWaitlist();
+			
+			return true;
 		}
 		else
 		{
 			waitlist.remove(st);
 			System.out.println("Removing " + this.getIndexNo() + "from waitlist.");
+			
+			return false;
+		}
+	}
+	
+	public void updateWaitlist(Student st, Course co, Notifier notify)
+	{
+		if (waitlist.size() > 0)
+		{
+			Student curSt = waitlist.get(0);
+			if (curSt.getNotification().equals(Notification_Status.SMS))
+			{
+				notify.sendSMS(st.getPhoneNo());
+			}
+			else
+			{
+				notify.sendEmail(st.getEmail(), co.getId(), indexNo, Notifier_Type.REGISTERED);
+			}
 		}
 	}
 
@@ -93,11 +111,6 @@ public class Group implements Serializable {
 			}
 		}
 		return returning.equals("boolean") ? status != Group_Status.NOT_FOUND : Enumerator.string(status);
-	}
-
-	public void updateWaitlist()
-	{
-		System.out.println("Yet to Develop!"); //TODO:SMS/EMAIL
 	}
 
 	public void printStudents(int length, String delimiter)
@@ -125,7 +138,7 @@ public class Group implements Serializable {
 		if (!duplicate)
 		{
 			sessions.add(se);
-		} 
+		}
 	}
 
 	public int getIndexNo()

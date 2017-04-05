@@ -176,63 +176,63 @@ public class Developer {
 		grs = new ArrayList<Group>();
 
 		us = new Admin("LIANG QIANHUI");
-		lo = new Logger("QHLIANG0", FormatString.hashPassword("QHLIANG0"), us);
+		lo = new Logger("QHLIANG0", Formatter.hashPassword("QHLIANG0"), us);
 		userList.add(lo);
 		us = new Admin("TAN KHENG LEONG");
-		lo = new Logger("KHENGLEO", FormatString.hashPassword("KHENGLEO"), us);
+		lo = new Logger("KHENGLEO", Formatter.hashPassword("KHENGLEO"), us);
 		userList.add(lo);
 		us = new Admin("PHAN CONG MINH");
-		lo = new Logger("PHAN0050", FormatString.hashPassword("PHAN0050"), us);
+		lo = new Logger("PHAN0050", Formatter.hashPassword("PHAN0050"), us);
 		userList.add(lo);
 		us = new Student("ANG CHIN SIONG", Gender.MALE, "U1642357D", 2, "CHINSO01@E.NTU.EDU.SG", setDate("11-02-93"),
 				"Singaporean", "91254632", Notification_Status.EMAIL);
-		lo = new Logger("CHINSONG", FormatString.hashPassword("CHINSONG"), us);
+		lo = new Logger("CHINSONG", Formatter.hashPassword("CHINSONG"), us);
 		userList.add(lo);
 		us = new Student("AUDREY HO HAI YI", Gender.FEMALE, "U1624153E", 1, "AUDREY02@E.NTU.EDU.SG", setDate("02-04-95"),
 				"Singaporean", "97216542", Notification_Status.EMAIL);
-		lo = new Logger("AUDREY", FormatString.hashPassword("AUDREY"), us);
+		lo = new Logger("AUDREY", Formatter.hashPassword("AUDREY"), us);
 		userList.add(lo);
 		us = new Student("ONG WEI FENG KELVIN", Gender.MALE, "U1637974J", 3, "KELVIN03@E.NTU.EDU.SG",
 				setDate("23-09-96"), "Malaysian", "94415325", Notification_Status.EMAIL);
-		lo = new Logger("KELVIN", FormatString.hashPassword("KELVIN"), us);
+		lo = new Logger("KELVIN", Formatter.hashPassword("KELVIN"), us);
 		userList.add(lo);
 		us = new Student("TOH JIAN HAO", Gender.MALE, "U1647253G", 2, "JIANHA04@E.NTU.EDU.SG", setDate("11-01-92"),
 				"Singaporean", "92141632", Notification_Status.EMAIL);
-		lo = new Logger("JIANHAO", FormatString.hashPassword("JIANHAO"), us);
+		lo = new Logger("JIANHAO", Formatter.hashPassword("JIANHAO"), us);
 		userList.add(lo);
 		us = new Student("WONG KIN SUM", Gender.MALE, "U1624152R", 1, "KINSUM05@E.NTU.EDU.SG", setDate("21-08-94"),
 				"Singaporean", "94522516", Notification_Status.EMAIL);
-		lo = new Logger("KINSUM", FormatString.hashPassword("KINSUM"), us);
+		lo = new Logger("KINSUM", Formatter.hashPassword("KINSUM"), us);
 		userList.add(lo);
 		us = new Student("JESSIE WONG PEI XIN", Gender.FEMALE, "U1524482P", 4, "JESSIE13@E.NTU.EDU.SG",
 				setDate("07-05-95"), "Japanese", "81801268", Notification_Status.EMAIL);
-		lo = new Logger("JESSIE", FormatString.hashPassword("JESSIE"), us);
+		lo = new Logger("JESSIE", Formatter.hashPassword("JESSIE"), us);
 		userList.add(lo);
 		us = new Student("LESLIE LAU WEI QI", Gender.MALE, "U1622987E", 2, "LLAU8122@E.NTU.EDU.SG", setDate("28-04-93"),
 				"Malaysian", "83421088", Notification_Status.EMAIL);
-		lo = new Logger("LESLIE", FormatString.hashPassword("LESLIE"), us);
+		lo = new Logger("LESLIE", Formatter.hashPassword("LESLIE"), us);
 		userList.add(lo);
 		us = new Student("LIM HONG SIONG BENJAMIN", Gender.MALE, "U1687459J", 3, "BENLIM03@E.NTU.EDU.SG",
 				setDate("04-05-91"), "Chinese", "81643759", Notification_Status.EMAIL);
-		lo = new Logger("BENLIM", FormatString.hashPassword("BENLIM"), us);
+		lo = new Logger("BENLIM", Formatter.hashPassword("BENLIM"), us);
 		userList.add(lo);
 		us = new Student("TAN YI HONG", Gender.MALE, "U1647953K", 2, "TANYH019@E.NTU.EDU.SG", setDate("28-04-90"),
 				"Singaporean", "98763544", Notification_Status.EMAIL);
-		lo = new Logger("YIHONG", FormatString.hashPassword("YIHONG"), us);
+		lo = new Logger("YIHONG", Formatter.hashPassword("YIHONG"), us);
 		userList.add(lo);
 		us = new Student("LOW GUO WANG", Gender.MALE, "U1636745L", 2, "GUOWANG6@E.NTU.EDU.SG", setDate("17-02-92"),
 				"Chinese", "87329563", Notification_Status.EMAIL);
-		lo = new Logger("GUOWANG", FormatString.hashPassword("GUOWANG"), us);
+		lo = new Logger("GUOWANG", Formatter.hashPassword("GUOWANG"), us);
 		userList.add(lo);
 		us = new Student("WONG JIA MIN", Gender.FEMALE, "U1636974M", 3, "WONGJM93@E.NTU.EDU.SG", setDate("26-08-96"),
 				"Singaporean", "97356971", Notification_Status.EMAIL);
-		lo = new Logger("JIAMIN", FormatString.hashPassword("JIAMIN"), us);
+		lo = new Logger("JIAMIN", Formatter.hashPassword("JIAMIN"), us);
 		userList.add(lo);
 
 		for (Logger l : userList)
 		{
-			l.setAccessSTime(FormatString.getDate("01-04-2017 00:00", "dd-MM-yyyy hh:mm"));
-			l.setAccessETime(FormatString.getDate("01-05-2017 00:00", "dd-MM-yyyy hh:mm"));
+			l.setAccessSTime(Formatter.getDate("01-04-2017 00:00", "dd-MM-yyyy hh:mm"));
+			l.setAccessETime(Formatter.getDate("01-05-2017 00:00", "dd-MM-yyyy hh:mm"));
 			if (l.getUser() instanceof Student)
 			{
 				studentList.add((Student) l.getUser());
@@ -244,11 +244,11 @@ public class Developer {
 	
 	public static Date setDate(String text)
 	{
-		return FormatString.getDate(text, "dd-MM-yy");
+		return Formatter.getDate(text, "dd-MM-yy");
 	}
 	
 	public static Date setTime(String text)
 	{
-		return FormatString.getDate(text, "hh:mm");
+		return Formatter.getDate(text, "hh:mm");
 	}
 }

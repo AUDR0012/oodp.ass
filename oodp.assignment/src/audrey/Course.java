@@ -58,12 +58,12 @@ public class Course implements Serializable {
 	public void printCourse(Group gr, int length, String delimiter, Student user)
 	{
 		System.out.print(delimiter
-				+ FormatString.tabs(length * 2, delimiter, this.getId())
-				+ FormatString.tabs(length * 1, delimiter, String.valueOf(this.getCredit()))
-				+ FormatString.tabs(length * 3, delimiter, this.getName())
-				+ FormatString.tabs(length * 2, delimiter, this.getType())
-				+ FormatString.tabs(length * 1, delimiter, String.valueOf(gr.getIndexNo()))
-				+ FormatString.tabs(length * 3, delimiter, gr.findStudent(user, "status").toString()));
+				+ Formatter.tabs(length * 2, delimiter, this.getId())
+				+ Formatter.tabs(length * 1, delimiter, String.valueOf(this.getCredit()))
+				+ Formatter.tabs(length * 3, delimiter, this.getName())
+				+ Formatter.tabs(length * 2, delimiter, this.getType())
+				+ Formatter.tabs(length * 1, delimiter, String.valueOf(gr.getIndexNo()))
+				+ Formatter.tabs(length * 3, delimiter, gr.findStudent(user, "status").toString()));
 	}
 
 	public void printGroup(Group gr, int length, String delimiter)

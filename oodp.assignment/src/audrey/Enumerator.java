@@ -4,32 +4,36 @@ import java.util.Scanner;
 
 public class Enumerator {
 
-	enum Alternate_Week { // Does Session occurs on Alternate Weeks
+	public enum Alternate_Week { // Does Session occurs on Alternate Weeks
 		ODD, EVEN, NONE;
 	}
 
-	enum Course_Type { // Course Type
+	public enum Course_Type { // Course Type
 		CORE, CORE_ELECTIVE, GER_CORE, GER_ELECTIVE, UNRESTRICTED_ELECTIVE;
 	}
 
-	enum Day { // Day of the Week
+	public enum Day { // Day of the Week
 		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
 	}
 
-	enum Gender { // Gender of the Student
+	public enum Gender { // Gender of the Student
 		MALE, FEMALE;
 	}
 
-	enum Group_Status { // Student's Status in the Group
+	public enum Group_Status { // Student's Status in the Group
 		REGISTERED, WAITLIST, EXEMPTED, NOT_FOUND;
 	}
 
-	enum Notification_Status { // How the student wish to be notified
-		SMS, EMAIL
+	public enum Notification_Status { // How the student wish to be notified
+		SMS, EMAIL;
 	}
 
-	enum Session_Type { // Type of Session
+	public enum Session_Type { // Type of Session
 		LECTURE, TUTORIAL, LAB;
+	}
+
+	public enum Notifier_Type { // Type of Notification Message 
+		WAITLIST, REGISTERED;
 	}
 
 	private static int pos = 1;
@@ -53,7 +57,7 @@ public class Enumerator {
 					return constant;
 				}
 			}
-			
+
 			System.out.println("Please enter a valid input.");
 		} while (true);
 	}
@@ -61,7 +65,7 @@ public class Enumerator {
 	public static <E extends Enum<E>> void printAll(Class<E> obj)
 	{
 		int i = pos;
-		System.out.println(FormatString.replaceString(obj.getSimpleName(), "_", " ") + ": ");
+		System.out.println(Formatter.replaceString(obj.getSimpleName(), "_", " ") + ": ");
 		for (E constant : obj.getEnumConstants())
 		{
 			System.out.println("\t" + i + ". " + string(constant));
@@ -72,6 +76,6 @@ public class Enumerator {
 
 	public static <E extends Enum<E>> String string(E constant)
 	{
-		return FormatString.replaceString(constant.toString(), "_", " ");
+		return Formatter.replaceString(constant.toString(), "_", " ");
 	}
 }

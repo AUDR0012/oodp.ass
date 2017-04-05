@@ -109,9 +109,9 @@ public class Student implements Comparable, Serializable {
 	public void printStudent(int length, String delimiter)
 	{
 		System.out.println(delimiter
-				+ FormatString.tabs(length * 3, delimiter, this.getName())
-				+ FormatString.tabs(length * 1, delimiter, this.getGender())
-				+ FormatString.tabs(length * 2, delimiter, this.getNationality()));
+				+ Formatter.tabs(length * 3, delimiter, this.getName())
+				+ Formatter.tabs(length * 1, delimiter, this.getGender())
+				+ Formatter.tabs(length * 2, delimiter, this.getNationality()));
 	}
 
 	public Group isOverlap(Group gr)

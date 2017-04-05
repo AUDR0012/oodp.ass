@@ -39,13 +39,13 @@ public class Menu {
 		if (user instanceof Student)
 		{
 			Student st = (Student) user;
-			System.out.println(FormatString.tabs(32, "", "Name: " + st.getName())
+			System.out.println(Formatter.tabs(32, "", "Name: " + st.getName())
 					+ "Matric Number: " + st.getMatricNo());
 		}
 		else if (user instanceof Admin)
 		{
 			Admin ad = (Admin) user;
-			System.out.println(FormatString.tabs(32, "", "Name: " + ad.getName()));
+			System.out.println(Formatter.tabs(32, "", "Name: " + ad.getName()));
 		}
 		else
 		{
@@ -58,27 +58,27 @@ public class Menu {
 		String header = delimiter;
 		if (table.equals("course"))
 		{
-			header += FormatString.tabs(length * 2, delimiter, "Course")
-					+ FormatString.tabs(length * 1, delimiter, "AU")
-					+ FormatString.tabs(length * 3, delimiter, "Title")
-					+ FormatString.tabs(length * 2, delimiter, "Course Type")
-					+ FormatString.tabs(length * 1, delimiter, "Index")
-					+ FormatString.tabs(length * 3, delimiter, "Status");
+			header += Formatter.tabs(length * 2, delimiter, "Course")
+					+ Formatter.tabs(length * 1, delimiter, "AU")
+					+ Formatter.tabs(length * 3, delimiter, "Title")
+					+ Formatter.tabs(length * 2, delimiter, "Course Type")
+					+ Formatter.tabs(length * 1, delimiter, "Index")
+					+ Formatter.tabs(length * 3, delimiter, "Status");
 		}
 		else if (table.equals("group"))
 		{
-			header += FormatString.tabs(length * 2, delimiter, "Class Type")
-					+ FormatString.tabs(length * 1, delimiter, "Group")
-					+ FormatString.tabs(length * 2, delimiter, "Day")
-					+ FormatString.tabs(length * 2, delimiter, "Time")
-					+ FormatString.tabs(length * 2, delimiter, "Venue")
-					+ FormatString.tabs(length * 3, delimiter, "Remark");
+			header += Formatter.tabs(length * 2, delimiter, "Class Type")
+					+ Formatter.tabs(length * 1, delimiter, "Group")
+					+ Formatter.tabs(length * 2, delimiter, "Day")
+					+ Formatter.tabs(length * 2, delimiter, "Time")
+					+ Formatter.tabs(length * 2, delimiter, "Venue")
+					+ Formatter.tabs(length * 3, delimiter, "Remark");
 		}
 		else if (table.equals("student"))
 		{
-			header += FormatString.tabs(length * 3, delimiter, "Name")
-					+ FormatString.tabs(length * 1, delimiter, "Gender")
-					+ FormatString.tabs(length * 2, delimiter, "Nationality");
+			header += Formatter.tabs(length * 3, delimiter, "Name")
+					+ Formatter.tabs(length * 1, delimiter, "Gender")
+					+ Formatter.tabs(length * 2, delimiter, "Nationality");
 		}
 		return header;
 	}

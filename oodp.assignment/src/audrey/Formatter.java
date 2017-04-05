@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-public class FormatString {
+public class Formatter {
 
 	public static String hashPassword(String password)
 	{
@@ -90,14 +90,17 @@ public class FormatString {
 	{
 		if (!Objects.equals(null, time1) && !Objects.equals(null, time2))
 		{
-			return FormatString.getString(time1, format) + "-" + FormatString.getString(time2, format);
+			return Formatter.getString(time1, format) + "-" + Formatter.getString(time2, format);
 		}
 		return "";
 	}
 	
 	public static boolean emailValid(String email)
 	{
-		return Pattern.compile("^(.+)@(.+)$").matcher(email).matches();
+		// "^(.+)@(.+)$"
+		String pattern ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		
+		return Pattern.compile(pattern).matcher(email).matches();
 	}
 
 	public static String tabs(int length, String delimiter, String text)
