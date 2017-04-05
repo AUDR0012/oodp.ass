@@ -614,7 +614,7 @@ public class MySTARS {
 								in_string = in.next();
 								if (FormatString.emailValid(in_string))
 								{
-									student.setEmail(in.next());
+									student.setEmail(in_string);
 								}
 								else
 								{
@@ -627,7 +627,7 @@ public class MySTARS {
 								System.out.println("Current Phone Number:" + student.getPhoneNo());
 								System.out.print("Enter the new Phone Number:");
 								in_string = in.next();
-								if (in_string.length() != 8)
+								if (in_string.length() == 8)
 								{
 									student.setPhoneNo(in_string);
 								}
@@ -737,6 +737,7 @@ public class MySTARS {
 			{
 				studentList.add((Student) l.getUser());
 			}
+			
 		}
 
 		// Course

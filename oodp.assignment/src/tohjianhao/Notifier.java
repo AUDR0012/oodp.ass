@@ -1,6 +1,9 @@
 package tohjianhao;
 
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -11,23 +14,30 @@ import javax.mail.internet.MimeMessage.RecipientType;
 
 public class Notifier
 {
+	//Options to select which type of notification should be sent.
 	public static enum MessageType
 	{
 		WAITLIST_NOTIFICATION, REGISTRATION_NOTIFICATION
 	}
 	
+	//Email address and password of mail system used
 	private static String senderEmailAddress = "cz2002.fsp2.agrp3@gmail.com";
 	private static String senderPassword = "Assignmentgrp3";
-	private static Properties properties;
 	
+	//javax.mail.Session object use to establish session for account
 	private static javax.mail.Session emailSession;
+	
+	//Properties object to state which SMTP host is to be used and what port number to be
+	//connected to
+	private static Properties properties;
 	
 	//Regular Expression for Email Verification
 	private static final String EMAIL_PATTERN =
 			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
-	
+	//Regular Expression for validating Phone Numbers
+	private final String PHONE_NUMBER = "[89]\\d\\d\\d\\d\\d\\d\\d";
 	
 	public Notifier()
 	{
@@ -107,18 +117,17 @@ public class Notifier
 			}
 			
 			Transport.send(msg);
-			System.out.println("[System] Mail have been sent successfully");
 		}
 		catch(MessagingException e)
 		{
-			//e.printStackTrace();
+			e.printStackTrace();
 			return false;
 		}
 		
 		return true;
 	}
 	
-	public static void sendSMS (int num)
+	public static void sendSMS (String num)
 	{
 		System.out.println("SMS was sent to " + num);
 	}
