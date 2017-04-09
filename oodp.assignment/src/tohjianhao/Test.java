@@ -6,21 +6,21 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		Notifier.sendNotification("TOHJ0032@e.ntu.edu.sg", "CZ2002", 12001, Notifier.MessageType.REGISTRATION_NOTIFICATION);		
+		int in_int;
 		
-		/*Verifier verifier = new Verifier();
-		String email;
-		String number;
-		Scanner sc = new Scanner(System.in);
+		Scanner in = new Scanner (System.in);
+		String testString = in.nextLine();
 		
-		do
-		{
-			//email = sc.nextLine();
-			//System.out.println(verifier.validateEmail(email));
+		int lengthOfString = testString.length();
 			
-			number =sc.nextLine();
-			System.out.println(verifier.validatePhoneNumber(number));
+		for(int i = 0; i < 5 ; i++)
+		{
+			if((!Character.isDigit(testString.charAt(i))))
+			{
+				in_int = -1;
+				break;
+			}
+				
 		}
-		while(!(number.equals("NULL")));*/
 	}
 }
