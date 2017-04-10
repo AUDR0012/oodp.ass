@@ -35,7 +35,7 @@ public class Group implements Serializable {
 	{
 		for (Course co : courseList)
 		{
-			if (!co.findGroup(indexNo).equals(null))
+			if (!Objects.equals(null, co.findGroup(indexNo)))
 			{
 				return co;
 			}
@@ -49,12 +49,12 @@ public class Group implements Serializable {
 		{
 			registered.add(st);
 			vacancy--;
-			System.out.println("Registering " + this.getIndexNo() + ".");
+			System.out.println("Registered to Index Number " + this.getIndexNo() + ".");
 		}
 		else
 		{
 			waitlist.add(st);
-			System.out.println("Adding " + this.getIndexNo() + " to waitlist.");
+			System.out.println("Adding to Index Number " + this.getIndexNo() + "'s waitlist.");
 		}
 	}
 
@@ -98,14 +98,14 @@ public class Group implements Serializable {
 		Group_Status status = Group_Status.NOT_FOUND;
 		for (Student s : registered)
 		{
-			if (s.equals(st))
+			if (Objects.equals(s, st))
 			{
 				status = Group_Status.REGISTERED;
 			}
 		}
 		for (Student s : waitlist)
 		{
-			if (s.equals(st))
+			if (Objects.equals(s, st))
 			{
 				status = Group_Status.WAITLIST;
 			}

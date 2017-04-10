@@ -139,7 +139,7 @@ public class Course implements Serializable {
 			if (Objects.equals(g, gr))
 			{
 				duplicate = true;
-				System.out.println("Class already exist.");
+				System.out.println("Group already exist.");
 			}
 		}
 		if (!duplicate)

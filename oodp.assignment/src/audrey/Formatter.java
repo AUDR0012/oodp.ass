@@ -32,7 +32,7 @@ public class Formatter {
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 
-		if (!dateTime.equals(null))
+		if (!Objects.equals(null, dateTime))
 		{
 			try
 			{
@@ -80,7 +80,7 @@ public class Formatter {
 	public static String getString(Date dateTime, String format)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		if (!dateTime.equals(null))
+		if (!Objects.equals(null, dateTime))
 			return sdf.format(dateTime);
 		else
 			return "";

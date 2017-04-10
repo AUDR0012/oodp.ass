@@ -28,7 +28,7 @@ public class MySTARS {
 		Course course = null;
 		Group group = null, group2 = null;
 		Session session;
-		int option, in_int, in_int2;
+		int option, in_int, in_int2, overlaps, overlaps2;
 		String in_string;
 		boolean found;
 
@@ -294,10 +294,10 @@ public class MySTARS {
 						in_int = in.nextInt();
 						if (!Objects.equals(null, (group = groupExist(courseList, in_int))))
 						{
-							if (!Objects.equals(null, (group = student.isOverlap(group))))
+							course = group.getCourse(courseList);
+							if (!course.findStudent(student))
 							{
-								course = group.getCourse(courseList);
-								if (!course.findStudent(student))
+								if ((overlaps = student.isOverlap(group)) == -1)
 								{
 									System.out.println(Formatter.tabs(40, "", "Index Number: " + group.getIndexNo()) + "Course: " + course.getId());
 									course.printGroup(group, PARSE_LENGTH, PARSE_DELIMITER);
@@ -316,12 +316,12 @@ public class MySTARS {
 								}
 								else
 								{
-									System.out.println("Course has already been registered.");
+									System.out.println("Overlaps with Index Number " + overlaps + ".");
 								}
 							}
 							else
 							{
-								System.out.println("Overlaps with Index Number " + group.getIndexNo() + ".");
+								System.out.println("Course has already been registered.");
 							}
 						}
 						else
@@ -427,7 +427,7 @@ public class MySTARS {
 									{
 										if (group2.getVacancy() > 0)
 										{
-											if (!Objects.equals(null, (group = student.isOverlap(group2))))
+											if ((overlaps = student.isOverlap(group2)) == -1)
 											{
 												System.out.println("Subject: " + course.getId());
 												System.out.println(Formatter.tabs(100, "", "Current Index Number: " + String.valueOf(group.getIndexNo()))
@@ -450,7 +450,7 @@ public class MySTARS {
 											}
 											else
 											{
-												System.out.println("Overlaps with Index Number " + group.getIndexNo() + ".");
+												System.out.println("Overlaps with Index Number " + overlaps + ".");
 											}
 										}
 										else
@@ -513,10 +513,10 @@ public class MySTARS {
 									{
 										if (Enumerator.string(Group_Status.REGISTERED).equals(group2.findStudent(student, "status")))
 										{
-											if ((course = group.getCourse(courseList)).equals(group2.getCourse(courseList)))
+											if (Objects.equals((course = group.getCourse(courseList)), group2.getCourse(courseList)))
 											{
-												if (!Objects.equals(null, (group = student.isOverlap(group2))) &&
-														!Objects.equals(null, (group2 = ((Student) peer).isOverlap(group))))
+												if ((overlaps = student.isOverlap(group2)) == -1
+														&& (overlaps2 = ((Student) peer).isOverlap(group)) == -1)
 												{
 													System.out.println("Subject: " + course.getId());
 													System.out.println(Formatter.tabs(100, "", "Student #1 ")
@@ -622,6 +622,7 @@ public class MySTARS {
 								if (Formatter.emailValid(in_string))
 								{
 									student.setEmail(in_string);
+									System.out.println("Email has been updated successfully.");
 								}
 								else
 								{
@@ -637,6 +638,7 @@ public class MySTARS {
 								if (in_string.length() == 8)
 								{
 									student.setPhoneNo(in_string);
+									System.out.println("Phone Number has been updated successfully.");
 								}
 								else
 								{
@@ -649,6 +651,7 @@ public class MySTARS {
 								System.out.println("Current Notification Status: " + student.getNotification());
 								Enumerator.printAll(Notification_Status.class);
 								student.setNotification(Enumerator.nextEnum(Notification_Status.class, in));
+								System.out.println("Notification Status has been updated successfully.");
 								break;
 							}
 							case 4:
@@ -658,6 +661,7 @@ public class MySTARS {
 								{
 									System.out.print("Enter your new Password: ");
 									logger.setPassword(inputPassword());
+									System.out.println("Password has been updated successfully.");
 								}
 								else
 								{
