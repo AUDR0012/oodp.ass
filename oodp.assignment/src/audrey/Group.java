@@ -62,17 +62,24 @@ public class Group implements Serializable {
 	{
 		if (Enumerator.string(Group_Status.REGISTERED).equals(this.findStudent(st, "status")))
 		{
-			registered.remove(st);
-			vacancy++;
-			System.out.println("Removing " + this.getIndexNo() + " from course.");
+			for(Student r : registered)
+			{
+				if(r.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
+				{
+					registered.remove(r);
+					break;
+				}
+			}
 			
+			//registered.remove(st);
+			this.vacancy++;
+			System.out.println("Removing " + this.getIndexNo() + " from course.");
 			return true;
 		}
 		else
 		{
 			waitlist.remove(st);
 			System.out.println("Removing " + this.getIndexNo() + "from waitlist.");
-			
 			return false;
 		}
 	}
@@ -98,14 +105,20 @@ public class Group implements Serializable {
 		Group_Status status = Group_Status.NOT_FOUND;
 		for (Student s : registered)
 		{
-			if (Objects.equals(s, st))
+			boolean a = Objects.equals(s, st);
+			boolean b = s.equals(st);
+			boolean c = s == st;
+			boolean d = Objects.deepEquals(st, s);
+			boolean e = st.equals(s);
+			boolean f = st == s;
+			if (s.equals(st))
 			{
 				status = Group_Status.REGISTERED;
 			}
 		}
 		for (Student s : waitlist)
 		{
-			if (Objects.equals(s, st))
+			if (s.equals(st))
 			{
 				status = Group_Status.WAITLIST;
 			}

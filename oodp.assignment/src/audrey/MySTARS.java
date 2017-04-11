@@ -3,6 +3,7 @@ package audrey;
 import java.io.Console;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 import audrey.Enumerator.*;
@@ -32,7 +33,7 @@ public class MySTARS {
 		String in_string;
 		boolean found;
 
-		// Developer.addData(userList, studentList, courseList);
+		//Developer.addData(userList, studentList, courseList);
 
 		Menu.printHeader(user);
 		readData(userList, studentList, courseList);
@@ -45,6 +46,8 @@ public class MySTARS {
 			do
 			{
 				Menu.printMenu(user);
+				
+
 				option = in.nextInt();
 				switch (option)
 				{
@@ -292,10 +295,20 @@ public class MySTARS {
 					{ // Add Course
 						System.out.print("Enter Index Number of the Course: ");
 						in_int = in.nextInt();
+						Boolean courseAlreadyExist = false;
 						if (!Objects.equals(null, (group = groupExist(courseList, in_int))))
 						{
 							course = group.getCourse(courseList);
-							if (!course.findStudent(student))
+							
+							for(Group cGroup : course.getGroups())
+							{
+								if(student.findGroup(cGroup.getIndexNo()) != null)
+								{
+									courseAlreadyExist = true;
+									break;
+								}
+							}
+							if (!courseAlreadyExist)
 							{
 								if ((overlaps = student.isOverlap(group)) == -1)
 								{
@@ -337,6 +350,7 @@ public class MySTARS {
 							student.listCourses(courseList, PARSE_LENGTH, PARSE_DELIMITER);
 							System.out.print("Choose the Course to drop: ");
 							in_int = in.nextInt();
+
 							if (in_int >= 1 && in_int <= student.getCourseGroups().size())
 							{
 								group = student.getCourseGroups().get(in_int - 1);
@@ -346,14 +360,14 @@ public class MySTARS {
 								course.printGroup(group, PARSE_LENGTH, PARSE_DELIMITER);
 								System.out.println(Formatter.tabs(50, "", "Course Type: " + course.getType()) + "Status: " + group.findStudent(student, "status"));
 
-								System.out.print("Confirm to Add Course? (Y/N) ");
+								System.out.print("Confirm to Drop Course? (Y/N) ");
+								
 								if (in.next().equalsIgnoreCase("Y"))
 								{
 									if (group.dropStudentFromGroup(student))
 									{
 										group.updateWaitlist(student, course, notify);
 									}
-
 									student.getCourseGroups().remove(group);
 								}
 								else
@@ -363,7 +377,10 @@ public class MySTARS {
 							}
 							else
 							{
-								System.out.println("Option entered is invalid.");
+								if (in_int != 0)
+								{
+									System.out.println("Option entered is invalid.");
+								}
 							}
 						}
 						else
@@ -745,13 +762,12 @@ public class MySTARS {
 		}
 		return null;
 	}
-
 	public static void readData(ArrayList<Logger> userList, ArrayList<Student> studentList,
 			ArrayList<Course> courseList)
 	{
 		// Logger
 		userList.addAll((ArrayList<Logger>) FileIO.readSerializedObject("list_user"));
-
+		//userList = (ArrayList<Logger>)FileIO.readSerializedObject("list_user");
 		// Student
 		for (Logger l : userList)
 		{
@@ -763,11 +779,13 @@ public class MySTARS {
 
 		// Course
 		courseList.addAll((ArrayList<Course>) FileIO.readSerializedObject("list_course"));
+		//courseList = (ArrayList<Course>) FileIO.readSerializedObject("list_course");
 	}
 
 	public static void writeData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{
 		FileIO.writeSerializedObject("list_user", userList);
+		
 		FileIO.writeSerializedObject("list_course", courseList);
 	}
 

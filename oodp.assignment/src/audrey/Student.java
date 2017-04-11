@@ -52,9 +52,9 @@ public class Student implements Comparable, Serializable {
 	{
 		int total_au = 0;
 		String bar = Menu.getBar(97, "=");
+		System.out.println(bar + "\n" + Menu.getTableHeader(length, delimiter, "course") + "\n" + bar);
 		for (Group gr : courseGroups)
 		{
-			System.out.println(bar + "\n" + Menu.getTableHeader(length, delimiter, "course") + "\n" + bar);
 			for (Course co : courseList)
 			{
 				if (!Objects.equals(null, co.findGroup(gr.getIndexNo())))
@@ -123,9 +123,14 @@ public class Student implements Comparable, Serializable {
 			{
 				for (Session sNew : gr.getSessions())
 				{
+					if(sCur.getDay().equals(sNew.getDay()) && (sCur.getAlternateWeek().equals(sNew.getAlternateWeek()) || sCur.getAlternateWeek().equals(Alternate_Week.NONE) || sNew.getAlternateWeek().equals(Alternate_Week.NONE)))
+					
+						
+					/*
 					if (sCur.getDay().equals(sNew.getDay())
 							&& sCur.getAlternateWeek() == sNew.getAlternateWeek()
 							&& sCur.getAlternateWeek() != Alternate_Week.NONE)
+							*/
 					{
 						if ((sCur.getSTime().equals(sNew.getSTime()) && sCur.getETime().equals(sNew.getETime())) /*	sCur [__]
 																														sNew [__]
