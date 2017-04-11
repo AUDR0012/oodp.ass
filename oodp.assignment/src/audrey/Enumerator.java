@@ -68,7 +68,7 @@ public class Enumerator {
 		System.out.println(Formatter.replaceString(obj.getSimpleName(), "_", " ") + ": ");
 		for (E constant : obj.getEnumConstants())
 		{
-			System.out.println("\t" + i + ". " + string(constant));
+			System.out.println("   " + i + ". " + string(constant));
 			i++;
 		}
 		System.out.print("Enter your option: ");

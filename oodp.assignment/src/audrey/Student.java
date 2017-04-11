@@ -78,10 +78,10 @@ public class Student implements Comparable, Serializable {
 		{
 			if (!Objects.equals(null, (co = gr.getCourse(courseList))))
 			{
-				System.out.println("\t" + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
+				System.out.println("   " + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
 			}
 		}
-		System.out.println("0. Back to Menu");
+		System.out.println("   0. Back to Menu");
 	}
 
 	public Group findGroup(int indexNo)
