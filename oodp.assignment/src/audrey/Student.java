@@ -3,6 +3,7 @@ package audrey;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import audrey.Enumerator.*;
 
 public class Student implements Comparable, Serializable {
@@ -56,7 +57,7 @@ public class Student implements Comparable, Serializable {
 			System.out.println(bar + "\n" + Menu.getTableHeader(length, delimiter, "course") + "\n" + bar);
 			for (Course co : courseList)
 			{
-				if (!co.findGroup(gr.getIndexNo()).equals(null))
+				if (!Objects.equals(null, co.findGroup(gr.getIndexNo())))
 				{
 					co.printCourse(gr, length, delimiter, this);
 					System.out.println();
@@ -75,7 +76,7 @@ public class Student implements Comparable, Serializable {
 		Course co;
 		for (Group gr : courseGroups)
 		{
-			if (!(co = gr.getCourse(courseList)).equals(null))
+			if (!Objects.equals(null, (co = gr.getCourse(courseList))))
 			{
 				System.out.println("\t" + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
 			}
@@ -114,7 +115,7 @@ public class Student implements Comparable, Serializable {
 				+ Formatter.tabs(length * 2, delimiter, this.getNationality()));
 	}
 
-	public Group isOverlap(Group gr)
+	public int isOverlap(Group gr)
 	{
 		for (Group group : this.getCourseGroups())
 		{
@@ -129,26 +130,26 @@ public class Student implements Comparable, Serializable {
 						if ((sCur.getSTime().equals(sNew.getSTime()) && sCur.getETime().equals(sNew.getETime())) /*	sCur [__]
 																														sNew [__]
 																													*/
-								&& (sCur.getSTime().after(sNew.getSTime()) && sCur.getSTime().before(sNew.getETime())) /*	sCur [__]
+								|| (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getSTime())) /*	sCur [__]
 																															sNew   [__]
 																														*/
-								&& (sCur.getETime().after(sNew.getSTime()) && sCur.getETime().before(sNew.getETime())) /*	sCur   [__]
+								|| (sCur.getSTime().after(sNew.getETime()) && sCur.getETime().before(sNew.getETime())) /*	sCur   [__]
 																															sNew [__]
 																														*/
-								&& (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getETime())) /*	sCur   [__]
+								|| (sCur.getSTime().after(sNew.getSTime()) && sCur.getETime().before(sNew.getETime())) /*	sCur   [__]
 																															sNew [______]
 																														*/
-								&& (sCur.getSTime().after(sNew.getSTime()) && sCur.getETime().before(sNew.getETime()))) /*	sCur [______]
+								|| (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getETime()))) /*	sCur [______]
 																															sNew   [__]
 																														*/
 						{
-							return group;
+							return group.getIndexNo();
 						}
 					}
 				}
 			}
 		}
-		return null;
+		return -1;
 	}
 
 	@Override
