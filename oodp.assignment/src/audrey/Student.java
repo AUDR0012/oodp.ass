@@ -115,7 +115,7 @@ public class Student implements Comparable, Serializable {
 				+ Formatter.tabs(length * 2, delimiter, this.getNationality()));
 	}
 
-	public int isOverlap(Group gr)
+	public int isOverlap(Group gr, Group exclude)
 	{
 		for (Group group : this.getCourseGroups())
 		{
@@ -124,15 +124,8 @@ public class Student implements Comparable, Serializable {
 				for (Session sNew : gr.getSessions())
 				{
 					if(sCur.getDay().equals(sNew.getDay()) && (sCur.getAlternateWeek().equals(sNew.getAlternateWeek()) || sCur.getAlternateWeek().equals(Alternate_Week.NONE) || sNew.getAlternateWeek().equals(Alternate_Week.NONE)))
-					
-						
-					/*
-					if (sCur.getDay().equals(sNew.getDay())
-							&& sCur.getAlternateWeek() == sNew.getAlternateWeek()
-							&& sCur.getAlternateWeek() != Alternate_Week.NONE)
-							*/
 					{
-						if ((sCur.getSTime().equals(sNew.getSTime()) && sCur.getETime().equals(sNew.getETime())) /*	sCur [__]
+							if ((sCur.getSTime().equals(sNew.getSTime()) && sCur.getETime().equals(sNew.getETime())) /*	sCur [__]
 																														sNew [__]
 																													*/
 								|| (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getSTime())) /*	sCur [__]
@@ -147,9 +140,17 @@ public class Student implements Comparable, Serializable {
 								|| (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getETime()))) /*	sCur [______]
 																															sNew   [__]
 																														*/
-						{
-							return group.getIndexNo();
-						}
+							
+								{
+								if(exclude != null)
+								{
+									if(group.getIndexNo() == exclude.getIndexNo())// && exclude.getIndexNo() != gr.getIndexNo()
+									{
+										break;
+									}
+								}
+								return group.getIndexNo();
+								}
 					}
 				}
 			}

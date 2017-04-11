@@ -79,7 +79,7 @@ public class Group implements Serializable {
 		else
 		{
 			waitlist.remove(st);
-			System.out.println("Removing " + this.getIndexNo() + "from waitlist.");
+			System.out.println("Removing " + this.getIndexNo() + " from waitlist.");
 			return false;
 		}
 	}
@@ -105,14 +105,14 @@ public class Group implements Serializable {
 		Group_Status status = Group_Status.NOT_FOUND;
 		for (Student s : registered)
 		{
-			if (s.equals(st))
+			if (s.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
 			{
 				status = Group_Status.REGISTERED;
 			}
 		}
 		for (Student s : waitlist)
 		{
-			if (s.equals(st))
+			if (s.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
 			{
 				status = Group_Status.WAITLIST;
 			}

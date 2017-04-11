@@ -23,9 +23,9 @@ public class Menu {
 			System.out.println("2. Add a Student");
 			System.out.println("3. Add a Course");
 			System.out.println("4. Update a Course");
-			System.out.println("4. Check Available Slot for an Index Number");
-			System.out.println("5. Print Student List by Index Number");
-			System.out.println("6. Print Student List of Course");
+			System.out.println("5. Check Available Slot for an Index Number");
+			System.out.println("6. Print Student List by Index Number");
+			System.out.println("7. Print Student List of Course");
 		}
 		System.out.println("0. Exit");
 		System.out.print("Enter your option: ");

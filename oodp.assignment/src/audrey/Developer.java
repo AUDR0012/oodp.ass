@@ -26,7 +26,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR1", Day.MONDAY, setTime("10:30"), 2, "SWLAB1", "Wk2,4,6,8,10,12");
 		ses.add(se);
-		gr = new Group(10191, 0, ses);
+		gr = new Group(10191, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
@@ -37,7 +37,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR2", Day.TUESDAY, setTime("10:30"), 2, "SWLAB1", "Wk2,4,6,8,10,12");
 		ses.add(se);
-		gr = new Group(10192, 10, ses);
+		gr = new Group(10192, 0, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
@@ -48,7 +48,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR3", Day.MONDAY, setTime("10:30"), 2, "SWLAB1", "Wk1,3,5,7,9,11,13");
 		ses.add(se);
-		gr = new Group(10193, 10, ses);
+		gr = new Group(10193, 1, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
