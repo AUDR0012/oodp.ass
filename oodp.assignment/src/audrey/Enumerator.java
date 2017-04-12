@@ -44,8 +44,9 @@ public class Enumerator {
 	 * System.out.println(Course_Type.CORE_ELECTIVE.toString());
 	 */
 
-	public static <E extends Enum<E>> E nextEnum(Class<E> obj, Scanner in)
+	public static <E extends Enum<E>> E nextEnum(Class<E> obj)
 	{
+		Scanner in = new Scanner(System.in);
 		int value;
 		do
 		{
@@ -68,7 +69,7 @@ public class Enumerator {
 		System.out.println(Formatter.replaceString(obj.getSimpleName(), "_", " ") + ": ");
 		for (E constant : obj.getEnumConstants())
 		{
-			System.out.println("   " + i + ". " + string(constant));
+			System.out.println("\t" + i + ". " + string(constant));
 			i++;
 		}
 		System.out.print("Enter your option: ");

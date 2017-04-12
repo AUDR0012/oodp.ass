@@ -47,26 +47,26 @@ public class Formatter {
 		return null;
 	}
 
-	public static Date enterDateTime(Scanner in, String type)
+	public static Date enterDateTime(String type)
 	{
 		int day = 0, month = 0, year = 0, hour = 0, minute = 0;
 		if (type.contains("date"))
 		{
-			day = getIntegerInput("Day: ");
-			month = getIntegerInput("Month: ");
-			year = getIntegerInput("Year: ");
+			day = withinRange("Day", 1, 31);
+			month = withinRange("Month", 1, 12);
+			year = withinRange("Year", 1900, 2020);
 		}
-		
+
 		if (type.contains("time"))
 		{
-			hour = getIntegerInput("Hour: ");
-			minute = getIntegerInput("Minute: ");
+			hour = withinRange("Hour", 0, 23);
+			minute = withinRange("Minute", 0, 59);
 		}
-		
+
 		return getDate(String.format("%02d", day) + "-" + String.format("%02d", month) + "-" + year + " " + hour + ":" + minute,
 				"dd-MM-yyyy hh:mm");
 	}
-	
+
 	public static Date addHours(Date date, int hours)
 	{
 		return new Date(date.getTime() + TimeUnit.HOURS.toMillis(hours));
@@ -89,12 +89,12 @@ public class Formatter {
 		}
 		return "";
 	}
-	
+
 	public static boolean emailValid(String email)
 	{
 		// "^(.+)@(.+)$"
-		String pattern ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-		
+		String pattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
 		return Pattern.compile(pattern).matcher(email).matches();
 	}
 
@@ -114,23 +114,61 @@ public class Formatter {
 	{
 		return text.replaceAll(tCur, tNew);
 	}
-	
+
 	public static int getIntegerInput(String message)
 	{
 		Scanner in = new Scanner(System.in);
-		int in_int;
-		boolean valid = false;
-		do
+		while (true)
 		{
-			try {  
-				System.out.print(message);
-				in_int = in.nextInt();
-				return in_int;
-				}catch (Exception e) {
-					System.out.println("Invalid value!");
-					in.next(); // this consumes the invalid token
-				} 
-		}while(!valid);
-		return -10;
+			try
+			{
+				if (message == "")
+				{
+					System.out.print("Please re-enter your choice: ");
+				}
+				else
+				{
+					System.out.print(message);
+				}
+				return in.nextInt();
+			}
+			catch (Exception e)
+			{
+				System.out.println("Invalid value!");
+				in.next(); // this consumes the invalid token
+			}
+		}
+	}
+
+	public static int withinRange(String item, int min, int max)
+	{
+		int input;
+		while (true)
+		{
+			input = getIntegerInput("Enter your " + item + ": ");
+			if (input >= min)
+			{
+				if (max == -1 || input <= max)
+				{
+					break;
+				}
+				else
+				{
+					System.out.println("Please enter a valid " + item + " from " + min + " to " + max + ".");
+				}
+			}
+			else
+			{
+				if (max == -1)
+				{
+					System.out.println("Please enter a valid " + item + " more than " + (min - 1) + ".");
+				}
+				else
+				{
+					System.out.println("Please enter a valid " + item + " from " + min + " to " + max + ".");
+				}
+			}
+		}
+		return input;
 	}
 }

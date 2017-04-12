@@ -131,23 +131,6 @@ public class Group implements Serializable {
 		System.out.println(bar);
 	}
 
-	public void addSession(Session se)
-	{
-		boolean duplicate = false;
-		for (Session s : sessions)
-		{
-			if (Objects.equals(s, se))
-			{
-				duplicate = true;
-				System.out.println("Session already exist.");
-			}
-		}
-		if (!duplicate)
-		{
-			sessions.add(se);
-		}
-	}
-
 	public int getIndexNo()
 	{
 		return indexNo;

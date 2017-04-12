@@ -8,7 +8,7 @@ public class Menu {
 		if (user instanceof Student)
 		{
 			System.out.println("===== Student Menu =====");
-			System.out.println("1. Add Course");
+			System.out.println("1. Register Course");
 			System.out.println("2. Drop Course");
 			System.out.println("3. Check/ Print Courses Registered");
 			System.out.println("4. Check Vacancies");

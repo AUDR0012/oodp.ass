@@ -78,10 +78,10 @@ public class Student implements Comparable, Serializable {
 		{
 			if (!Objects.equals(null, (co = gr.getCourse(courseList))))
 			{
-				System.out.println("   " + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
+				System.out.println("\t" + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
 			}
 		}
-		System.out.println("   0. Back to Menu");
+		System.out.println("\t0. Back to Menu");
 	}
 
 	public Group findGroup(int indexNo)
@@ -113,49 +113,6 @@ public class Student implements Comparable, Serializable {
 				+ Formatter.tabs(length * 3, delimiter, this.getName())
 				+ Formatter.tabs(length * 1, delimiter, this.getGender())
 				+ Formatter.tabs(length * 2, delimiter, this.getNationality()));
-	}
-
-	public int isOverlap(Group gr, Group exclude)
-	{
-		for (Group group : this.getCourseGroups())
-		{
-			for (Session sCur : group.getSessions())
-			{
-				for (Session sNew : gr.getSessions())
-				{
-					if(sCur.getDay().equals(sNew.getDay()) && (sCur.getAlternateWeek().equals(sNew.getAlternateWeek()) || sCur.getAlternateWeek().equals(Alternate_Week.NONE) || sNew.getAlternateWeek().equals(Alternate_Week.NONE)))
-					{
-							if ((sCur.getSTime().equals(sNew.getSTime()) && sCur.getETime().equals(sNew.getETime())) /*	sCur [__]
-																														sNew [__]
-																													*/
-								|| (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getSTime())) /*	sCur [__]
-																															sNew   [__]
-																														*/
-								|| (sCur.getSTime().after(sNew.getETime()) && sCur.getETime().before(sNew.getETime())) /*	sCur   [__]
-																															sNew [__]
-																														*/
-								|| (sCur.getSTime().after(sNew.getSTime()) && sCur.getETime().before(sNew.getETime())) /*	sCur   [__]
-																															sNew [______]
-																														*/
-								|| (sCur.getSTime().before(sNew.getSTime()) && sCur.getETime().after(sNew.getETime()))) /*	sCur [______]
-																															sNew   [__]
-																														*/
-							
-								{
-								if(exclude != null)
-								{
-									if(group.getIndexNo() == exclude.getIndexNo())// && exclude.getIndexNo() != gr.getIndexNo()
-									{
-										break;
-									}
-								}
-								return group.getIndexNo();
-								}
-					}
-				}
-			}
-		}
-		return -1;
 	}
 
 	@Override

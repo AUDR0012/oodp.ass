@@ -12,8 +12,8 @@ public class Course implements Serializable {
 	private Course_Type type;
 	private int credit;
 	private ArrayList<Group> groups;
-	
-	public Course ()
+
+	public Course()
 	{
 		this.id = null;
 		this.name = null;
@@ -66,32 +66,33 @@ public class Course implements Serializable {
 				+ Formatter.tabs(length * 3, delimiter, gr.findStudent(user, "status").toString()));
 	}
 
-	public void printGroup(Group gr, int length, String delimiter)
+	public void printGroups(Group gr1, Group gr2, int length, String delimiter)
 	{
 		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(length, delimiter, "group");
-		System.out.println(bar + "\n" + header + "\n" + bar);
-		for (Session s : gr.getSessions())
+		if (Objects.equals(null, gr2))
 		{
-			s.printSession(length, delimiter);
-			System.out.println();
+			System.out.println(bar + "\n" + header + "\n" + bar);
+			for (Session s : gr1.getSessions())
+			{
+				s.printSession(length, delimiter);
+				System.out.println();
+			}
+			System.out.println(bar);
 		}
-		System.out.println(bar);
-	}
-
-	public void print2Groups(Group gr1, Group gr2, int length, String delimiter)
-	{
-		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(length, delimiter, "group");
-		System.out.println(bar + "\t" + bar
-				+ "\n" + header + "\t" + header
-				+ "\n" + bar + "\t" + bar);
-		for (int i = 0; i < gr1.getSessions().size(); i++)
+		else
 		{
-			gr1.getSessions().get(i).printSession(length, delimiter);
-			System.out.print("\t");
-			gr2.getSessions().get(i).printSession(length, delimiter);
-			System.out.println();
+			System.out.println(bar + "\t" + bar
+					+ "\n" + header + "\t" + header
+					+ "\n" + bar + "\t" + bar);
+			for (int i = 0; i < gr1.getSessions().size(); i++)
+			{
+				gr1.getSessions().get(i).printSession(length, delimiter);
+				System.out.print("\t");
+				gr2.getSessions().get(i).printSession(length, delimiter);
+				System.out.println();
+			}
+			System.out.println(bar + "\t" + bar);
 		}
-		System.out.println(bar + "\t" + bar);
 	}
 
 	public void printStudents(int length, String delimiter)
@@ -117,20 +118,7 @@ public class Course implements Serializable {
 		}
 		return count;
 	}
-	
-	public boolean dupIndexNo(int indexNo)
-	{
-		for (Group gr : groups)
-		{
-			if (gr.getIndexNo() == indexNo)
-			{
-				System.out.println("Index Number " + indexNo + " has already been used.");
-				return true;
-			}
-		}
-		return false;
-	}
-	
+
 	public void addGroup(Group gr)
 	{
 		boolean duplicate = false;
@@ -145,7 +133,7 @@ public class Course implements Serializable {
 		if (!duplicate)
 		{
 			groups.add(gr);
-		} 
+		}
 	}
 
 	public String getId()
