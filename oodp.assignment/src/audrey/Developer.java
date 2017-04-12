@@ -168,7 +168,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "CS3", Day.FRIDAY, setTime("09:30"), 1, "SCSE LABS", "");
 		ses.add(se);
-		gr = new Group(10411, 10, ses);
+		gr = new Group(10413, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		co = new Course("CZ3004", "MULTIDISCIPLINARY DESIGN PROJECT", Course_Type.CORE, 4, grs);

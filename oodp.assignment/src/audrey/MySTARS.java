@@ -228,57 +228,287 @@ public class MySTARS {
 								in_string = in.next();
 								if (!Objects.equals(null, course = courseExist(courseList, in_string)))
 								{
-									int layer1 = Formatter.getIntegerInput(
+									do
+									{
+										int layer1 = Formatter.getIntegerInput(
 												"   1. Update Course Name\n"
 												+ "   2. Group\n"
 												+ "   0. Back to Menu\n"
-												+ "Enter your choice: ");
+												+ "Enter your choice 0-2: ");
 									
-									if(layer1 == 1)
+									if(layer1 == 1)//1
 									{
 										//Edit Course Name Done
+										System.out.println("Current Course Name: " + course.getName());
 										System.out.print("New Course Name: ");
+										in.nextLine();
 										course.setName(in.nextLine());
-										break;
+										System.out.println("Course Name has been changed to :" + course.getName());
 									}
-									else if(layer1 == 2)
+									else if(layer1 == 2)//2 Edit Course Groups
 									{
-										//Edit Course Groups
-										int layer2 = Formatter.getIntegerInput(
-												"   1. Add new Group\n"
-												+ "   2. Edit Group\n"
-												+ "   3. Delete Group\n"
-												+ "   0. Back\n"
-												+ "Enter your choice: ");
-										if(layer2 == 1)
-										{}
-										else if(layer2 == 2)
+										do
 										{
-												//Edit Group
+										int layer2 = Formatter.getIntegerInput(
+												"   \t1. Add new Group\n"
+												+ "   \t2. Edit Group\n"
+												+ "   \t3. Delete Group\n"
+												+ "   \t0. Back\n"
+												+ "Enter your choice 0-3: ");
+										if(layer2 == 1) //2-1 Add Group
+										{
+											Group nGroup = new Group();
+											nGroup.setIndexNo(Formatter.getIntegerInput("Enter Group ID: "));
+											int vac;
+											do
+											{
+												vac = Formatter.getIntegerInput("Enter Number of Vacancies in Group: ");
+												if(vac < 0)
+												{
+													System.out.println("Vacancy need to be 0 or more");
+												}
+											}while(vac <0);
+											nGroup.setVacancy(vac);
+											course.addGroup(nGroup);
+											System.out.println("Group has been added");
+										}//End 2-1 Add Group
+										else if(layer2 == 2) //2-2 Edit Group
+										{
+											do
+											{
+											System.out.println("Current Groups in CourseID: " + in_string);
+											for(Group nGroup : course.getGroups())
+											{
+												System.out.println(course.getGroups().indexOf(nGroup)+1 + ". " + nGroup.getIndexNo());
+											}
+											System.out.println("0. Back");
+											int editChoice = Formatter.getIntegerInput("Key in your choice 0-" + course.getGroups().size() + ": ");
+											if(editChoice > 0 && editChoice <= course.getGroups().size() + 1)
+											{
+												Group targetGroup = course.getGroups().get(editChoice-1);
 												int layer3 = Formatter.getIntegerInput(
-														"   1. Edit Group Vacancy\n"
-																+ "   2. Add Session\n"
-																+ "   3. Edit Session\n"
-																+ "   4. Delete Session\n"
-																+ "   0. Back\n"
-																+ "Enter your choice: ");
-												if(layer3 == 1)
-												{}
-												else if(layer3 == 2)
-												{}
-												else if(layer3 == 3)
-												{}
-												else if(layer3 == 4)
-												{}
-												else if(layer3 == 0)
-												{}
-										}
+														"   \t\t1. Edit Group Vacancy\n"
+																+ "   \t\t2. Add Session\n"
+																+ "   \t\t3. Edit Session\n"
+																+ "   \t\t4. Delete Session\n"
+																+ "   \t\t0. Back\n"
+																+ "Enter your choice 0-4: ");
+												if(layer3 == 1) //2-2-1 Edit Vacancy
+												{
+													System.out.println("Current Vacancy in group " + targetGroup.getIndexNo() + ": " + targetGroup.getVacancy());
+													
+													int vac;
+													do
+													{
+														vac = Formatter.getIntegerInput("Enter the new number of vacancy for the group:");
+														if(vac < 0)
+														{
+															System.out.println("Vacancy need to be 0 or more");
+														}
+													}while(vac <0);
+													targetGroup.setVacancy(vac);
+													
+													//Update on student side
+													for(Student stu : studentList)
+													{
+														for(Group g : stu.getCourseGroups())
+														{
+															if(g.getIndexNo() == targetGroup.getIndexNo())
+															{
+																targetGroup.setVacancy(targetGroup.getVacancy());
+																break;
+															}
+														}
+													}
+													
+													System.out.println("Vacancy has been changed to :" + targetGroup.getVacancy());
+												}//End 2-2-1 Edit Vacancy
+												else if(layer3 == 2) //2-2-2 Add Session
+												{
+													Session nSession = new Session();
+													Enumerator.printAll(Session_Type.class);
+													nSession.setType(Enumerator.nextEnum(Session_Type.class, in));
+													// Group
+													System.out.print("Enter Group name: ");
+													nSession.setGroup(in.next());
+													// Day
+													Enumerator.printAll(Day.class);
+													nSession.setDay(Enumerator.nextEnum(Day.class, in));
+													// Start Time
+													System.out.println("Enter Start Time: ");
+													nSession.setSTime(Formatter.enterDateTime(in, "time"));
+													// Hours
+													nSession.setETime(Formatter.addHours(nSession.getSTime(), Formatter.getIntegerInput("Enter Number of Hours: ")));
+													// Venue
+													System.out.print("Enter Venue: ");
+													in.nextLine();
+													nSession.setVenue(in.nextLine());
+													// Remark
+													System.out.print("Enter Remarks: ");
+													nSession.setRemark(in.nextLine());
+
+													targetGroup.addSession(nSession);
+													
+													for(Student stu : studentList)
+													{
+														for(Group g : stu.getCourseGroups())
+														{
+															if(g.getIndexNo() == targetGroup.getIndexNo())
+															{
+																g.addSession(nSession);
+																break;
+															}
+														}
+													}
+													System.out.println("Session has been added");
+												}//End 2-2-2 Add Session
+												else if(layer3 == 3) //2-2-3 Edit Session
+												{
+													//Display all sessions in the group
+													System.out.println("Current Session in CourseID: " + in_string + " GroupID: " + targetGroup.getIndexNo());
+													for(Session eSession : targetGroup.getSessions())
+													{
+														System.out.println(targetGroup.getSessions().indexOf(eSession)+1 + ". " + eSession.getType() + " Venue: " + eSession.getVenue() + "Time: " + eSession.getDay() + eSession.getSTime() + eSession.getETime());
+													}
+													System.out.println("0. Back");
+													int editChoice2 = Formatter.getIntegerInput("Key in your choice 0-" + targetGroup.getSessions().size() + ": ");
+													if(editChoice2 > 0 && editChoice2 <= targetGroup.getSessions().size() + 1)
+													{
+														
+														Enumerator.printAll(Session_Type.class);
+														targetGroup.getSessions().get(editChoice2-1).setType(Enumerator.nextEnum(Session_Type.class, in));
+														// Group
+														System.out.print("Enter Group name: ");
+														targetGroup.getSessions().get(editChoice2-1).setGroup(in.next());
+														// Day
+														Enumerator.printAll(Day.class);
+														targetGroup.getSessions().get(editChoice2-1).setDay(Enumerator.nextEnum(Day.class, in));
+														// Start Time
+														System.out.println("Enter Start Time: ");
+														targetGroup.getSessions().get(editChoice2-1).setSTime(Formatter.enterDateTime(in, "time"));
+														// Hours
+														targetGroup.getSessions().get(editChoice2-1).setETime(Formatter.addHours(targetGroup.getSessions().get(editChoice2-1).getSTime(), Formatter.getIntegerInput("Enter Number of Hours: ")));
+														// Venue
+														System.out.print("Enter Venue: ");
+														in.nextLine();
+														targetGroup.getSessions().get(editChoice2-1).setVenue(in.nextLine());
+														// Remark
+														System.out.print("Enter Remarks: ");
+														targetGroup.getSessions().get(editChoice2-1).setRemark(in.nextLine());
+														
+														for(Student stu : studentList)
+														{
+															for(Group g : stu.getCourseGroups())
+															{
+																if(g.getIndexNo() == targetGroup.getIndexNo())
+																{
+																	g.getSessions().set(editChoice2-1, targetGroup.getSessions().get(editChoice2-1));
+																	break;
+																}
+															}
+														}
+														
+														System.out.println("Session has been updated");
+													}
+													else if(editChoice2 == 0)
+													{
+														//break;
+													}
+													else
+													{
+														System.out.println("Invalid Choice");
+													}
+												}//End 2-2-3 Edit Session
+												else if(layer3 == 4) //2-2-4 Delete Session
+												{
+													//Display all sessions in the group
+													System.out.println("Current Session in CourseID: " + in_string + " GroupID: " + targetGroup.getIndexNo());
+													for(Session dSession : targetGroup.getSessions())
+													{
+														System.out.println(targetGroup.getSessions().indexOf(dSession)+1 + ". " + dSession.getType() + " Venue: " + dSession.getVenue() + "Time: " + dSession.getDay() + dSession.getSTime() + dSession.getETime());
+													}
+													System.out.println("0. Back");
+													int deleteChoice = Formatter.getIntegerInput("Key in your choice 0-" + targetGroup.getSessions().size() + ": ");
+													if(deleteChoice > 0 && deleteChoice <= targetGroup.getSessions().size() + 1)
+													{
+														targetGroup.getSessions().remove(deleteChoice-1);
+														System.out.println("The Session has been deleted");
+													}
+													else if(deleteChoice == 0)
+													{
+														//break;
+													}
+													else
+													{
+														System.out.println("Invalid Choice");
+													}
+													
+												}//End 2-2-4 Delete Session
+												else if(layer3 == 0) //2-2-0 Up One Layer
+												{
+													break;
+												}//End 2-2-0 Up One Layer
+												
+											}
+											else if(editChoice == 0)
+											{
+												break;
+											}
+											else
+											{
+												System.out.println("Invalid Choice of Group");
+											}
+											}while(true);
+										}//End 2-2 Edit Group
+										else if(layer2 == 3) //2-3 Delete Group
+										{
+											//Display all group in the course
+											System.out.println("Current Groups in CourseID: " + in_string);
+											for(Group nGroup : course.getGroups())
+											{
+												System.out.println(course.getGroups().indexOf(nGroup)+1 + ". " + nGroup.getIndexNo());
+											}
+											System.out.println("0. Back");
+											int deleteChoice = Formatter.getIntegerInput("Key in your choice 0-" + course.getGroups().size() + ": ");
+											if(deleteChoice > 0 && deleteChoice <= course.getGroups().size() + 1)
+											{
+												int index = course.getGroups().get(deleteChoice-1).getIndexNo();
+												course.getGroups().remove(deleteChoice-1);
+												for(Student stu : studentList)
+												{
+													for(Group g : stu.getCourseGroups())
+													{
+														if(g.getIndexNo() == index)
+														{
+															stu.getCourseGroups().remove(g);
+															break;
+														}
+													}
+												}
+												System.out.println("The Group has been deleted");
+											}
+											else if(deleteChoice == 0)
+											{
+												//break;
+											}
+											else
+											{
+												System.out.println("Invalid Choice");
+											}
+										}//End 2-3 Delete Group
+										else if(layer2 == 0) //2-0 Up One Layer
+										{
+											break;
+										}//End 2-0 Up One Layer
+										}while(true);
 									}
-									else if(layer1 == 0)
+									else if(layer1 == 0) //0 Back to main Menu
 									{
+										break;
 										//Exit
-									}
-								}
+									}//End 0 Back to main menu
+									}while(true);
+								}//End Compare Course Exist
 								else
 								{
 									System.out.println("Course Id " + in_string.toUpperCase() + " does not exist.");
