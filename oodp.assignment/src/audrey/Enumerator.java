@@ -49,7 +49,7 @@ public class Enumerator {
 		int value;
 		do
 		{
-			value = in.nextInt();
+			value = Formatter.getIntegerInput("");
 			for (E constant : obj.getEnumConstants())
 			{
 				if ((value - pos) == constant.ordinal())
@@ -68,7 +68,7 @@ public class Enumerator {
 		System.out.println(Formatter.replaceString(obj.getSimpleName(), "_", " ") + ": ");
 		for (E constant : obj.getEnumConstants())
 		{
-			System.out.println("\t" + i + ". " + string(constant));
+			System.out.println("   " + i + ". " + string(constant));
 			i++;
 		}
 		System.out.print("Enter your option: ");

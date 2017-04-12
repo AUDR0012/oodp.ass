@@ -52,20 +52,15 @@ public class Formatter {
 		int day = 0, month = 0, year = 0, hour = 0, minute = 0;
 		if (type.contains("date"))
 		{
-			System.out.print("Day: ");
-			day = in.nextInt();
-			System.out.print("Month: ");
-			month = in.nextInt();
-			System.out.print("Year: ");
-			year = in.nextInt();
+			day = getIntegerInput("Day: ");
+			month = getIntegerInput("Month: ");
+			year = getIntegerInput("Year: ");
 		}
 		
 		if (type.contains("time"))
 		{
-			System.out.print("Hour: ");
-			hour = in.nextInt();
-			System.out.print("Minute: ");
-			minute = in.nextInt();
+			hour = getIntegerInput("Hour: ");
+			minute = getIntegerInput("Minute: ");
 		}
 		
 		return getDate(String.format("%02d", day) + "-" + String.format("%02d", month) + "-" + year + " " + hour + ":" + minute,
@@ -118,5 +113,24 @@ public class Formatter {
 	public static String replaceString(String text, String tCur, String tNew)
 	{
 		return text.replaceAll(tCur, tNew);
+	}
+	
+	public static int getIntegerInput(String message)
+	{
+		Scanner in = new Scanner(System.in);
+		int in_int;
+		boolean valid = false;
+		do
+		{
+			try {  
+				System.out.print(message);
+				in_int = in.nextInt();
+				return in_int;
+				}catch (Exception e) {
+					System.out.println("Invalid value!");
+					in.next(); // this consumes the invalid token
+				} 
+		}while(!valid);
+		return -10;
 	}
 }

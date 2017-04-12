@@ -26,7 +26,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR1", Day.MONDAY, setTime("10:30"), 2, "SWLAB1", "Wk2,4,6,8,10,12");
 		ses.add(se);
-		gr = new Group(10191, 0, ses);
+		gr = new Group(10191, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
@@ -37,7 +37,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR2", Day.TUESDAY, setTime("10:30"), 2, "SWLAB1", "Wk2,4,6,8,10,12");
 		ses.add(se);
-		gr = new Group(10192, 30, ses);
+		gr = new Group(10192, 0, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
@@ -48,7 +48,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR3", Day.MONDAY, setTime("10:30"), 2, "SWLAB1", "Wk1,3,5,7,9,11,13");
 		ses.add(se);
-		gr = new Group(10193, 30, ses);
+		gr = new Group(10193, 1, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
@@ -59,7 +59,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "BCG2", Day.FRIDAY, setTime("10:30"), 2, "SWLAB1", "Wk2,4,6,8,10,12");
 		ses.add(se);
-		gr = new Group(10194, 30, ses);
+		gr = new Group(10194, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		co = new Course("CZ2005", "OPERATING SYSTEMS", Course_Type.CORE, 3, grs);
@@ -74,7 +74,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "FS1", Day.TUESDAY, setTime("08:30"), 1, "SWLAB2", "");
 		ses.add(se);
-		gr = new Group(10201, 30, ses);
+		gr = new Group(10201, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS1", Day.MONDAY, setTime("10:30"), 1, "LT4", "");
@@ -85,7 +85,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "FS2", Day.THURSDAY, setTime("10:30"), 1, "SWLAB2", "");
 		ses.add(se);
-		gr = new Group(10202, 30, ses);
+		gr = new Group(10202, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS1", Day.MONDAY, setTime("10:30"), 1, "LT4", "");
@@ -96,7 +96,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "FS3", Day.TUESDAY, setTime("14:30"), 1, "SWLAB2", "");
 		ses.add(se);
-		gr = new Group(10203, 30, ses);
+		gr = new Group(10203, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS1", Day.MONDAY, setTime("10:30"), 1, "LT4", "");
@@ -107,7 +107,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "DD1", Day.TUESDAY, setTime("08:30"), 1, "SWLAB2", "");
 		ses.add(se);
-		gr = new Group(10403, 30, ses);
+		gr = new Group(10403, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS1", Day.MONDAY, setTime("10:30"), 1, "LT4", "");
@@ -118,7 +118,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "FS4", Day.FRIDAY, setTime("14:30"), 1, "SWLAB2", "");
 		ses.add(se);
-		gr = new Group(10442, 30, ses);
+		gr = new Group(10442, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS1", Day.MONDAY, setTime("10:30"), 1, "LT4", "");
@@ -129,7 +129,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "DD2", Day.FRIDAY, setTime("08:30"), 1, "SWLAB2", "");
 		ses.add(se);
-		gr = new Group(10457, 30, ses);
+		gr = new Group(10457, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		co = new Course("CZ1007", "DATA STRUCTURES", Course_Type.CORE, 3, grs);
@@ -138,12 +138,12 @@ public class Developer {
 
 		se = new Session(Session_Type.TUTORIAL, "G1", Day.WEDNESDAY, setTime("13:30"), 2, "LHS-TR+29", "Wk3-13");
 		ses.add(se);
-		gr = new Group(20201, 30, ses);
+		gr = new Group(20201, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.TUTORIAL, "G2", Day.WEDNESDAY, setTime("15:30"), 2, "LHS-TR+29", "Wk3-13");
 		ses.add(se);
-		gr = new Group(20202, 30, ses);
+		gr = new Group(20202, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		co = new Course("HW0001", "ENGLISH PROFICIENCY", Course_Type.GER_CORE, 0, grs);
@@ -152,12 +152,12 @@ public class Developer {
 
 		se = new Session(Session_Type.TUTORIAL, "SCE1", Day.WEDNESDAY, setTime("14:30"), 2, "LHS-TR+45", "Wk2-13");
 		ses.add(se);
-		gr = new Group(10411, 30, ses);
+		gr = new Group(10411, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.TUTORIAL, "SCE2", Day.WEDNESDAY, setTime("14:30"), 2, "LHS-TR+9", "Wk2-13");
 		ses.add(se);
-		gr = new Group(10412, 30, ses);
+		gr = new Group(10412, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		co = new Course("HW0288", "ENGINEERING COMMUNICATION II", Course_Type.GER_CORE, 2, grs);
@@ -168,7 +168,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "CS3", Day.FRIDAY, setTime("09:30"), 1, "SCSE LABS", "");
 		ses.add(se);
-		gr = new Group(10411, 30, ses);
+		gr = new Group(10413, 10, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		co = new Course("CZ3004", "MULTIDISCIPLINARY DESIGN PROJECT", Course_Type.CORE, 4, grs);

@@ -71,6 +71,7 @@ public class Logger implements Serializable {
 
 	public Date getAccessETime()
 	{
+
 		return accessETime;
 	}
 
