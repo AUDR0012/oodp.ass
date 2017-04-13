@@ -1,19 +1,53 @@
-package audrey;
+package oodp_project;
 
 import java.io.Serializable;
 import java.util.Date;
-import audrey.Enumerator.*;
 
-public class Session implements Serializable {
+import oodp_project.Enumerator.*;
 
+/**
+ * Represents a session in the group for the student to attend.
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Session implements Serializable
+{
+	/**
+	 * The type of this Session (Lecture, Tutorial, Lab)
+	 */
 	private Session_Type type;
+
+	/**
+	 * The group name of this Session
+	 */
 	private String group;
+
+	/**
+	 * The day this Session falls on
+	 */
 	private Day day;
+
+	/**
+	 * The time this Session starts
+	 */
 	private Date sTime;
+
+	/**
+	 * The time this Session ends
+	 */
 	private Date eTime;
+
+	/**
+	 * The venue of this Session
+	 */
 	private String venue;
+	/**
+	 * The extra information students need to take note of this Session
+	 */
 	private String remark;
-	
+
 	public Session()
 	{
 		this.type = null;
@@ -25,8 +59,7 @@ public class Session implements Serializable {
 		this.remark = null;
 	}
 
-	public Session(Session_Type type, String group, Day day, Date sTime, int hours, String venue,
-			String remark)
+	public Session(Session_Type type, String group, Day day, Date sTime, int hours, String venue, String remark)
 	{
 		this.type = type;
 		this.group = group;
@@ -39,26 +72,23 @@ public class Session implements Serializable {
 
 	public void printSession(int length, String delimiter)
 	{
-		System.out.print(delimiter
-				+ Formatter.tabs(length * 2, delimiter, this.getType())
+		System.out.print(delimiter + Formatter.tabs(length * 2, delimiter, this.getType())
 				+ Formatter.tabs(length * 1, delimiter, this.getGroup())
 				+ Formatter.tabs(length * 2, delimiter, this.getDay())
 				+ Formatter.tabs(length * 2, delimiter, Formatter.getTimePeriod(sTime, eTime, "hhmm"))
 				+ Formatter.tabs(length * 2, delimiter, this.getVenue())
 				+ Formatter.tabs(length * 3, delimiter, this.getRemark()));
 	}
-	
+
 	public Alternate_Week getAlternateWeek()
 	{
 		if (remark.equalsIgnoreCase("Wk1,3,5,7,9,11,13"))
 		{
 			return Alternate_Week.ODD;
-		}
-		else if (remark.equalsIgnoreCase("Wk2,4,6,8,10,12"))
+		} else if (remark.equalsIgnoreCase("Wk2,4,6,8,10,12"))
 		{
 			return Alternate_Week.EVEN;
-		}
-		else
+		} else
 		{
 			return Alternate_Week.NONE;
 		}

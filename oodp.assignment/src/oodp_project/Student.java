@@ -1,22 +1,69 @@
-package audrey;
+package oodp_project;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import audrey.Enumerator.*;
 
-public class Student implements Comparable, Serializable {
+import oodp_project.Enumerator.*;
 
+/**
+ * Represents a student enrolled in the school.
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Student implements Comparable, Serializable
+{
+	/**
+	 * The first and last name of this Student
+	 */
 	private String name;
+
+	/**
+	 * The gender of this Student
+	 */
 	private Gender gender;
+
+	/**
+	 * The matriculation number of this Student
+	 */
 	private String matricNo;
+
+	/**
+	 * The study year of this Student
+	 */
 	private int studyYear;
+
+	/**
+	 * The email address of this Student
+	 */
 	private String email;
+
+	/**
+	 * The date of birth of this Student
+	 */
 	private Date dob;
+
+	/**
+	 * The nationality of this Student
+	 */
 	private String nationality;
+
+	/**
+	 * The mobile number of this Student
+	 */
 	private String phoneNo;
+
+	/**
+	 * The choice of notification of this Student
+	 */
 	private Notification_Status notification;
+
+	/**
+	 * The course groups this Student is enrolled in
+	 */
 	private ArrayList<Group> courseGroups;
 
 	public Student()
@@ -48,6 +95,17 @@ public class Student implements Comparable, Serializable {
 		this.courseGroups = new ArrayList<Group>();
 	}
 
+	/**
+	 * Display the courses that are registered by the student
+	 * 
+	 * 
+	 * @param couseList
+	 *            List of all existing course
+	 * @param length
+	 *            For formatting
+	 * @param delimiter
+	 *            To seperate the text using it
+	 */
 	public void printCourses(ArrayList<Course> courseList, int length, String delimiter)
 	{
 		int total_au = 0;
@@ -70,6 +128,16 @@ public class Student implements Comparable, Serializable {
 		System.out.println("Total AU Registered: " + total_au);
 	}
 
+	/**
+	 * Display the courses
+	 * 
+	 * @param couseList
+	 *            List of all existing course
+	 * @param length
+	 *            For formatting
+	 * @param delimiter
+	 *            To seperate the text using it
+	 */
 	public void listCourses(ArrayList<Course> courseList, int length, String delimiter)
 	{
 		int i = 1;
@@ -78,12 +146,20 @@ public class Student implements Comparable, Serializable {
 		{
 			if (!Objects.equals(null, (co = gr.getCourse(courseList))))
 			{
-				System.out.println("\t" + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
+				System.out.println(
+						"\t" + i++ + ". " + gr.getIndexNo() + " " + co.getId() + " " + gr.findStudent(this, "status"));
 			}
 		}
 		System.out.println("\t0. Back to Menu");
 	}
 
+	/**
+	 * Search through the group in students
+	 * 
+	 * @param indexNo
+	 *            Pointer to get the specified group
+	 * @return Group Return the group once it is found
+	 */
 	public Group findGroup(int indexNo)
 	{
 		for (Group gr : courseGroups)
@@ -109,19 +185,17 @@ public class Student implements Comparable, Serializable {
 
 	public void printStudent(int length, String delimiter)
 	{
-		System.out.println(delimiter
-				+ Formatter.tabs(length * 3, delimiter, this.getName())
+		System.out.println(delimiter + Formatter.tabs(length * 3, delimiter, this.getName())
 				+ Formatter.tabs(length * 1, delimiter, this.getGender())
 				+ Formatter.tabs(length * 2, delimiter, this.getNationality()));
 	}
-	
+
 	public void notifyMe(String courseId, int indexNo, Notifier notify, Group_Status type)
 	{
 		if (notification.equals(Notification_Status.SMS))
 		{
 			notify.sendSMS(phoneNo);
-		}
-		else
+		} else
 		{
 			notify.sendEmail(email, courseId, indexNo, type);
 		}

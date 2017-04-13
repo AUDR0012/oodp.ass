@@ -1,16 +1,43 @@
-package audrey;
+package oodp_project;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import audrey.Enumerator.*;
 
-public class Group implements Serializable {
+import oodp_project.Enumerator.*;
 
+/**
+ * Represents a group within a course.
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Group implements Serializable
+{
+	/**
+	 * The index number of this Group
+	 */
 	private int indexNo;
+
+	/**
+	 * The vacancies in this Group
+	 */
 	private int vacancy;
+
+	/**
+	 * The sessions (lecture, tutorial, lab) in this Group
+	 */
 	private ArrayList<Session> sessions;
+
+	/**
+	 * The student registered in this Group
+	 */
 	private ArrayList<Student> registered;
+
+	/**
+	 * The students waiting to be registered in this Group
+	 */
 	private ArrayList<Student> waitlist;
 
 	public Group()
@@ -50,8 +77,7 @@ public class Group implements Serializable {
 			registered.add(st);
 			vacancy--;
 			return Group_Status.REGISTERED;
-		}
-		else
+		} else
 		{
 			waitlist.add(st);
 			return Group_Status.WAITLIST;
@@ -72,8 +98,7 @@ public class Group implements Serializable {
 			}
 			vacancy++;
 			return Group_Status.REGISTERED;
-		}
-		else
+		} else
 		{
 			for (Student w : waitlist)
 			{

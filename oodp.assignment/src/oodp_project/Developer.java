@@ -1,11 +1,12 @@
-package audrey;
+package oodp_project;
 
 import java.util.ArrayList;
 import java.util.Date;
-import audrey.Enumerator.*;
 
-public class Developer {
+import oodp_project.Enumerator.*;
 
+public class Developer
+{
 
 	public static void addData(ArrayList<Logger> userList, ArrayList<Student> studentList, ArrayList<Course> courseList)
 	{
@@ -37,7 +38,7 @@ public class Developer {
 		ses.add(se);
 		se = new Session(Session_Type.LAB, "SSR2", Day.TUESDAY, setTime("10:30"), 2, "SWLAB1", "Wk2,4,6,8,10,12");
 		ses.add(se);
-		gr = new Group(10192, 0, ses);
+		gr = new Group(10192, 1, ses);
 		grs.add(gr);
 		ses = new ArrayList<Session>();
 		se = new Session(Session_Type.LECTURE, "CS2", Day.TUESDAY, setTime("08:30"), 1, "LT8", "");
@@ -188,8 +189,8 @@ public class Developer {
 				"Singaporean", "91254632", Notification_Status.EMAIL);
 		lo = new Logger("CHINSONG", Formatter.hashPassword("CHINSONG"), us);
 		userList.add(lo);
-		us = new Student("AUDREY HO HAI YI", Gender.FEMALE, "U1624153E", 1, "AUDR0012@E.NTU.EDU.SG", setDate("02-04-95"),
-				"Singaporean", "97216542", Notification_Status.EMAIL);
+		us = new Student("AUDREY HO HAI YI", Gender.FEMALE, "U1624153E", 1, "AUDR0012@E.NTU.EDU.SG",
+				setDate("02-04-95"), "Singaporean", "97216542", Notification_Status.EMAIL);
 		lo = new Logger("AUDREY", Formatter.hashPassword("AUDREY"), us);
 		userList.add(lo);
 		us = new Student("ONG WEI FENG KELVIN", Gender.MALE, "U1637974J", 3, "KONG018@E.NTU.EDU.SG",
@@ -228,16 +229,16 @@ public class Developer {
 				"Singaporean", "97356971", Notification_Status.EMAIL);
 		lo = new Logger("JIAMIN", Formatter.hashPassword("JIAMIN"), us);
 		userList.add(lo);
-		us = new Student("SENG FRANKLING", Gender.MALE, "U1187459J", 3, "FRANKSENG05@E.NTU.EDU.SG",
-				setDate("24-07-91"), "Chinese", "84690388", Notification_Status.EMAIL);
+		us = new Student("SENG FRANKLING", Gender.MALE, "U1187459J", 3, "FRANKSENG05@E.NTU.EDU.SG", setDate("24-07-91"),
+				"Chinese", "84690388", Notification_Status.EMAIL);
 		lo = new Logger("FRANK", Formatter.hashPassword("FRANK001"), us);
 		userList.add(lo);
 		us = new Student("TAN DAVID", Gender.MALE, "U1947953K", 2, "DAVID001@E.NTU.EDU.SG", setDate("22-04-90"),
 				"Singaporean", "98774834", Notification_Status.EMAIL);
 		lo = new Logger("DAVID", Formatter.hashPassword("DAVID000"), us);
 		userList.add(lo);
-		us = new Student("Chang Jie", Gender.MALE, "U1637445L", 2, "CJie@E.NTU.EDU.SG", setDate("10-02-92"),
-				"Chinese", "80385563", Notification_Status.EMAIL);
+		us = new Student("Chang Jie", Gender.MALE, "U1637445L", 2, "CJie@E.NTU.EDU.SG", setDate("10-02-92"), "Chinese",
+				"80385563", Notification_Status.EMAIL);
 		lo = new Logger("CJie", Formatter.hashPassword("CJIE101"), us);
 		userList.add(lo);
 		us = new Student("Poh John", Gender.FEMALE, "U1657544M", 3, "JOHNPOH@E.NTU.EDU.SG", setDate("26-02-96"),
@@ -257,12 +258,12 @@ public class Developer {
 
 		MySTARS.writeData(userList, courseList);
 	}
-	
+
 	public static Date setDate(String text)
 	{
 		return Formatter.getDate(text, "dd-MM-yy");
 	}
-	
+
 	public static Date setTime(String text)
 	{
 		return Formatter.getDate(text, "hh:mm");

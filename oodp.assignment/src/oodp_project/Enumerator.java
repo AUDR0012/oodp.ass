@@ -1,34 +1,47 @@
-package audrey;
+package oodp_project;
 
 import java.util.Scanner;
 
-public class Enumerator {
+/**
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Enumerator
+{
 
-	public enum Alternate_Week { // Does Session occurs on Alternate Weeks
+	public enum Alternate_Week
+	{ // Does Session occurs on Alternate Weeks
 		ODD, EVEN, NONE;
 	}
 
-	public enum Course_Type { // Course Type
+	public enum Course_Type
+	{ // Course Type
 		CORE, CORE_ELECTIVE, GER_CORE, GER_ELECTIVE, UNRESTRICTED_ELECTIVE;
 	}
 
-	public enum Day { // Day of the Week
+	public enum Day
+	{ // Day of the Week
 		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
 	}
 
-	public enum Gender { // Gender of the Student
+	public enum Gender
+	{ // Gender of the Student
 		MALE, FEMALE;
 	}
 
-	public enum Group_Status { // Student's Status in the Group
+	public enum Group_Status
+	{ // Student's Status in the Group
 		REGISTERED, WAITLIST, NOT_FOUND;
 	}
 
-	public enum Notification_Status { // How the student wish to be notified
+	public enum Notification_Status
+	{ // How the student wish to be notified
 		SMS, EMAIL;
 	}
 
-	public enum Session_Type { // Type of Session
+	public enum Session_Type
+	{ // Type of Session
 		LECTURE, TUTORIAL, LAB;
 	}
 
