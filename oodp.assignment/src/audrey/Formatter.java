@@ -115,10 +115,11 @@ public class Formatter {
 		return text.replaceAll(tCur, tNew);
 	}
 
-	public static int getIntegerInput(String message, boolean loop)
+	public static int getIntegerInput(String message)
 	{
+		int value = -1;
 		Scanner in = new Scanner(System.in);
-		while (loop)
+		do
 		{
 			try
 			{
@@ -137,8 +138,7 @@ public class Formatter {
 				System.out.println("Invalid value!");
 				in.next(); // this consumes the invalid token
 			}
-		}
-		return -1;
+		} while (true);
 	}
 
 	public static int withinRange(String item, int min, int max)
@@ -146,7 +146,7 @@ public class Formatter {
 		int input;
 		while (true)
 		{
-			input = getIntegerInput("Enter your " + item + ": ", true);
+			input = getIntegerInput("Enter your " + item + ": ");
 			if (input >= min)
 			{
 				if (max == -1 || input <= max)

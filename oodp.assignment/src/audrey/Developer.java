@@ -188,11 +188,11 @@ public class Developer {
 				"Singaporean", "91254632", Notification_Status.EMAIL);
 		lo = new Logger("CHINSONG", Formatter.hashPassword("CHINSONG"), us);
 		userList.add(lo);
-		us = new Student("AUDREY HO HAI YI", Gender.FEMALE, "U1624153E", 1, "AUDREY02@E.NTU.EDU.SG", setDate("02-04-95"),
+		us = new Student("AUDREY HO HAI YI", Gender.FEMALE, "U1624153E", 1, "AUDR0012@E.NTU.EDU.SG", setDate("02-04-95"),
 				"Singaporean", "97216542", Notification_Status.EMAIL);
 		lo = new Logger("AUDREY", Formatter.hashPassword("AUDREY"), us);
 		userList.add(lo);
-		us = new Student("ONG WEI FENG KELVIN", Gender.MALE, "U1637974J", 3, "KELVIN03@E.NTU.EDU.SG",
+		us = new Student("ONG WEI FENG KELVIN", Gender.MALE, "U1637974J", 3, "KONG018@E.NTU.EDU.SG",
 				setDate("23-09-96"), "Malaysian", "94415325", Notification_Status.EMAIL);
 		lo = new Logger("KELVIN", Formatter.hashPassword("KELVIN"), us);
 		userList.add(lo);
@@ -200,7 +200,7 @@ public class Developer {
 				"Singaporean", "92141632", Notification_Status.EMAIL);
 		lo = new Logger("JIANHAO", Formatter.hashPassword("JIANHAO"), us);
 		userList.add(lo);
-		us = new Student("WONG KIN SUM", Gender.MALE, "U1624152R", 1, "KINSUM05@E.NTU.EDU.SG", setDate("21-08-94"),
+		us = new Student("WONG KIN SUM", Gender.MALE, "U1624152R", 1, "WONG1037@E.NTU.EDU.SG", setDate("21-08-94"),
 				"Singaporean", "94522516", Notification_Status.EMAIL);
 		lo = new Logger("KINSUM", Formatter.hashPassword("KINSUM"), us);
 		userList.add(lo);
@@ -227,6 +227,22 @@ public class Developer {
 		us = new Student("WONG JIA MIN", Gender.FEMALE, "U1636974M", 3, "WONGJM93@E.NTU.EDU.SG", setDate("26-08-96"),
 				"Singaporean", "97356971", Notification_Status.EMAIL);
 		lo = new Logger("JIAMIN", Formatter.hashPassword("JIAMIN"), us);
+		userList.add(lo);
+		us = new Student("SENG FRANKLING", Gender.MALE, "U1187459J", 3, "FRANKSENG05@E.NTU.EDU.SG",
+				setDate("24-07-91"), "Chinese", "84690388", Notification_Status.EMAIL);
+		lo = new Logger("FRANK", Formatter.hashPassword("FRANK001"), us);
+		userList.add(lo);
+		us = new Student("TAN DAVID", Gender.MALE, "U1947953K", 2, "DAVID001@E.NTU.EDU.SG", setDate("22-04-90"),
+				"Singaporean", "98774834", Notification_Status.EMAIL);
+		lo = new Logger("DAVID", Formatter.hashPassword("DAVID000"), us);
+		userList.add(lo);
+		us = new Student("Chang Jie", Gender.MALE, "U1637445L", 2, "CJie@E.NTU.EDU.SG", setDate("10-02-92"),
+				"Chinese", "80385563", Notification_Status.EMAIL);
+		lo = new Logger("CJie", Formatter.hashPassword("CJIE101"), us);
+		userList.add(lo);
+		us = new Student("Poh John", Gender.FEMALE, "U1657544M", 3, "JOHNPOH@E.NTU.EDU.SG", setDate("26-02-96"),
+				"Singaporean", "97947382", Notification_Status.EMAIL);
+		lo = new Logger("JOHNPOH", Formatter.hashPassword("HELLO"), us);
 		userList.add(lo);
 
 		for (Logger l : userList)

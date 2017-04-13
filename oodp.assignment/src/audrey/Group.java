@@ -58,7 +58,7 @@ public class Group implements Serializable {
 		}
 	}
 
-	public boolean dropStudentFromGroup(Student st)
+	public Group_Status dropStudentFromGroup(Student st)
 	{
 		if (Enumerator.string(Group_Status.REGISTERED).equals(this.findStudent(st, "status")))
 		{
@@ -71,8 +71,7 @@ public class Group implements Serializable {
 				}
 			}
 			vacancy++;
-			System.out.println("Removing student from " + indexNo + ".");
-			return true;
+			return Group_Status.REGISTERED;
 		}
 		else
 		{
@@ -80,12 +79,11 @@ public class Group implements Serializable {
 			{
 				if (w.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
 				{
-					registered.remove(w);
+					waitlist.remove(w);
 					break;
 				}
 			}
-			System.out.println("Removing " + this.getIndexNo() + " from waitlist.");
-			return false;
+			return Group_Status.WAITLIST;
 		}
 	}
 
@@ -93,7 +91,10 @@ public class Group implements Serializable {
 	{
 		if (waitlist.size() > 0)
 		{
-			return waitlist.remove(0);
+			vacancy--;
+			Student st = waitlist.remove(0);
+			registered.add(st);
+			return st;
 		}
 		return null;
 	}
