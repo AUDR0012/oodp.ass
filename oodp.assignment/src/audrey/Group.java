@@ -43,18 +43,18 @@ public class Group implements Serializable {
 		return null;
 	}
 
-	public void addStudentToGroup(Student st)
+	public Group_Status addStudentToGroup(Student st)
 	{
 		if (vacancy > 0)
 		{
 			registered.add(st);
 			vacancy--;
-			System.out.println("Registered to Index Number " + this.getIndexNo() + ".");
+			return Group_Status.REGISTERED;
 		}
 		else
 		{
 			waitlist.add(st);
-			System.out.println("Adding to Index Number " + this.getIndexNo() + "'s waitlist.");
+			return Group_Status.WAITLIST;
 		}
 	}
 
@@ -62,42 +62,40 @@ public class Group implements Serializable {
 	{
 		if (Enumerator.string(Group_Status.REGISTERED).equals(this.findStudent(st, "status")))
 		{
-			for(Student r : registered)
+			for (Student r : registered)
 			{
-				if(r.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
+				if (r.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
 				{
 					registered.remove(r);
 					break;
 				}
 			}
-			
-			//registered.remove(st);
 			vacancy++;
-			System.out.println("Removing " + this.getIndexNo() + " from course.");
+			System.out.println("Removing student from " + indexNo + ".");
 			return true;
 		}
 		else
 		{
-			waitlist.remove(st);
+			for (Student w : waitlist)
+			{
+				if (w.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
+				{
+					registered.remove(w);
+					break;
+				}
+			}
 			System.out.println("Removing " + this.getIndexNo() + " from waitlist.");
 			return false;
 		}
 	}
-	
-	public void updateWaitlist(Student st, Course co, Notifier notify)
+
+	public Student updateWaitlist()
 	{
 		if (waitlist.size() > 0)
 		{
-			Student curSt = waitlist.get(0);
-			if (curSt.getNotification().equals(Notification_Status.SMS))
-			{
-				notify.sendSMS(st.getPhoneNo());
-			}
-			else
-			{
-				notify.sendEmail(st.getEmail(), co.getId(), indexNo, Notifier_Type.REGISTERED);
-			}
+			return waitlist.remove(0);
 		}
+		return null;
 	}
 
 	public Comparable findStudent(Student st, String returning)

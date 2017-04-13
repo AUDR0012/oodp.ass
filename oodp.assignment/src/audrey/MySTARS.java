@@ -21,6 +21,7 @@ public class MySTARS {
 		ArrayList<Course> courseList = new ArrayList<Course>();
 
 		Notifier notify = new Notifier();
+		Group_Status groupStatus;
 
 		Logger logger = null;
 		Comparable user = null, peer = null;
@@ -48,7 +49,7 @@ public class MySTARS {
 				do
 				{
 					Menu.printMenu(user);
-					option = Formatter.getIntegerInput("");
+					option = Formatter.getIntegerInput("Enter your option: ", true);
 					switch (option)
 					{
 					case 1:
@@ -66,8 +67,7 @@ public class MySTARS {
 							lo.setAccessSTime(start);
 							lo.setAccessETime(end);
 						}
-						System.out.println("Access Time has been updated to "
-								+ Formatter.getTimePeriod(start, end, "dd-MM-yy hh:mm"));
+						System.out.println("Access Time has been updated to " + Formatter.getTimePeriod(start, end, "dd-MM-yy hh:mm"));
 						break;
 					}
 					case 2:
@@ -93,7 +93,7 @@ public class MySTARS {
 						System.out.print("Enter Matric Number: ");
 						newStudent.setMatricNo(in.next());
 						// Study Year
-						newStudent.setStudyYear(Formatter.getIntegerInput("Enter Study Year"));
+						newStudent.setStudyYear(Formatter.getIntegerInput("Enter Study Year: ", true));
 						// Email
 						do
 						{
@@ -154,11 +154,11 @@ public class MySTARS {
 						Enumerator.printAll(Course_Type.class);
 						course.setType(Enumerator.nextEnum(Course_Type.class));
 						// Credit
-						course.setCredit(Formatter.getIntegerInput("Enter Number of Credits"));
+						course.setCredit(Formatter.getIntegerInput("Enter Number of Credits", true));
 						// Number of Groups
-						in_int1 = Formatter.getIntegerInput("Enter the Number of Groups: ");
+						in_int1 = Formatter.getIntegerInput("Enter the Number of Groups: ", true);
 						// Number of Sessions
-						in_int2 = Formatter.getIntegerInput("Enter the Number of Sessions: ");
+						in_int2 = Formatter.getIntegerInput("Enter the Number of Sessions: ", true);
 
 						while (course.getGroups().size() < in_int1)
 						{
@@ -167,10 +167,10 @@ public class MySTARS {
 							// Index Number
 							do
 							{
-								group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: "));
+								group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: ", true));
 							} while (dupIndexNo(courseList, group1.getIndexNo()));
 							// Vacancy
-							group1.setVacancy(Formatter.getIntegerInput("Enter Size of Group: "));
+							group1.setVacancy(Formatter.getIntegerInput("Enter Size of Group: ", true));
 
 							while (group1.getSessions().size() < in_int2)
 							{
@@ -201,7 +201,7 @@ public class MySTARS {
 										"\t1. Update Course Name\n" +
 												"\t2. Update Course Group\n" +
 												"\t0. Back to Menu\n" +
-												"Enter your choice: ");
+												"Enter your choice: ", true);
 
 								switch (in_int1)
 								{
@@ -223,13 +223,13 @@ public class MySTARS {
 														"\t\t2. Edit Group\n" +
 														"\t\t3. Delete Group\n" +
 														"\t\t0. Back\n" +
-														"Enter your choice: ");
+														"Enter your choice: ", true);
 										switch (in_int2)
 										{
 										case 1:
 										{ // Add Group
 											group1 = new Group();
-											group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: "));
+											group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: ", true));
 											group1.setVacancy(Formatter.withinRange("Vancancies", 1, -1));
 											course.addGroup(group1);
 											System.out.println("Group has been added.");
@@ -254,7 +254,7 @@ public class MySTARS {
 																	"\t\t\t3. Edit Session\n" +
 																	"\t\t\t4. Delete Session\n" +
 																	"\t\t\t0. Back\n" +
-																	"Enter your choice: ");
+																	"Enter your choice: ", true);
 													switch (in_int3)
 													{
 													case 1:
@@ -376,8 +376,7 @@ public class MySTARS {
 					}
 					case 5:
 					{ // Check Available Slot for an Index Number
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of the Course: ");
-
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", false);
 						if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
 						{
 							System.out.println("Index Number " + in_int1 + " has " + group1.getVacancy() + " vacancies.");
@@ -390,9 +389,7 @@ public class MySTARS {
 					}
 					case 6:
 					{ // Print Student List by Index Number
-
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of the Course");
-
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", false);
 						if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
 						{
 							if (group1.getRegistered().size() > 0)
@@ -462,13 +459,12 @@ public class MySTARS {
 				do
 				{
 					Menu.printMenu(user);
-					option = Formatter.getIntegerInput("");
+					option = Formatter.getIntegerInput("Enter your option: ", true);
 					switch (option)
 					{
 					case 1:
 					{ // Add Course
-
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ");
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", false);
 
 						Boolean courseAlreadyExist = false;
 						if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
@@ -494,7 +490,15 @@ public class MySTARS {
 									System.out.print("Confirm to Add Course? (Y/N) ");
 									if (in.next().equalsIgnoreCase("Y"))
 									{
-										group1.addStudentToGroup(student);
+										if ((groupStatus = group1.addStudentToGroup(student)).equals(Group_Status.REGISTERED))
+										{
+											System.out.println("Registered to Index Number " + group1.getIndexNo() + ".");
+										}
+										else
+										{
+											System.out.println("Adding to Index Number " + group1.getIndexNo() + "'s waitlist.");
+										}
+										student.notifyMe(course.getId(), group1.getIndexNo(), notify, groupStatus);
 										student.getCourseGroups().add(group1);
 									}
 									else
@@ -523,9 +527,8 @@ public class MySTARS {
 						if (student.getCourseGroups().size() > 0)
 						{
 							student.listCourses(courseList, PARSE_LENGTH, PARSE_DELIMITER);
-							in_int1 = Formatter.getIntegerInput("Choose the Course to drop: ");
-
-							if (in_int1 >= 1 && in_int1 <= student.getCourseGroups().size())
+							in_int1 = Formatter.getIntegerInput("Choose the Course to drop: ", false);
+							if ((in_int1 = Formatter.withinRange("course", 0, student.getCourseGroups().size() + 1)) > 0)
 							{
 								group1 = student.getCourseGroups().get(in_int1 - 1);
 								course = group1.getCourse(courseList);
@@ -540,7 +543,8 @@ public class MySTARS {
 								{
 									if (group1.dropStudentFromGroup(student))
 									{
-										group1.updateWaitlist(student, course, notify);
+										groupStatus = group1.addStudentToGroup(student);
+										group1.updateWaitlist().notifyMe(course.getId(), group2.getIndexNo(), notify, groupStatus);
 									}
 									updateCourseList(courseList, group1);
 									student.getCourseGroups().remove(group1);
@@ -548,13 +552,6 @@ public class MySTARS {
 								else
 								{
 									System.out.println("Index Number " + in_int1 + " is not dropped.");
-								}
-							}
-							else
-							{
-								if (in_int1 != 0)
-								{
-									System.out.println("Option entered is invalid.");
 								}
 							}
 						}
@@ -578,8 +575,7 @@ public class MySTARS {
 					}
 					case 4:
 					{ // Check Vacancies Available
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of the Course: ");
-
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", true);
 						do
 						{
 							if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
@@ -596,22 +592,20 @@ public class MySTARS {
 								System.out.println("Index Number " + in_int1 + " do not exist.");
 							}
 
-							in_int1 = Formatter.getIntegerInput("\nCheck Vacancy of another Index Number\nIndex Number (or 0. Back to Menu): ");
+							in_int1 = Formatter.getIntegerInput("\nCheck Vacancy of another Index Number" +
+									"\nIndex Number (or 0. Back to Menu): ", true);
 						} while (in_int1 != 0);
 						break;
 					}
 					case 5:
-					{ // Change Index Number of Course
-						in_int1 = Formatter.getIntegerInput("Enter Current Index Number of the Course: ");
+					{ // Change Index Number of Group
+						in_int1 = Formatter.getIntegerInput("Enter Current Index Number of Group: ", false);
 
 						if (!Objects.equals(null, group1 = student.findGroup(in_int1)))
 						{
-							if (Enumerator.string(Group_Status.REGISTERED)
-									.equals(group1.findStudent(student, "status")))
+							if (Enumerator.string(Group_Status.REGISTERED).equals(group1.findStudent(student, "status")))
 							{
-
-								in_int2 = Formatter.getIntegerInput("Enter New Index Number of the Course");
-
+								in_int2 = Formatter.getIntegerInput("Enter New Index Number of Group: ", false);
 								if (in_int1 != in_int2)
 								{
 									course = group1.getCourse(courseList);
@@ -633,12 +627,14 @@ public class MySTARS {
 													if (in.next().equalsIgnoreCase("Y"))
 													{
 														group1.dropStudentFromGroup(student);
-														group2.addStudentToGroup(student);
+														group1.updateWaitlist();
+														groupStatus = group2.addStudentToGroup(student);
+														student.notifyMe(course.getId(), group2.getIndexNo(), notify, groupStatus);
+														
 														student.replaceGroup(group1, group2);
 
 														updateCourseList(courseList, group1);
-														System.out.println("Index Number " + group1.getIndexNo()
-																+ " has been changed to " + group2.getIndexNo());
+														System.out.println("Index Number " + group1.getIndexNo() + " has been changed to " + group2.getIndexNo());
 													}
 													else
 													{
@@ -699,7 +695,7 @@ public class MySTARS {
 					}
 					case 6:
 					{ // Swap Index Number with Another Student
-						in_int1 = Formatter.getIntegerInput("Enter your Index Number: ");
+						in_int1 = Formatter.getIntegerInput("Enter your Index Number: ", false);
 
 						if (!Objects.equals(null, group1 = student.findGroup(in_int1)))
 						{
@@ -710,7 +706,7 @@ public class MySTARS {
 								if (!Objects.equals(null, peer = login(userList))
 										&& peer instanceof Student)
 								{
-									in_int2 = Formatter.getIntegerInput("Enter Peer's Index Number: ");
+									in_int2 = Formatter.getIntegerInput("Enter Peer's Index Number: ", false);
 
 									if (!Objects.equals(null, group2 = ((Student) peer).findGroup(in_int2)))
 									{
@@ -737,12 +733,14 @@ public class MySTARS {
 														if (in.next().equalsIgnoreCase("Y"))
 														{
 															group1.dropStudentFromGroup(student);
-															group1.addStudentToGroup((Student) peer);
+															groupStatus = group1.addStudentToGroup((Student) peer);
 															student.replaceGroup(group1, group2);
+															student.notifyMe(course.getId(), group2.getIndexNo(), notify, groupStatus);
 
-															group2.addStudentToGroup(student);
+															groupStatus = group2.addStudentToGroup(student);
 															group2.dropStudentFromGroup((Student) peer);
 															((Student) peer).replaceGroup(group2, group1);
+															((Student) peer).notifyMe(course.getId(), group1.getIndexNo(), notify, groupStatus);
 
 															updateCourseList(courseList, group1);
 															updateCourseList(courseList, group2);
@@ -824,7 +822,8 @@ public class MySTARS {
 										"\t3. Notification Status\n" +
 										"\t4. Password\n" +
 										"\t0. Back to Menu\n" +
-										"Choose your option: ");
+										"Choose your option: ",
+								true);
 
 						switch (in_int1)
 						{

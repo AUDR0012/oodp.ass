@@ -12,7 +12,7 @@ public class Menu {
 			System.out.println("2. Drop Course");
 			System.out.println("3. Check/ Print Courses Registered");
 			System.out.println("4. Check Vacancies");
-			System.out.println("5. Change Index Number of Course");
+			System.out.println("5. Change Index Number of Group");
 			System.out.println("6. Swop Index Number with Another Student");
 			System.out.println("7. Update Particulars");
 		}
@@ -28,7 +28,6 @@ public class Menu {
 			System.out.println("7. Print Student List of Course");
 		}
 		System.out.println("0. Exit");
-		System.out.print("Enter your option: ");
 	}
 
 	public static void printHeader(Comparable user)

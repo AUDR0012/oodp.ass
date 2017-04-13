@@ -114,6 +114,18 @@ public class Student implements Comparable, Serializable {
 				+ Formatter.tabs(length * 1, delimiter, this.getGender())
 				+ Formatter.tabs(length * 2, delimiter, this.getNationality()));
 	}
+	
+	public void notifyMe(String courseId, int indexNo, Notifier notify, Group_Status type)
+	{
+		if (notification.equals(Notification_Status.SMS))
+		{
+			notify.sendSMS(phoneNo);
+		}
+		else
+		{
+			notify.sendEmail(email, courseId, indexNo, type);
+		}
+	}
 
 	@Override
 	public int compareTo(Object arg0)

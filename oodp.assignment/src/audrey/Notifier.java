@@ -49,9 +49,9 @@ public class Notifier {
 			}
 		});
 	}
-
+	
 	// Send notification to student to notify them that they are in waitlist or officially registered under course.
-	public static void sendEmail(String studentEmail, String courseId, int indexNo, Notifier_Type notifyType)
+	public static void sendEmail(String studentEmail, String courseId, int indexNo, Group_Status message)
 	{
 		MimeMessage email;
 		try
@@ -61,7 +61,7 @@ public class Notifier {
 			email.addRecipient(RecipientType.TO, new InternetAddress(studentEmail));
 
 			// Switch between Messages for waitlist or notification depending on Notifier_Type
-			switch (notifyType)
+			switch (message)
 			{
 				case WAITLIST:
 				{ // Set subject and message for Waitlist Notification
@@ -101,12 +101,12 @@ public class Notifier {
 				}
 			}
 			Transport.send(email);
-			//System.out.println("[System] Mail have been sent successfully."); // Required?
+			System.out.println("[System] Mail have been sent successfully.");
 		}
 		catch (MessagingException e)
 		{
 			// e.printStackTrace();
-			//System.out.println("[System] Mail cannot be sent."); // Required?
+			System.out.println("[System] Mail cannot be sent.");
 		}
 	}
 

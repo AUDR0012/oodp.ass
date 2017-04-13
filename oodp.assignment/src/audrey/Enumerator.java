@@ -21,7 +21,7 @@ public class Enumerator {
 	}
 
 	public enum Group_Status { // Student's Status in the Group
-		REGISTERED, WAITLIST, EXEMPTED, NOT_FOUND;
+		REGISTERED, WAITLIST, NOT_FOUND;
 	}
 
 	public enum Notification_Status { // How the student wish to be notified
@@ -30,10 +30,6 @@ public class Enumerator {
 
 	public enum Session_Type { // Type of Session
 		LECTURE, TUTORIAL, LAB;
-	}
-
-	public enum Notifier_Type { // Type of Notification Message 
-		WAITLIST, REGISTERED;
 	}
 
 	private static int pos = 1;
@@ -50,7 +46,7 @@ public class Enumerator {
 		int value;
 		do
 		{
-			value = Formatter.getIntegerInput("");
+			value = Formatter.getIntegerInput("", true);
 			for (E constant : obj.getEnumConstants())
 			{
 				if ((value - pos) == constant.ordinal())
