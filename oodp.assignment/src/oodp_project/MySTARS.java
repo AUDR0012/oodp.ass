@@ -290,10 +290,13 @@ public class MySTARS
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + i + 1 + ". "
-																	+ session.getType() + " Venue: "
-																	+ session.getVenue() + "Time: " + session.getDay()
-																	+ session.getSTime() + session.getETime());
+															System.out
+																	.println("\t\t\t" + i + 1 + ". " + session.getType()
+																			+ " Venue: " + session.getVenue() + " Day:"
+																			+ session.getDay() + "Time: "
+																			+ Formatter.getTimePeriod(
+																					session.getSTime(),
+																					session.getETime(), "hh:mm"));
 														}
 														System.out.println("\t\t\t0. Back");
 														if ((choice2 = Formatter.withinRange("choice", 0,
@@ -321,10 +324,13 @@ public class MySTARS
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + i + 1 + ". "
-																	+ session.getType() + " Venue: "
-																	+ session.getVenue() + "Time: " + session.getDay()
-																	+ session.getSTime() + session.getETime());
+															System.out
+																	.println("\t\t\t" + i + 1 + ". " + session.getType()
+																			+ " Venue: " + session.getVenue() + " Day:"
+																			+ session.getDay() + "Time: "
+																			+ Formatter.getTimePeriod(
+																					session.getSTime(),
+																					session.getETime(), "hh:mm"));
 														}
 														System.out.println("\t\t\t0. Back");
 														if ((choice2 = Formatter.withinRange("choice", 0,
