@@ -1,4 +1,4 @@
-package audrey;
+package oodp_project;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -8,7 +8,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class FileIO {
+/**
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class FileIO
+{
 
 	public static Object readSerializedObject(String filename)
 	{
@@ -23,12 +29,10 @@ public class FileIO {
 			in = new ObjectInputStream(bis);
 			pDetails = in.readObject();
 			in.close();
-		}
-		catch (IOException ex)
+		} catch (IOException ex)
 		{
 			ex.printStackTrace();
-		}
-		catch (ClassNotFoundException ex)
+		} catch (ClassNotFoundException ex)
 		{
 			ex.printStackTrace();
 		}
@@ -47,8 +51,7 @@ public class FileIO {
 			out = new ObjectOutputStream(fos);
 			out.writeObject(obj);
 			out.close();
-		}
-		catch (IOException ex)
+		} catch (IOException ex)
 		{
 			ex.printStackTrace();
 		}

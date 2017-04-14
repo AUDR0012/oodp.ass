@@ -1,4 +1,4 @@
-package audrey;
+package oodp_project;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -11,7 +11,13 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-public class Formatter {
+/**
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Formatter
+{
 
 	public static String hashPassword(String password)
 	{
@@ -20,8 +26,7 @@ public class Formatter {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(password.getBytes(), 0, password.length());
 			return (new BigInteger(1, md.digest()).toString());
-		}
-		catch (NoSuchAlgorithmException x)
+		} catch (NoSuchAlgorithmException x)
 		{
 			// return x.toString();
 			return null;
@@ -37,8 +42,7 @@ public class Formatter {
 			try
 			{
 				return sdf.parse(dateTime);
-			}
-			catch (ParseException e)
+			} catch (ParseException e)
 			{
 				// e.printStackTrace();
 				System.out.println(e);
@@ -63,8 +67,8 @@ public class Formatter {
 			minute = withinRange("Minute", 0, 59);
 		}
 
-		return getDate(String.format("%02d", day) + "-" + String.format("%02d", month) + "-" + year + " " + hour + ":" + minute,
-				"dd-MM-yyyy hh:mm");
+		return getDate(String.format("%02d", day) + "-" + String.format("%02d", month) + "-" + year + " " + hour + ":"
+				+ minute, "dd-MM-yyyy hh:mm");
 	}
 
 	public static Date addHours(Date date, int hours)
@@ -115,30 +119,28 @@ public class Formatter {
 		return text.replaceAll(tCur, tNew);
 	}
 
-	public static int getIntegerInput(String message, boolean loop)
+	public static int getIntegerInput(String message)
 	{
+		int value = -1;
 		Scanner in = new Scanner(System.in);
-		while (loop)
+		do
 		{
 			try
 			{
 				if (message == "")
 				{
 					System.out.print("Please re-enter your choice: ");
-				}
-				else
+				} else
 				{
 					System.out.print(message);
 				}
 				return in.nextInt();
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 				System.out.println("Invalid value!");
 				in.next(); // this consumes the invalid token
 			}
-		}
-		return -1;
+		} while (true);
 	}
 
 	public static int withinRange(String item, int min, int max)
@@ -146,25 +148,22 @@ public class Formatter {
 		int input;
 		while (true)
 		{
-			input = getIntegerInput("Enter your " + item + ": ", true);
+			input = getIntegerInput("Enter your " + item + ": ");
 			if (input >= min)
 			{
 				if (max == -1 || input <= max)
 				{
 					break;
-				}
-				else
+				} else
 				{
 					System.out.println("Please enter a valid " + item + " from " + min + " to " + max + ".");
 				}
-			}
-			else
+			} else
 			{
 				if (max == -1)
 				{
 					System.out.println("Please enter a valid " + item + " more than " + (min - 1) + ".");
-				}
-				else
+				} else
 				{
 					System.out.println("Please enter a valid " + item + " from " + min + " to " + max + ".");
 				}

@@ -1,16 +1,43 @@
-package audrey;
+package oodp_project;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import audrey.Enumerator.*;
 
-public class Group implements Serializable {
+import oodp_project.Enumerator.*;
 
+/**
+ * Represents a group within a course.
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Group implements Serializable
+{
+	/**
+	 * The index number of this Group
+	 */
 	private int indexNo;
+
+	/**
+	 * The vacancies in this Group
+	 */
 	private int vacancy;
+
+	/**
+	 * The sessions (lecture, tutorial, lab) in this Group
+	 */
 	private ArrayList<Session> sessions;
+
+	/**
+	 * The student registered in this Group
+	 */
 	private ArrayList<Student> registered;
+
+	/**
+	 * The students waiting to be registered in this Group
+	 */
 	private ArrayList<Student> waitlist;
 
 	public Group()
@@ -50,15 +77,14 @@ public class Group implements Serializable {
 			registered.add(st);
 			vacancy--;
 			return Group_Status.REGISTERED;
-		}
-		else
+		} else
 		{
 			waitlist.add(st);
 			return Group_Status.WAITLIST;
 		}
 	}
 
-	public boolean dropStudentFromGroup(Student st)
+	public Group_Status dropStudentFromGroup(Student st)
 	{
 		if (Enumerator.string(Group_Status.REGISTERED).equals(this.findStudent(st, "status")))
 		{
@@ -71,21 +97,18 @@ public class Group implements Serializable {
 				}
 			}
 			vacancy++;
-			System.out.println("Removing student from " + indexNo + ".");
-			return true;
-		}
-		else
+			return Group_Status.REGISTERED;
+		} else
 		{
 			for (Student w : waitlist)
 			{
 				if (w.getMatricNo().equalsIgnoreCase(st.getMatricNo()))
 				{
-					registered.remove(w);
+					waitlist.remove(w);
 					break;
 				}
 			}
-			System.out.println("Removing " + this.getIndexNo() + " from waitlist.");
-			return false;
+			return Group_Status.WAITLIST;
 		}
 	}
 
@@ -93,7 +116,10 @@ public class Group implements Serializable {
 	{
 		if (waitlist.size() > 0)
 		{
-			return waitlist.remove(0);
+			vacancy--;
+			Student st = waitlist.remove(0);
+			registered.add(st);
+			return st;
 		}
 		return null;
 	}

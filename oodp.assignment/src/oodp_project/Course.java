@@ -1,16 +1,43 @@
-package audrey;
+package oodp_project;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import audrey.Enumerator.*;
 
-public class Course implements Serializable {
+import oodp_project.Enumerator.*;
 
+/**
+ * Represents a course offered by the school.
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Course implements Serializable
+{
+	/**
+	 * The Course Id of this Course
+	 */
 	private String id;
+
+	/**
+	 * The Course Id of this Course
+	 */
 	private String name;
+
+	/**
+	 * The Course Id of this Course
+	 */
 	private Course_Type type;
+
+	/**
+	 * The Course Id of this Course
+	 */
 	private int credit;
+
+	/**
+	 * The Groups within this Course
+	 */
 	private ArrayList<Group> groups;
 
 	public Course()
@@ -57,8 +84,7 @@ public class Course implements Serializable {
 
 	public void printCourse(Group gr, int length, String delimiter, Student user)
 	{
-		System.out.print(delimiter
-				+ Formatter.tabs(length * 2, delimiter, this.getId())
+		System.out.print(delimiter + Formatter.tabs(length * 2, delimiter, this.getId())
 				+ Formatter.tabs(length * 1, delimiter, String.valueOf(this.getCredit()))
 				+ Formatter.tabs(length * 3, delimiter, this.getName())
 				+ Formatter.tabs(length * 2, delimiter, this.getType())
@@ -78,12 +104,9 @@ public class Course implements Serializable {
 				System.out.println();
 			}
 			System.out.println(bar);
-		}
-		else
+		} else
 		{
-			System.out.println(bar + "\t" + bar
-					+ "\n" + header + "\t" + header
-					+ "\n" + bar + "\t" + bar);
+			System.out.println(bar + "\t" + bar + "\n" + header + "\t" + header + "\n" + bar + "\t" + bar);
 			for (int i = 0; i < gr1.getSessions().size(); i++)
 			{
 				gr1.getSessions().get(i).printSession(length, delimiter);

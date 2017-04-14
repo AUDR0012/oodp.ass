@@ -1,16 +1,42 @@
-package audrey;
+package oodp_project;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Logger implements Serializable {
-
+/**
+ * Represents a logger that stores the user's credentials and access period.
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Logger implements Serializable
+{
+	/**
+	 * The username of this Logger
+	 */
 	private String username;
+
+	/**
+	 * The password of this Logger
+	 */
 	private String password;
+
+	/**
+	 * The user of this Logger
+	 */
 	private Comparable user;
+
+	/**
+	 * The start date and time this Logger is able access
+	 */
 	private Date accessSTime;
+
+	/**
+	 * The end date and time this Logger is able access
+	 */
 	private Date accessETime;
-	
+
 	public Logger()
 	{
 		this.username = null;
@@ -19,7 +45,7 @@ public class Logger implements Serializable {
 		this.accessSTime = null;
 		this.accessETime = null;
 	}
-	
+
 	public Logger(String username, String password, Comparable user)
 	{
 		this.username = username;

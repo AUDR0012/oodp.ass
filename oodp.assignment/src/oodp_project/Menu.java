@@ -1,6 +1,12 @@
-package audrey;
+package oodp_project;
 
-public class Menu {
+/**
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Menu
+{
 
 	public static void printMenu(Comparable user)
 	{
@@ -15,8 +21,7 @@ public class Menu {
 			System.out.println("5. Change Index Number of Group");
 			System.out.println("6. Swop Index Number with Another Student");
 			System.out.println("7. Update Particulars");
-		}
-		else // if (user instanceof Admin)
+		} else // if (user instanceof Admin)
 		{
 			System.out.println("===== Admin Menu =====");
 			System.out.println("1. Edit Student Access Period");
@@ -33,21 +38,19 @@ public class Menu {
 	public static void printHeader(Comparable user)
 	{
 		System.out.println("   _____   _____   _____   _____   _____   _____   _____  ");
-		System.out.println(" _|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
+		System.out.println(
+				" _|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ");
 		System.out.println(" \"`-0-0-\'\"`-0-0-\'\"`-0-0-\'\"`-0-0-\'\"`-0-0-\'\"`-0-0-\'\"`-0-0-\' ");
 
 		if (user instanceof Student)
 		{
 			Student st = (Student) user;
-			System.out.println(Formatter.tabs(32, "", "Name: " + st.getName())
-					+ "Matric Number: " + st.getMatricNo());
-		}
-		else if (user instanceof Admin)
+			System.out.println(Formatter.tabs(32, "", "Name: " + st.getName()) + "Matric Number: " + st.getMatricNo());
+		} else if (user instanceof Admin)
 		{
 			Admin ad = (Admin) user;
 			System.out.println(Formatter.tabs(32, "", "Name: " + ad.getName()));
-		}
-		else
+		} else
 		{
 			System.out.println("Welcome to MySTARS!");
 		}
@@ -58,26 +61,19 @@ public class Menu {
 		String header = delimiter;
 		if (table.equals("course"))
 		{
-			header += Formatter.tabs(length * 2, delimiter, "Course")
-					+ Formatter.tabs(length * 1, delimiter, "AU")
+			header += Formatter.tabs(length * 2, delimiter, "Course") + Formatter.tabs(length * 1, delimiter, "AU")
 					+ Formatter.tabs(length * 3, delimiter, "Title")
 					+ Formatter.tabs(length * 2, delimiter, "Course Type")
-					+ Formatter.tabs(length * 1, delimiter, "Index")
-					+ Formatter.tabs(length * 3, delimiter, "Status");
-		}
-		else if (table.equals("group"))
+					+ Formatter.tabs(length * 1, delimiter, "Index") + Formatter.tabs(length * 3, delimiter, "Status");
+		} else if (table.equals("group"))
 		{
 			header += Formatter.tabs(length * 2, delimiter, "Class Type")
-					+ Formatter.tabs(length * 1, delimiter, "Group")
-					+ Formatter.tabs(length * 2, delimiter, "Day")
-					+ Formatter.tabs(length * 2, delimiter, "Time")
-					+ Formatter.tabs(length * 2, delimiter, "Venue")
+					+ Formatter.tabs(length * 1, delimiter, "Group") + Formatter.tabs(length * 2, delimiter, "Day")
+					+ Formatter.tabs(length * 2, delimiter, "Time") + Formatter.tabs(length * 2, delimiter, "Venue")
 					+ Formatter.tabs(length * 3, delimiter, "Remark");
-		}
-		else if (table.equals("student"))
+		} else if (table.equals("student"))
 		{
-			header += Formatter.tabs(length * 3, delimiter, "Name")
-					+ Formatter.tabs(length * 1, delimiter, "Gender")
+			header += Formatter.tabs(length * 3, delimiter, "Name") + Formatter.tabs(length * 1, delimiter, "Gender")
 					+ Formatter.tabs(length * 2, delimiter, "Nationality");
 		}
 		return header;

@@ -1,13 +1,20 @@
-package audrey;
+package oodp_project;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
-import audrey.Enumerator.*;
 
+import oodp_project.Enumerator.*;
+
+/**
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
 // java -Xmx1024m -jar run.jar
-public class MySTARS {
+public class MySTARS
+{
 
 	public static void main(String[] args)
 	{
@@ -23,7 +30,6 @@ public class MySTARS {
 		Notifier notify = new Notifier();
 		Group_Status groupStatus;
 
-		Logger logger = null;
 		Comparable user = null, peer = null;
 		Course course = null;
 		Group group1 = null, group2 = null;
@@ -33,7 +39,7 @@ public class MySTARS {
 		String in_string;
 		boolean found;
 
-		//Developer.addData(userList, studentList, courseList);
+		Developer.addData(userList, studentList, courseList);
 		do
 		{
 			if (userList.isEmpty() || studentList.isEmpty() || courseList.isEmpty())
@@ -49,7 +55,7 @@ public class MySTARS {
 				do
 				{
 					Menu.printMenu(user);
-					option = Formatter.getIntegerInput("Enter your option: ", true);
+					option = Formatter.getIntegerInput("Enter your option: ");
 					switch (option)
 					{
 					case 1:
@@ -67,7 +73,8 @@ public class MySTARS {
 							lo.setAccessSTime(start);
 							lo.setAccessETime(end);
 						}
-						System.out.println("Access Time has been updated to " + Formatter.getTimePeriod(start, end, "dd-MM-yy hh:mm"));
+						System.out.println("Access Time has been updated to "
+								+ Formatter.getTimePeriod(start, end, "dd-MM-yy hh:mm"));
 						break;
 					}
 					case 2:
@@ -93,7 +100,7 @@ public class MySTARS {
 						System.out.print("Enter Matric Number: ");
 						newStudent.setMatricNo(in.next());
 						// Study Year
-						newStudent.setStudyYear(Formatter.getIntegerInput("Enter Study Year: ", true));
+						newStudent.setStudyYear(Formatter.getIntegerInput("Enter Study Year: "));
 						// Email
 						do
 						{
@@ -141,7 +148,8 @@ public class MySTARS {
 						{
 							if (course.getId() != null)
 							{
-								System.out.println("Course Id " + course.getId().toUpperCase() + " has already been used.");
+								System.out.println(
+										"Course Id " + course.getId().toUpperCase() + " has already been used.");
 							}
 							System.out.print("Enter Course Id: ");
 							course.setId(in.next());
@@ -154,11 +162,11 @@ public class MySTARS {
 						Enumerator.printAll(Course_Type.class);
 						course.setType(Enumerator.nextEnum(Course_Type.class));
 						// Credit
-						course.setCredit(Formatter.getIntegerInput("Enter Number of Credits", true));
+						course.setCredit(Formatter.getIntegerInput("Enter Number of Credits"));
 						// Number of Groups
-						in_int1 = Formatter.getIntegerInput("Enter the Number of Groups: ", true);
+						in_int1 = Formatter.getIntegerInput("Enter the Number of Groups: ");
 						// Number of Sessions
-						in_int2 = Formatter.getIntegerInput("Enter the Number of Sessions: ", true);
+						in_int2 = Formatter.getIntegerInput("Enter the Number of Sessions: ");
 
 						while (course.getGroups().size() < in_int1)
 						{
@@ -167,19 +175,19 @@ public class MySTARS {
 							// Index Number
 							do
 							{
-								group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: ", true));
+								group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: "));
 							} while (dupIndexNo(courseList, group1.getIndexNo()));
 							// Vacancy
-							group1.setVacancy(Formatter.getIntegerInput("Enter Size of Group: ", true));
+							group1.setVacancy(Formatter.getIntegerInput("Enter Size of Group: "));
 
 							while (group1.getSessions().size() < in_int2)
 							{
-								System.out.println("Group #" + course.getGroups().size() + 1 + " Session #" + group1.getSessions().size() + 1);
+								System.out.println("Group #" + course.getGroups().size() + 1 + " Session #"
+										+ group1.getSessions().size() + 1);
 								if (!Objects.equals(null, session = addSession(group1, -1)))
 								{
 									group1.getSessions().add(session);
-								}
-								else
+								} else
 								{
 									System.out.println("Session overlaps with an session in this Group.");
 								}
@@ -197,11 +205,8 @@ public class MySTARS {
 						{
 							do
 							{
-								in_int1 = Formatter.getIntegerInput(
-										"\t1. Update Course Name\n" +
-												"\t2. Update Course Group\n" +
-												"\t0. Back to Menu\n" +
-												"Enter your choice: ", true);
+								in_int1 = Formatter.getIntegerInput("\t1. Update Course Name\n"
+										+ "\t2. Update Course Group\n" + "\t0. Back to Menu\n" + "Enter your choice: ");
 
 								switch (in_int1)
 								{
@@ -218,18 +223,14 @@ public class MySTARS {
 								{ // Update Course Group
 									do
 									{
-										in_int2 = Formatter.getIntegerInput(
-												"\t\t1. Add Group" +
-														"\t\t2. Edit Group\n" +
-														"\t\t3. Delete Group\n" +
-														"\t\t0. Back\n" +
-														"Enter your choice: ", true);
+										in_int2 = Formatter.getIntegerInput("\t\t1. Add Group" + "\t\t2. Edit Group\n"
+												+ "\t\t3. Delete Group\n" + "\t\t0. Back\n" + "Enter your choice: ");
 										switch (in_int2)
 										{
 										case 1:
 										{ // Add Group
 											group1 = new Group();
-											group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: ", true));
+											group1.setIndexNo(Formatter.getIntegerInput("Enter Index Number: "));
 											group1.setVacancy(Formatter.withinRange("Vancancies", 1, -1));
 											course.addGroup(group1);
 											System.out.println("Group has been added.");
@@ -239,30 +240,32 @@ public class MySTARS {
 										{ // Edit Group
 											do
 											{
-												System.out.println("Current Groups in Course Id: " + in_string.toUpperCase());
+												System.out.println(
+														"Current Groups in Course Id: " + in_string.toUpperCase());
 												for (int i = 0; i < course.getGroups().size(); i++)
 												{
-													System.out.println("\t" + i + 1 + ". " + course.getGroups().get(i).getIndexNo());
+													System.out.println("\t" + i + 1 + ". "
+															+ course.getGroups().get(i).getIndexNo());
 												}
 												System.out.println("\t0. Back");
-												if ((choice1 = Formatter.withinRange("choice", 0, course.getGroups().size() + 1)) != 0)
+												if ((choice1 = Formatter.withinRange("choice", 0,
+														course.getGroups().size() + 1)) != 0)
 												{
 													group1 = course.getGroups().get(choice1 - 1);
-													in_int3 = Formatter.getIntegerInput(
-															"\t\t\t1. Edit Group Vacancy\n" +
-																	"\t\t\t2. Add Session\n" +
-																	"\t\t\t3. Edit Session\n" +
-																	"\t\t\t4. Delete Session\n" +
-																	"\t\t\t0. Back\n" +
-																	"Enter your choice: ", true);
+													in_int3 = Formatter.getIntegerInput("\t\t\t1. Edit Group Vacancy\n"
+															+ "\t\t\t2. Add Session\n" + "\t\t\t3. Edit Session\n"
+															+ "\t\t\t4. Delete Session\n" + "\t\t\t0. Back\n"
+															+ "Enter your choice: ");
 													switch (in_int3)
 													{
 													case 1:
 													{ // Edit Group Vacancy
-														System.out.println("Current Vacancy in group " + group1.getIndexNo() + ": " + group1.getVacancy());
+														System.out.println("Current Vacancy in group "
+																+ group1.getIndexNo() + ": " + group1.getVacancy());
 														group1.setVacancy(Formatter.withinRange("Vacancies", 1, -1));
 														updateStudentGroups(studentList, group1);
-														System.out.println("Vacancy has been changed to :" + group1.getVacancy());
+														System.out.println(
+																"Vacancy has been changed to :" + group1.getVacancy());
 														break;
 													}
 													case 2:
@@ -272,49 +275,66 @@ public class MySTARS {
 															group1.getSessions().add(session);
 															updateStudentGroups(studentList, group1);
 															System.out.println("Session has been added.");
-														}
-														else
+														} else
 														{
-															System.out.println("Session overlaps with an session in this Group.");
+															System.out.println(
+																	"Session overlaps with an session in this Group.");
 														}
 														break;
 													}
 													case 3:
 													{ // Edit Session
-														System.out.println("Current Session in Course Id: " + in_string.toUpperCase() + " Index Number: " + group1.getIndexNo());
+														System.out.println("Current Session in Course Id: "
+																+ in_string.toUpperCase() + " Index Number: "
+																+ group1.getIndexNo());
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + i + 1 + ". " + session.getType() + " Venue: " + session.getVenue()
-																	+ "Time: " + session.getDay() + session.getSTime() + session.getETime());
+															System.out
+																	.println("\t\t\t" + i + 1 + ". " + session.getType()
+																			+ " Venue: " + session.getVenue() + " Day:"
+																			+ session.getDay() + "Time: "
+																			+ Formatter.getTimePeriod(
+																					session.getSTime(),
+																					session.getETime(), "hh:mm"));
 														}
 														System.out.println("\t\t\t0. Back");
-														if ((choice2 = Formatter.withinRange("choice", 0, group1.getSessions().size() + 1)) != 0)
+														if ((choice2 = Formatter.withinRange("choice", 0,
+																group1.getSessions().size() + 1)) != 0)
 														{
-															if (Objects.equals(null, session = addSession(group1, choice2 - 1)))
+															if (Objects.equals(null,
+																	session = addSession(group1, choice2 - 1)))
 															{
 																group1.getSessions().set(choice2 - 1, session);
 																updateStudentGroups(studentList, group1);
 																System.out.println("Session is updated.");
-															}
-															else
+															} else
 															{
-																System.out.println("Session overlaps with an session in this Group.");
+																System.out.println(
+																		"Session overlaps with an session in this Group.");
 															}
 														}
 														break;
 													}
 													case 4:
 													{ // Delete Session
-														System.out.println("Current Session in Course Id: " + in_string.toUpperCase() + " Index Number: " + group1.getIndexNo());
+														System.out.println("Current Session in Course Id: "
+																+ in_string.toUpperCase() + " Index Number: "
+																+ group1.getIndexNo());
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + i + 1 + ". " + session.getType() + " Venue: " + session.getVenue()
-																	+ "Time: " + session.getDay() + session.getSTime() + session.getETime());
+															System.out
+																	.println("\t\t\t" + i + 1 + ". " + session.getType()
+																			+ " Venue: " + session.getVenue() + " Day:"
+																			+ session.getDay() + "Time: "
+																			+ Formatter.getTimePeriod(
+																					session.getSTime(),
+																					session.getETime(), "hh:mm"));
 														}
 														System.out.println("\t\t\t0. Back");
-														if ((choice2 = Formatter.withinRange("choice", 0, group1.getSessions().size() + 1)) != 0)
+														if ((choice2 = Formatter.withinRange("choice", 0,
+																group1.getSessions().size() + 1)) != 0)
 														{
 															group1.getSessions().remove(choice2 - 1);
 															updateStudentGroups(studentList, group1);
@@ -332,10 +352,12 @@ public class MySTARS {
 											System.out.println("Groups in CourseID: " + in_string);
 											for (int i = 0; i < course.getGroups().size(); i++)
 											{
-												System.out.println("\t" + i + 1 + ". " + course.getGroups().get(i).getIndexNo());
+												System.out.println(
+														"\t" + i + 1 + ". " + course.getGroups().get(i).getIndexNo());
 											}
 											System.out.println("\t0. Back");
-											if ((choice1 = Formatter.withinRange("choice", 0, course.getGroups().size() + 1)) != 0)
+											if ((choice1 = Formatter.withinRange("choice", 0,
+													course.getGroups().size() + 1)) != 0)
 											{
 												course.getGroups().remove(choice1 - 1);
 												// Update on student side
@@ -367,8 +389,7 @@ public class MySTARS {
 								}
 								}
 							} while (in_int1 != 0);
-						}
-						else
+						} else
 						{
 							System.out.println("Course Id " + in_string.toUpperCase() + " does not exist.");
 						}
@@ -376,12 +397,12 @@ public class MySTARS {
 					}
 					case 5:
 					{ // Check Available Slot for an Index Number
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", false);
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ");
 						if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
 						{
-							System.out.println("Index Number " + in_int1 + " has " + group1.getVacancy() + " vacancies.");
-						}
-						else
+							System.out
+									.println("Index Number " + in_int1 + " has " + group1.getVacancy() + " vacancies.");
+						} else
 						{
 							System.out.println("Index Number " + in_int1 + " is not found.");
 						}
@@ -389,19 +410,17 @@ public class MySTARS {
 					}
 					case 6:
 					{ // Print Student List by Index Number
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", false);
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ");
 						if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
 						{
 							if (group1.getRegistered().size() > 0)
 							{
 								group1.printStudents(PARSE_LENGTH, PARSE_DELIMITER);
-							}
-							else
+							} else
 							{
 								System.out.println("Index Number " + in_int1 + " has no students.");
 							}
-						}
-						else
+						} else
 						{
 							System.out.println("Index Number " + in_int1 + " is not found.");
 						}
@@ -419,11 +438,9 @@ public class MySTARS {
 								if (co.countStudentInGroups() > 0)
 								{
 									co.printStudents(PARSE_LENGTH, PARSE_DELIMITER);
-								}
-								else
+								} else
 								{
-									System.out
-											.println("Course Id " + in_string.toUpperCase() + " has no students.");
+									System.out.println("Course Id " + in_string.toUpperCase() + " has no students.");
 								}
 								found = true;
 								break;
@@ -452,19 +469,18 @@ public class MySTARS {
 					}
 					}
 				} while (option != 0);
-			}
-			else if (user instanceof Student)
+			} else if (user instanceof Student)
 			{
 				Student student = (Student) user;
 				do
 				{
 					Menu.printMenu(user);
-					option = Formatter.getIntegerInput("Enter your option: ", true);
+					option = Formatter.getIntegerInput("Enter your option: ");
 					switch (option)
 					{
 					case 1:
 					{ // Add Course
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", false);
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ");
 
 						Boolean courseAlreadyExist = false;
 						if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
@@ -483,40 +499,40 @@ public class MySTARS {
 							{
 								if ((overlaps = isOverlap(student, group1, null)) == -1)
 								{
-									System.out.println(Formatter.tabs(40, "", "Index Number: " + group1.getIndexNo()) + "Course: " + course.getId());
+									System.out.println(Formatter.tabs(40, "", "Index Number: " + group1.getIndexNo())
+											+ "Course: " + course.getId());
 									course.printGroups(group1, null, PARSE_LENGTH, PARSE_DELIMITER);
 									System.out.println("Course Type: " + course.getType());
 
 									System.out.print("Confirm to Add Course? (Y/N) ");
 									if (in.next().equalsIgnoreCase("Y"))
 									{
-										if ((groupStatus = group1.addStudentToGroup(student)).equals(Group_Status.REGISTERED))
+										if ((groupStatus = group1.addStudentToGroup(student))
+												.equals(Group_Status.REGISTERED))
 										{
-											System.out.println("Registered to Index Number " + group1.getIndexNo() + ".");
-										}
-										else
+											System.out
+													.println("Registered to Index Number " + group1.getIndexNo() + ".");
+										} else
 										{
-											System.out.println("Adding to Index Number " + group1.getIndexNo() + "'s waitlist.");
+											System.out.println(
+													"Adding to Index Number " + group1.getIndexNo() + "'s waitlist.");
 										}
+										updateCourseList(courseList, group1);
 										student.notifyMe(course.getId(), group1.getIndexNo(), notify, groupStatus);
 										student.getCourseGroups().add(group1);
-									}
-									else
+									} else
 									{
 										System.out.println("Index Number " + in_int1 + " is not added.");
 									}
-								}
-								else
+								} else
 								{
 									System.out.println("Overlaps with Index Number " + overlaps + ".");
 								}
-							}
-							else
+							} else
 							{
 								System.out.println("Course has already been registered.");
 							}
-						}
-						else
+						} else
 						{
 							System.out.println("Index Number " + in_int1 + " do not exist.");
 						}
@@ -527,35 +543,79 @@ public class MySTARS {
 						if (student.getCourseGroups().size() > 0)
 						{
 							student.listCourses(courseList, PARSE_LENGTH, PARSE_DELIMITER);
-							in_int1 = Formatter.getIntegerInput("Choose the Course to drop: ", false);
-							if ((in_int1 = Formatter.withinRange("course", 0, student.getCourseGroups().size() + 1)) > 0)
+							if ((in_int1 = Formatter.withinRange("index number", 0,
+									student.getCourseGroups().size() + 1)) > 0)
 							{
-								group1 = student.getCourseGroups().get(in_int1 - 1);
+								group1 = groupExist(courseList,
+										student.getCourseGroups().get(in_int1 - 1).getIndexNo());
 								course = group1.getCourse(courseList);
 
-								System.out.println(Formatter.tabs(40, "", "Index Number: " + group1.getIndexNo()) + "Course: " + course.getId());
+								System.out.println(Formatter.tabs(40, "", "Index Number: " + group1.getIndexNo())
+										+ "Course: " + course.getId());
 								course.printGroups(group1, null, PARSE_LENGTH, PARSE_DELIMITER);
-								System.out.println(Formatter.tabs(50, "", "Course Type: " + course.getType()) + "Status: " + group1.findStudent(student, "status"));
+								System.out.println(Formatter.tabs(50, "", "Course Type: " + course.getType())
+										+ "Status: " + group1.findStudent(student, "status"));
 
 								System.out.print("Confirm to Drop Course? (Y/N) ");
 
 								if (in.next().equalsIgnoreCase("Y"))
 								{
-									if (group1.dropStudentFromGroup(student))
+									if (group1.dropStudentFromGroup(student).equals(Group_Status.REGISTERED))
 									{
-										groupStatus = group1.addStudentToGroup(student);
-										group1.updateWaitlist().notifyMe(course.getId(), group2.getIndexNo(), notify, groupStatus);
+										Student s = group1.updateWaitlist();
+										if (!Objects.equals(null, s))
+										{
+											String matricNo = s.getMatricNo();
+
+											for (Student tStudent : studentList)
+											{
+												if (tStudent.getMatricNo().equalsIgnoreCase(matricNo))
+												{
+													for (Group cg : tStudent.getCourseGroups())
+													{
+														if (cg.getIndexNo() == group1.getIndexNo())
+														{
+															tStudent.getCourseGroups()
+																	.remove(tStudent.getCourseGroups().indexOf(cg));
+															tStudent.getCourseGroups().add(group1);
+															tStudent.notifyMe(course.getId(), group1.getIndexNo(),
+																	notify, Group_Status.REGISTERED);
+															break;
+														}
+													}
+												}
+											}
+										}
+										System.out.println(
+												"Removing student from " + group1.getIndexNo() + "'s registered list.");
+									} else
+									{
+										System.out.println(
+												"Removing student from " + group1.getIndexNo() + "'s waitlist.");
 									}
+
+									for (Student st : studentList)
+									{
+										if (st.getMatricNo().equalsIgnoreCase(student.getMatricNo()))
+										{
+											for (Group g : st.getCourseGroups())
+											{
+												if (g.getIndexNo() == group1.getIndexNo())
+												{
+													st.getCourseGroups().remove(st.getCourseGroups().indexOf(g));
+													break;
+												}
+											}
+										}
+									}
+									// student.getCourseGroups().remove(group1);
 									updateCourseList(courseList, group1);
-									student.getCourseGroups().remove(group1);
-								}
-								else
+								} else
 								{
 									System.out.println("Index Number " + in_int1 + " is not dropped.");
 								}
 							}
-						}
-						else
+						} else
 						{
 							System.out.println("No courses has been added.");
 						}
@@ -566,8 +626,7 @@ public class MySTARS {
 						if (student.getCourseGroups().size() > 0)
 						{
 							student.printCourses(courseList, PARSE_LENGTH, PARSE_DELIMITER);
-						}
-						else
+						} else
 						{
 							System.out.println("No courses has been added.");
 						}
@@ -575,7 +634,7 @@ public class MySTARS {
 					}
 					case 4:
 					{ // Check Vacancies Available
-						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ", true);
+						in_int1 = Formatter.getIntegerInput("Enter Index Number of Group: ");
 						do
 						{
 							if (!Objects.equals(null, group1 = groupExist(courseList, in_int1)))
@@ -586,26 +645,26 @@ public class MySTARS {
 								course.printGroups(group1, null, PARSE_LENGTH, PARSE_DELIMITER);
 								System.out.println(Formatter.tabs(50, "", "Places Available: " + group1.getVacancy())
 										+ "Length of WaitList: " + group1.getWaitlist().size());
-							}
-							else
+							} else
 							{
 								System.out.println("Index Number " + in_int1 + " do not exist.");
 							}
 
-							in_int1 = Formatter.getIntegerInput("\nCheck Vacancy of another Index Number" +
-									"\nIndex Number (or 0. Back to Menu): ", true);
+							in_int1 = Formatter.getIntegerInput("\nCheck Vacancy of another Index Number"
+									+ "\nIndex Number (or 0. Back to Menu): ");
 						} while (in_int1 != 0);
 						break;
 					}
 					case 5:
 					{ // Change Index Number of Group
-						in_int1 = Formatter.getIntegerInput("Enter Current Index Number of Group: ", false);
+						in_int1 = Formatter.getIntegerInput("Enter Current Index Number of Group: ");
 
 						if (!Objects.equals(null, group1 = student.findGroup(in_int1)))
 						{
-							if (Enumerator.string(Group_Status.REGISTERED).equals(group1.findStudent(student, "status")))
+							if (Enumerator.string(Group_Status.REGISTERED)
+									.equals(group1.findStudent(student, "status")))
 							{
-								in_int2 = Formatter.getIntegerInput("Enter New Index Number of Group: ", false);
+								in_int2 = Formatter.getIntegerInput("Enter New Index Number of Group: ");
 								if (in_int1 != in_int2)
 								{
 									course = group1.getCourse(courseList);
@@ -618,75 +677,73 @@ public class MySTARS {
 												if (group2.getIndexNo() != group1.getIndexNo())
 												{
 													System.out.println("Subject: " + course.getId());
-													System.out.println(Formatter.tabs(100, "", "Current Index Number: " + String.valueOf(group1.getIndexNo())) +
-															"New Index Number: " + String.valueOf(group2.getIndexNo()));
+													System.out.println(Formatter.tabs(100, "",
+															"Current Index Number: "
+																	+ String.valueOf(group1.getIndexNo()))
+															+ "New Index Number: "
+															+ String.valueOf(group2.getIndexNo()));
 													course.printGroups(group1, group2, PARSE_LENGTH, PARSE_DELIMITER);
-													System.out.println(Formatter.tabs(100, "", "Subject Type: " + course.getType()) +
-															"Status: " + Enumerator.string(Group_Status.REGISTERED));
+													System.out.println(
+															Formatter.tabs(100, "", "Subject Type: " + course.getType())
+																	+ "Status: "
+																	+ Enumerator.string(Group_Status.REGISTERED));
 													System.out.print("Confirm to Change Index Number? (Y/N) ");
 													if (in.next().equalsIgnoreCase("Y"))
 													{
 														group1.dropStudentFromGroup(student);
 														group1.updateWaitlist();
 														groupStatus = group2.addStudentToGroup(student);
-														student.notifyMe(course.getId(), group2.getIndexNo(), notify, groupStatus);
-														
+														student.notifyMe(course.getId(), group2.getIndexNo(), notify,
+																groupStatus);
+
 														student.replaceGroup(group1, group2);
 
 														updateCourseList(courseList, group1);
-														System.out.println("Index Number " + group1.getIndexNo() + " has been changed to " + group2.getIndexNo());
-													}
-													else
+														System.out.println("Index Number " + group1.getIndexNo()
+																+ " has been changed to " + group2.getIndexNo());
+													} else
 													{
-														System.out.println("Index Number " + in_int1 + " is not changed.");
+														System.out.println(
+																"Index Number " + in_int1 + " is not changed.");
 													}
-												}
-												else
+												} else
 												{
 													System.out.println("You are already in this group.");
 												}
-											}
-											else
+											} else
 											{
 												System.out.println("Overlaps with Index Number " + overlaps + ".");
 											}
-										}
-										else
+										} else
 										{
 											System.out.println("Index Number " + in_int2 + " has no vacancy.");
 										}
 										break;
-									}
-									else
+									} else
 									{
 										if (!Objects.equals(null, groupExist(courseList, in_int2)))
 										{
 											System.out.println(
 													"Index Number " + in_int2 + " exist in a different Course.");
-										}
-										else
+										} else
 										{
 											System.out.println("Index Number " + in_int2 + " do not exist.");
 										}
 									}
-								}
-								else
+								} else
 								{
 									System.out.println("Current and New Index Number is the same.");
 								}
-							}
-							else
+							} else
 							{
 								System.out.println("Index Number " + in_int1 + " is in waitlist.");
 							}
-						}
-						else
+						} else
 						{
 							if (!Objects.equals(null, groupExist(courseList, in_int1)))
 							{
 								System.out.println("Index Number " + in_int1 + " is not registered.");
-							}
-							else
+							} else
 							{
 								System.out.println("Index Number " + in_int1 + " do not exist.");
 							}
@@ -695,7 +752,7 @@ public class MySTARS {
 					}
 					case 6:
 					{ // Swap Index Number with Another Student
-						in_int1 = Formatter.getIntegerInput("Enter your Index Number: ", false);
+						in_int1 = Formatter.getIntegerInput("Enter your Index Number: ");
 
 						if (!Objects.equals(null, group1 = student.findGroup(in_int1)))
 						{
@@ -703,12 +760,12 @@ public class MySTARS {
 									.equals(group1.findStudent(student, "status")))
 							{
 								System.out.println("Please ask your Peer to Log in");
-								if (!Objects.equals(null, peer = login(userList))
-										&& peer instanceof Student)
+								if (!Objects.equals(null, peer = login(userList)) && peer instanceof Student)
 								{
-									in_int2 = Formatter.getIntegerInput("Enter Peer's Index Number: ", false);
+									in_int2 = Formatter.getIntegerInput("Enter Peer's Index Number: ");
 
-									if (!Objects.equals(null, group2 = ((Student) peer).findGroup(in_int2)))
+									if (!Objects.equals(null, group2 = groupExist(courseList,
+											((Student) peer).findGroup(in_int2).getIndexNo())))
 									{
 										if (Enumerator.string(Group_Status.REGISTERED)
 												.equals(group2.findStudent(((Student) peer), "status")))
@@ -717,97 +774,107 @@ public class MySTARS {
 													group2.getCourse(courseList)))
 											{
 												if ((overlaps = isOverlap(student, group2, group1)) == -1
-														&& (overlaps2 = isOverlap(((Student) peer), group1, group2)) == -1)
+														&& (overlaps2 = isOverlap(((Student) peer), group1,
+																group2)) == -1)
 												{
 													if (group1.getIndexNo() != group2.getIndexNo())
 													{
 														System.out.println("Subject: " + course.getId());
-														System.out.println(Formatter.tabs(100, "", "Student #1 ") + "Student #2");
-														System.out.println(Formatter.tabs(100, "", "Matric Number: " + student.getMatricNo() + " Index Number: " + group1.getIndexNo()) +
-																"Matric Number: " + ((Student) peer).getMatricNo() + " Index Number: " + group2.getIndexNo());
-														course.printGroups(group1, group2, PARSE_LENGTH, PARSE_DELIMITER);
+														System.out.println(
+																Formatter.tabs(100, "", "Student #1 ") + "Student #2");
 														System.out.println(Formatter.tabs(100, "",
-																"Subject Type: " + course.getType()) +
-																"Subject Type: " + course.getType());
+																"Matric Number: " + student.getMatricNo()
+																		+ " Index Number: " + group1.getIndexNo())
+																+ "Matric Number: " + ((Student) peer).getMatricNo()
+																+ " Index Number: " + group2.getIndexNo());
+														course.printGroups(group1, group2, PARSE_LENGTH,
+																PARSE_DELIMITER);
+														System.out.println(Formatter.tabs(100, "",
+																"Subject Type: " + course.getType()) + "Subject Type: "
+																+ course.getType());
 														System.out.print("Confirm to Swop Index Number? (Y/N) ");
 														if (in.next().equalsIgnoreCase("Y"))
 														{
 															group1.dropStudentFromGroup(student);
 															groupStatus = group1.addStudentToGroup((Student) peer);
 															student.replaceGroup(group1, group2);
-															student.notifyMe(course.getId(), group2.getIndexNo(), notify, groupStatus);
+															student.notifyMe(course.getId(), group2.getIndexNo(),
+																	notify, groupStatus);
 
 															groupStatus = group2.addStudentToGroup(student);
 															group2.dropStudentFromGroup((Student) peer);
 															((Student) peer).replaceGroup(group2, group1);
-															((Student) peer).notifyMe(course.getId(), group1.getIndexNo(), notify, groupStatus);
+															((Student) peer).notifyMe(course.getId(),
+																	group1.getIndexNo(), notify, groupStatus);
 
 															updateCourseList(courseList, group1);
 															updateCourseList(courseList, group2);
-															System.out.println(student.getMatricNo() + "-Index Number " + group1.getIndexNo() + " has successfully swopped with " +
-																	((Student) peer).getMatricNo() + "-Index Number " + group2.getIndexNo());
-														}
-														else
+															System.out.println(student.getMatricNo() + "-Index Number "
+																	+ group1.getIndexNo()
+																	+ " has successfully swopped with "
+																	+ ((Student) peer).getMatricNo() + "-Index Number "
+																	+ group2.getIndexNo());
+														} else
 														{
-															System.out.println(student.getMatricNo() + " and " + ((Student) peer).getMatricNo() + " is not swoped");
+															System.out.println(student.getMatricNo() + " and "
+																	+ ((Student) peer).getMatricNo()
+																	+ " is not swoped");
 														}
-													}
-													else
+													} else
 													{
 														System.out.println("You are already in this group.");
 													}
-												}
-												else
+												} else
 												{
 													if (overlaps != -1)
 													{
-														System.out.println("Student " + student.getMatricNo() + "'s Course Index Number " + overlaps + " overlaps with " + in_int2 + ".");
-													}
-													else
+														System.out.println("Student " + student.getMatricNo()
+																+ "'s Course Index Number " + overlaps
+																+ " overlaps with " + in_int2 + ".");
+													} else
 													{
-														System.out.println("Student " + ((Student) peer).getMatricNo() + "'s Course Index Number " + overlaps2 + " overlaps with " + in_int1 + ".");
+														System.out.println("Student " + ((Student) peer).getMatricNo()
+																+ "'s Course Index Number " + overlaps2
+																+ " overlaps with " + in_int1 + ".");
 													}
 												}
-											}
-											else
+											} else
 											{
-												System.out.println("Index Number " + in_int1 + " and Index Number " + in_int2 + " exist in a different Course.");
+												System.out.println("Index Number " + in_int1 + " and Index Number "
+														+ in_int2 + " exist in a different Course.");
 											}
-										}
-										else
+										} else
 										{
-											System.out.println("Student " + ((Student) peer).getMatricNo() + "'s Course Index Number " + in_int2 + " is in waitlist.");
+											System.out.println("Student " + ((Student) peer).getMatricNo()
+													+ "'s Course Index Number " + in_int2 + " is in waitlist.");
 										}
-									}
-									else
+									} else
 									{
 										if (!Objects.equals(null, groupExist(courseList, in_int1)))
 										{
-											System.out.println("Student " + ((Student) peer).getMatricNo() + " is not registerd in Index Number " + in_int2 + ".");
-										}
-										else
+											System.out.println("Student " + ((Student) peer).getMatricNo()
+													+ " is not registerd in Index Number " + in_int2 + ".");
+										} else
 										{
 											System.out.println("Index Number " + in_int2 + " do not exist.");
 										}
 									}
-								}
-								else
+								} else
 								{
 									System.out.println("The username or password you entered is incorrect.");
 								}
-							}
-							else
+							} else
 							{
-								System.out.println("Student " + student.getMatricNo() + "'s Course Index Number " + in_int1 + " is in waitlist.");
+								System.out.println("Student " + student.getMatricNo() + "'s Course Index Number "
+										+ in_int1 + " is in waitlist.");
 							}
-						}
-						else
+						} else
 						{
 							if (!Objects.equals(null, groupExist(courseList, in_int1)))
 							{
-								System.out.println("Student " + student.getMatricNo() + " is not registerd in Index Number " + in_int1 + ".");
-							}
-							else
+								System.out.println("Student " + student.getMatricNo()
+										+ " is not registerd in Index Number " + in_int1 + ".");
+							} else
 							{
 								System.out.println("Index Number " + in_int1 + " do not exist.");
 							}
@@ -816,14 +883,9 @@ public class MySTARS {
 					}
 					case 7:
 					{ // Update Particulars
-						in_int1 = Formatter.getIntegerInput(
-								"\t1. Email\n" +
-										"\t2. Phone Number\n" +
-										"\t3. Notification Status\n" +
-										"\t4. Password\n" +
-										"\t0. Back to Menu\n" +
-										"Choose your option: ",
-								true);
+						in_int1 = Formatter
+								.getIntegerInput("\t1. Email\n" + "\t2. Phone Number\n" + "\t3. Notification Status\n"
+										+ "\t4. Password\n" + "\t0. Back to Menu\n" + "Choose your option: ");
 
 						switch (in_int1)
 						{
@@ -836,8 +898,7 @@ public class MySTARS {
 							{
 								student.setEmail(in_string);
 								System.out.println("Email has been updated successfully.");
-							}
-							else
+							} else
 							{
 								System.out.println(in_string + " is not valid Email.");
 							}
@@ -852,8 +913,7 @@ public class MySTARS {
 							{
 								student.setPhoneNo(in_string);
 								System.out.println("Phone Number has been updated successfully.");
-							}
-							else
+							} else
 							{
 								System.out.println(in_string + " is not valid Local Phone Number.");
 							}
@@ -869,31 +929,31 @@ public class MySTARS {
 						}
 						case 4:
 						{ // Password
+							Logger logger = null;
+							String pass;
+							for (Logger lo : userList)
+							{
+								if (Objects.equals(lo.getUser(), user))
+								{
+									logger = lo;
+								}
+							}
 							System.out.print("Enter your current Password: ");
 							if (logger.getPassword().equals(inputPassword()))
 							{
 								System.out.print("Enter your new Password: ");
 								logger.setPassword(inputPassword());
 								System.out.println("Password has been updated successfully.");
-							}
-							else
+							} else
 							{
 								System.out.println("Current Password entered incorrectly.");
 							}
 							break;
 						}
-						case 0:
-						{ // Back to Menu
-							break;
-						}
-						default:
-						{
-							System.out.println("Option entered is invalid.");
-							break;
-						}
 						}
 						break;
 					}
+
 					case 0:
 					{ // Exit
 						writeData(userList, courseList);
@@ -911,8 +971,7 @@ public class MySTARS {
 					}
 					}
 				} while (option != 0);
-			}
-			else
+			} else
 			{
 				System.out.println("The username or password you entered is incorrect.");
 			}
@@ -925,8 +984,8 @@ public class MySTARS {
 
 	public static String inputPassword()
 	{
-		// return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
-		return Formatter.hashPassword((new Scanner(System.in)).next());
+		return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
+		// return Formatter.hashPassword((new Scanner(System.in)).next());
 	}
 
 	public static Comparable login(ArrayList<Logger> userList)
@@ -950,15 +1009,14 @@ public class MySTARS {
 						if (today.after(lo.getAccessSTime()) && today.before(lo.getAccessETime()))
 						{
 							return lo.getUser();
-						}
-						else
+						} else
 						{
-							System.out.println("You can only access between " + Formatter.getString(lo.getAccessSTime(), "dd-MM-yyyy hh:mm a") +
-									" to " + Formatter.getString(lo.getAccessETime(), "dd-MM-yyyy hh:mm a"));
+							System.out.println("You can only access between "
+									+ Formatter.getString(lo.getAccessSTime(), "dd-MM-yyyy hh:mm a") + " to "
+									+ Formatter.getString(lo.getAccessETime(), "dd-MM-yyyy hh:mm a"));
 							return null;
 						}
-					}
-					else
+					} else
 					{
 						return lo.getUser();
 					}
@@ -1056,8 +1114,7 @@ public class MySTARS {
 		if (index == -1)
 		{
 			session = new Session();
-		}
-		else
+		} else
 		{
 			session = gr.getSessions().get(index);
 		}
@@ -1126,7 +1183,10 @@ public class MySTARS {
 					{
 						if (exclude != null)
 						{
-							if (group.getIndexNo() == exclude.getIndexNo())// && exclude.getIndexNo() != gr.getIndexNo()
+							if (group.getIndexNo() == exclude.getIndexNo())// &&
+																			// exclude.getIndexNo()
+																			// !=
+																			// gr.getIndexNo()
 							{
 								break;
 							}
@@ -1141,24 +1201,30 @@ public class MySTARS {
 
 	public static boolean sessionOverlaps(Session se1, Session se2)
 	{
-		if (se1.getDay().equals(se2.getDay())
-				&& (se1.getAlternateWeek().equals(se2.getAlternateWeek()) || se1.getAlternateWeek().equals(Alternate_Week.NONE) || se2.getAlternateWeek().equals(Alternate_Week.NONE)))
+		if (se1.getDay().equals(se2.getDay()) && (se1.getAlternateWeek().equals(se2.getAlternateWeek())
+				|| se1.getAlternateWeek().equals(Alternate_Week.NONE)
+				|| se2.getAlternateWeek().equals(Alternate_Week.NONE)))
 		{
-			if ((se1.getSTime().equals(se2.getSTime()) && se1.getETime().equals(se2.getETime())) /*		sCur [__]
-																										sNew [__]
-																									*/
-					|| (se1.getSTime().before(se2.getSTime()) && se1.getETime().after(se2.getSTime())) /*	sCur [__]
-																												sNew   [__]
-																											*/
-					|| (se1.getSTime().after(se2.getETime()) && se1.getETime().before(se2.getETime())) /*	sCur   [__]
-																												sNew [__]
-																											*/
-					|| (se1.getSTime().after(se2.getSTime()) && se1.getETime().before(se2.getETime())) /*	sCur   [__]
-																												sNew [______]
-																											*/
-					|| (se1.getSTime().before(se2.getSTime()) && se1.getETime().after(se2.getETime()))) /*	sCur [______]
-																												sNew   [__]
-																											*/
+			if ((se1.getSTime().equals(se2.getSTime()) && se1.getETime()
+					.equals(se2.getETime())) /*
+												 * sCur [__] sNew [__]
+												 */
+					|| (se1.getSTime().before(se2.getSTime()) && se1.getETime()
+							.after(se2.getSTime())) /*
+													 * sCur [__] sNew [__]
+													 */
+					|| (se1.getSTime().after(se2.getETime()) && se1.getETime()
+							.before(se2.getETime())) /*
+														 * sCur [__] sNew [__]
+														 */
+					|| (se1.getSTime().after(se2.getSTime()) && se1.getETime().before(
+							se2.getETime())) /*
+												 * sCur [__] sNew [______]
+												 */
+					|| (se1.getSTime().before(se2.getSTime()) && se1.getETime().after(
+							se2.getETime()))) /*
+												 * sCur [______] sNew [__]
+												 */
 			{
 				return true;
 			}

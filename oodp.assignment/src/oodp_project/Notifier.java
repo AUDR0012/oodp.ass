@@ -1,4 +1,4 @@
-package audrey;
+package oodp_project;
 
 import java.util.Properties;
 import javax.mail.MessagingException;
@@ -8,9 +8,16 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
-import audrey.Enumerator.*;
 
-public class Notifier {
+import oodp_project.Enumerator.*;
+
+/**
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Notifier
+{
 
 	private static String senderEmail;
 	private static String senderPassword;
@@ -42,15 +49,17 @@ public class Notifier {
 		properties.setProperty("mail.smtp.starttls.enable", "true");
 
 		// Establish connection with the account you wish to login to
-		emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+		emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator()
+		{
 			protected PasswordAuthentication getPasswordAuthentication()
 			{
 				return new PasswordAuthentication(senderEmail, senderPassword);
 			}
 		});
 	}
-	
-	// Send notification to student to notify them that they are in waitlist or officially registered under course.
+
+	// Send notification to student to notify them that they are in waitlist or
+	// officially registered under course.
 	public static void sendEmail(String studentEmail, String courseId, int indexNo, Group_Status message)
 	{
 		MimeMessage email;
@@ -60,52 +69,36 @@ public class Notifier {
 			email.setFrom(senderEmail);
 			email.addRecipient(RecipientType.TO, new InternetAddress(studentEmail));
 
-			// Switch between Messages for waitlist or notification depending on Notifier_Type
+			// Switch between Messages for waitlist or notification depending on
+			// Notifier_Type
 			switch (message)
 			{
-				case WAITLIST:
-				{ // Set subject and message for Waitlist Notification
-					email.setSubject("Waitlist Notification");
-					email.setText("Dear Student,"
-							+ "\n"
-							+ "\n"
-							+ "This message has been sent to inform you that you have been put into the waiting list "
-							+ "of the Course " + courseId + " for Group " + indexNo + ".\n"
-							+ "\n"
-							+ "We hope that you can obtain the Course of your choice.\n"
-							+ "\n"
-							+ "Thank you.\n"
-							+ "\n"
-							+ "Signed\n"
-							+ "\n"
-							+ "MySTARS System");
-					break;
-				}
-				case REGISTERED:
-				{ // Set subject and message for Registration Notification
-					email.setSubject("Registration Notification");
-					email.setText("Dear Student,"
-							+ "\n"
-							+ "\n"
-							+ "This message has been sent to inform you that you have successful been registered under "
-							+ "Course " + courseId + " for Group " + indexNo + ".\n"
-							+ "\n"
-							+ "We hope you manage to recieve the schedule of you choice.\n"
-							+ "\n"
-							+ "Thank you.\n"
-							+ "\n"
-							+ "Signed\n"
-							+ "\n"
-							+ "MySTARS System");
-					break;
-				}
+			case WAITLIST:
+			{ // Set subject and message for Waitlist Notification
+				email.setSubject("Waitlist Notification");
+				email.setText("Dear Student," + "\n" + "\n"
+						+ "This message has been sent to inform you that you have been put into the waiting list "
+						+ "of the Course " + courseId + " for Group " + indexNo + ".\n" + "\n"
+						+ "We hope that you can obtain the Course of your choice.\n" + "\n" + "Thank you.\n" + "\n"
+						+ "Signed\n" + "\n" + "MySTARS System");
+				break;
+			}
+			case REGISTERED:
+			{ // Set subject and message for Registration Notification
+				email.setSubject("Registration Notification");
+				email.setText("Dear Student," + "\n" + "\n"
+						+ "This message has been sent to inform you that you have successful been registered under "
+						+ "Course " + courseId + " for Group " + indexNo + ".\n" + "\n"
+						+ "We hope you manage to recieve the schedule of you choice.\n" + "\n" + "Thank you.\n" + "\n"
+						+ "Signed\n" + "\n" + "MySTARS System");
+				break;
+			}
 			}
 			Transport.send(email);
 			System.out.println("[System] Mail have been sent successfully.");
-		}
-		catch (MessagingException e)
+		} catch (MessagingException e)
 		{
-			// e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("[System] Mail cannot be sent.");
 		}
 	}
