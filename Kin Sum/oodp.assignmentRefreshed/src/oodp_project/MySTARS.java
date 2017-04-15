@@ -618,6 +618,7 @@ public class MySTARS
 									{
 										System.out.println(
 												"Removing student from " + group1.getIndexNo() + "'s registered list.");
+										group1.updateWaitlist(getStudentList(userList));
 									} else
 									{
 										System.out.println(
@@ -1046,8 +1047,9 @@ public class MySTARS
 	public static String inputPassword()
 	{
 		// return
-		return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
-		// return Formatter.hashPassword((new Scanner(System.in)).next());
+		// return
+		// Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
+		return Formatter.hashPassword((new Scanner(System.in)).next());
 	}
 
 	public static Comparable login(ArrayList<Logger> userList)
