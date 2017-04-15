@@ -81,7 +81,6 @@ public class Enumerator
 			System.out.println("\t" + i + ". " + string(constant));
 			i++;
 		}
-		System.out.print("Enter your option: ");
 	}
 
 	public static <E extends Enum<E>> String string(E constant)

@@ -121,7 +121,6 @@ public class Formatter
 
 	public static int getIntegerInput(String message)
 	{
-		int value = -1;
 		Scanner in = new Scanner(System.in);
 		do
 		{
@@ -129,7 +128,7 @@ public class Formatter
 			{
 				if (message == "")
 				{
-					System.out.print("Please re-enter your choice: ");
+					System.out.print("Enter your choice: ");
 				} else
 				{
 					System.out.print(message);
@@ -148,7 +147,7 @@ public class Formatter
 		int input;
 		while (true)
 		{
-			input = getIntegerInput("Enter your " + item + ": ");
+			input = getIntegerInput("Enter " + item + ": ");
 			if (input >= min)
 			{
 				if (max == -1 || input <= max)
