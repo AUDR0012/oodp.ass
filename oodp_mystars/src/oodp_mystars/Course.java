@@ -88,7 +88,7 @@ public class Course implements Serializable {
 				+ Formatter.tabs(2, delimiter, this.getId())
 				+ Formatter.tabs(1, delimiter, String.valueOf(this.getCredit()))
 				+ Formatter.tabs(3, delimiter, this.getName())
-				+ Formatter.tabs(2, delimiter, this.getType()));
+				+ Formatter.tabs(3, delimiter, this.getType()));
 		System.out.println(bar);
 	}
 
@@ -98,7 +98,7 @@ public class Course implements Serializable {
 				+ Formatter.tabs(2, delimiter, this.getId())
 				+ Formatter.tabs(1, delimiter, String.valueOf(this.getCredit()))
 				+ Formatter.tabs(3, delimiter, this.getName())
-				+ Formatter.tabs(2, delimiter, this.getType())
+				+ Formatter.tabs(3, delimiter, this.getType())
 				+ Formatter.tabs(1, delimiter, gr)
 				+ Formatter.tabs(3, delimiter, status));
 	}

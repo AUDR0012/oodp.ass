@@ -184,7 +184,7 @@ public class Group implements Serializable
 		System.out.println("Enter Start Time: ");
 		session.setSTime(Formatter.enterDateTime("time"));
 		// Hours
-		session.setETime(Formatter.addHours(session.getSTime(), Formatter.getIntegerInput("Enter Session Hours: ")));
+		session.setETime(Formatter.addHours(session.getSTime(), Formatter.withinRange("Session Hours", 1, 10)));
 		// Venue
 		System.out.print("Enter Venue: ");
 		in.nextLine();

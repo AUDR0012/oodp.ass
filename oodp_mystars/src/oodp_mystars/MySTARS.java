@@ -208,19 +208,18 @@ public class MySTARS {
 									// Course Name
 									System.out.println("Current Course Name: " + course.getName());
 									System.out.print("New Course Name: ");
-									in.nextLine(); //TODO: Need Key in one more time?
+									in.nextLine();
 									course.setName(in.nextLine());
 
 									// Course Type
 									System.out.println("Current Course Type: " + course.getType());
-									System.out.println("New Course Type: "); //TODO: Necessary?
 									course.setType(Enumerator.nextEnum(Course_Type.class));
 
 									// Course Credits
 									System.out.println("Current Credits: " + course.getCredit());
 									course.setCredit(Formatter.getIntegerInput("New Credits: "));
 
-									course.printCourse(PARSE_DELIMITER); //TODO: Appearance in Console
+									course.printCourse(PARSE_DELIMITER);
 									break;
 								}
 								case 2:
@@ -306,10 +305,11 @@ public class MySTARS {
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + (i + 1) + ". " + session.getType()
+															System.out.println("\t\t\t" + (i + 1) 
+																	+ ". Type: " + session.getType()
 																	+ " Venue: " + session.getVenue()
 																	+ " Day: " + session.getDay()
-																	+ " Time: " + Formatter.getTimePeriod(session.getSTime(), session.getETime(), "hh:mm", "-"));
+																	+ " Time: " + Formatter.getTimePeriod(session.getSTime(), session.getETime(), "hh:mm", " - "));
 														}
 														System.out.println("\t\t\t0. Back");
 														if ((choice2 = Formatter.withinRange("choice", 0, group1.getSessions().size())) != 0)
@@ -333,7 +333,8 @@ public class MySTARS {
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + (i + 1) + ". " + session.getType()
+															System.out.println("\t\t\t" + (i + 1) 
+																	+ ". Type: " + session.getType()
 																	+ " Venue: " + session.getVenue()
 																	+ " Day: " + session.getDay()
 																	+ " Time: " + Formatter.getTimePeriod(session.getSTime(), session.getETime(), "hh:mm", "-"));
