@@ -119,9 +119,8 @@ public class Menu {
 	 * @param character
 	 * @return
 	 */
-	public static String getBar(int tabs, String character)
+	public static String getBorder(int count, String character)
 	{
-		int count = 8 * tabs + 1;
 		String bar = character;
 		for (int i = 1; i < count; i++)
 		{

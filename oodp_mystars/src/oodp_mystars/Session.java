@@ -89,7 +89,8 @@ public class Session implements Serializable {
 	 */
 	public void printSession(String delimiter)
 	{
-		System.out.print(delimiter + Formatter.tabs(2, delimiter, this.getType())
+		System.out.print(delimiter 
+				+ Formatter.tabs(2, delimiter, this.getType())
 				+ Formatter.tabs(1, delimiter, this.getGroup())
 				+ Formatter.tabs(2, delimiter, this.getDay())
 				+ Formatter.tabs(2, delimiter, Formatter.getPeriod(sTime, eTime, "hhmm", "-"))

@@ -197,7 +197,7 @@ public class Formatter {
 			catch (Exception e)
 			{
 				System.out.println("Invalid value! Please re-enter your choice");
-				in.next(); // this consumes the invalid token
+				in.nextLine(); // this consumes the invalid token
 			}
 		}
 	}

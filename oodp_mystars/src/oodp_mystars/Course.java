@@ -111,7 +111,7 @@ public class Course implements Serializable {
 	 */
 	public void printCourse(String delimiter)
 	{
-		String bar = Menu.getBar(9, "="), header = Menu.getTableHeader(delimiter, "course");
+		String bar = Menu.getBorder(73, "="), header = Menu.getTableHeader(delimiter, "course");
 		System.out.println(bar + "\n" + header + "\n" + bar);
 		System.out.println(delimiter
 				+ Formatter.tabs(2, delimiter, this.getId())
@@ -148,7 +148,7 @@ public class Course implements Serializable {
 	 */
 	public void printGroups(int gr1, int gr2, String delimiter)
 	{
-		String bar = Menu.getBar(12, "="), header = Menu.getTableHeader(delimiter, "group");
+		String bar = Menu.getBorder(97, "="), header = Menu.getTableHeader(delimiter, "group");
 		if (gr2 == -1)
 		{
 			System.out.println(bar + "\n" + header + "\n" + bar);
@@ -162,7 +162,9 @@ public class Course implements Serializable {
 		}
 		else
 		{
-			System.out.println(bar + "\t" + bar + "\n" + header + "\t" + header + "\n" + bar + "\t" + bar);
+			System.out.println(bar + "\t\t" + bar + "\n"
+					+ header + "\t\t" + header + "\n" 
+					+ bar + "\t\t" + bar);
 			for (Session s : this.findGroup(gr1).getSessions())
 			{
 				s.printSession(delimiter);
@@ -170,7 +172,7 @@ public class Course implements Serializable {
 				s.printSession(delimiter);
 				System.out.println();
 			}
-			System.out.println(bar + "\t" + bar);
+			System.out.println(bar + "\t\t" + bar);
 		}
 	}
 

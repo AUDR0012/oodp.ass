@@ -81,13 +81,17 @@ public class FileIO {
 	public static void readData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{
 		// Logger
+		if (userList.size() == 0 )
+		{
+			userList.clear();
+		}
 		userList.addAll((ArrayList<Logger>) FileIO.readSerializedObject("list_user"));
-		// Student
-		/*
-		 * for (Logger l : userList) { if (l.getUser() instanceof Student) {
-		 * studentList.add((Student) l.getUser()); } }
-		 */
+
 		// Course
+		if (courseList.size() == 0 )
+		{
+			courseList.clear();
+		}
 		courseList.addAll((ArrayList<Course>) FileIO.readSerializedObject("list_course"));
 	}
 
@@ -100,8 +104,6 @@ public class FileIO {
 	public static void writeData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{
 		FileIO.writeSerializedObject("list_user", userList);
-
 		FileIO.writeSerializedObject("list_course", courseList);
 	}
-
 }

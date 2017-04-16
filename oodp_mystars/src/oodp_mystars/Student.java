@@ -166,7 +166,7 @@ public class Student implements Comparable, Serializable {
 	public void printCourses(ArrayList<Course> courseList, String delimiter)
 	{
 		int total_au = 0;
-		String bar = Menu.getBar(13, "="), header = Menu.getTableHeader(delimiter, "coursegroup");
+		String bar = Menu.getBorder(101, "="), header = Menu.getTableHeader(delimiter, "coursegroup");
 		System.out.println(bar + "\n" + header + "\n" + bar);
 		for (int gr : registeredGroup)
 		{
@@ -174,8 +174,7 @@ public class Student implements Comparable, Serializable {
 			{
 				if (!Objects.equals(null, co.findGroup(gr)))
 				{
-					co.printCourseGroup(Integer.toString(gr), delimiter,
-							(String) co.findGroup(gr).findStudent(this.getMatricNo(), "status"));
+					co.printCourseGroup(Integer.toString(gr), delimiter, (String) co.findGroup(gr).findStudent(this.getMatricNo(), "status"));
 					System.out.println();
 					total_au += co.getCredit();
 					break;
