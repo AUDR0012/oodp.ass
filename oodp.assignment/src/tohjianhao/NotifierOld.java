@@ -12,7 +12,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 
-public class Notifier
+public class NotifierOld
 {
 	//Options to select which type of notification should be sent.
 	public static enum MessageType
@@ -39,7 +39,7 @@ public class Notifier
 	//Regular Expression for validating Phone Numbers
 	private final String PHONE_NUMBER = "[89]\\d\\d\\d\\d\\d\\d\\d";
 	
-	public Notifier()
+	public NotifierOld()
 	{
 		
 	}
