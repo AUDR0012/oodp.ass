@@ -872,7 +872,7 @@ public class MySTARS {
 																overlap = Checker.isOverlap(g1, group2, c.findGroup(in_int1));
 																if (overlap)
 																{
-																	System.out.println("Student " + student.getMatricNo() + " has an group that overlaps.");
+																	System.out.println("Student " + student.getMatricNo() + " has a group that overlaps.");
 																	break overlapCheckLoop;
 																}
 															}
@@ -885,7 +885,7 @@ public class MySTARS {
 																overlap = Checker.isOverlap(group2, group1, c.findGroup(in_int2));
 																if (overlap)
 																{
-																	System.out.println("Student " + ((Student) peer).getMatricNo() + " has an group that overlaps.");
+																	System.out.println("Student " + ((Student) peer).getMatricNo() + " has a group that overlaps.");
 																	break overlapCheckLoop;
 																}
 															}
