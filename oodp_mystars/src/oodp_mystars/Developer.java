@@ -2,11 +2,9 @@ package oodp_mystars;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import oodp_mystars.Enumerator.*;
 
-public class Developer
-{
+public class Developer {
 
 	public static void addData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{

@@ -66,7 +66,7 @@ public class MySTARS {
 							lo.setAccessSTime(start);
 							lo.setAccessETime(end);
 						}
-						System.out.println("Access Time has been updated to " + Formatter.getTimePeriod(start, end, "dd-MM-yy hh:mm", " to "));
+						System.out.println("Access Time has been updated to " + Formatter.getPeriod(start, end, "dd-MM-yy hh:mm", " to "));
 						break;
 					}
 					case 2:
@@ -142,7 +142,7 @@ public class MySTARS {
 							}
 							System.out.print("Enter Course Id: ");
 							course.setId(in.next());
-						} while (!Objects.equals(null, getCourse(courseList, course.getId())));
+						} while (!Objects.equals(null, courseExist(courseList, course.getId())));
 						// Name
 						System.out.print("Enter Course Name: ");
 						in.nextLine();
@@ -192,7 +192,7 @@ public class MySTARS {
 					{ // Update a Course
 						System.out.print("Enter Course Id: ");
 						in_string = in.next();
-						if (!Objects.equals(null, course = getCourse(courseList, in_string)))
+						if (!Objects.equals(null, course = courseExist(courseList, in_string)))
 						{
 							bigloop: do
 							{
@@ -281,7 +281,7 @@ public class MySTARS {
 													case 1:
 													{ // Edit Group Vacancy
 														System.out.println("Current Vacancy in group " + group1.getIndexNo() + ": " + group1.getVacancy());
-														group1.setVacancy(Formatter.withinRange("Vacancies", 1, -1));
+														group1.setVacancy(Formatter.withinRange("Vacancies", group1.getRegistered().size(), -1));
 														System.out.println("Vacancy has been changed to : " + group1.getVacancy());
 														break editGroupLoop;
 													}
@@ -305,11 +305,11 @@ public class MySTARS {
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + (i + 1) 
+															System.out.println("\t\t\t" + (i + 1)
 																	+ ". Type: " + session.getType()
 																	+ " Venue: " + session.getVenue()
 																	+ " Day: " + session.getDay()
-																	+ " Time: " + Formatter.getTimePeriod(session.getSTime(), session.getETime(), "hh:mm", " - "));
+																	+ " Time: " + Formatter.getPeriod(session.getSTime(), session.getETime(), "hh:mm", " - "));
 														}
 														System.out.println("\t\t\t0. Back");
 														if ((choice2 = Formatter.withinRange("choice", 0, group1.getSessions().size())) != 0)
@@ -333,11 +333,11 @@ public class MySTARS {
 														for (int i = 0; i < group1.getSessions().size(); i++)
 														{
 															session = group1.getSessions().get(i);
-															System.out.println("\t\t\t" + (i + 1) 
+															System.out.println("\t\t\t" + (i + 1)
 																	+ ". Type: " + session.getType()
 																	+ " Venue: " + session.getVenue()
 																	+ " Day: " + session.getDay()
-																	+ " Time: " + Formatter.getTimePeriod(session.getSTime(), session.getETime(), "hh:mm", "-"));
+																	+ " Time: " + Formatter.getPeriod(session.getSTime(), session.getETime(), "hh:mm", "-"));
 														}
 														System.out.println("\t\t\t0. Back");
 														if ((choice2 = Formatter.withinRange("choice", 0, group1.getSessions().size())) != 0)
@@ -364,11 +364,17 @@ public class MySTARS {
 												System.out.println("\t" + (i + 1) + ". " + course.getGroups().get(i).getIndexNo());
 											}
 											System.out.println("\t0. Back");
-											if ((choice1 = Formatter.withinRange("choice", 0,
-													course.getGroups().size() + 1)) != 0)
+											if ((choice1 = Formatter.withinRange("choice", 0, course.getGroups().size())) != 0)
 											{
-												course.getGroups().remove(choice1 - 1);
-												System.out.println("Group has been deleted.");
+												if(course.getGroups().get(choice1 -1).getRegistered().size() == 0)
+												{
+													course.getGroups().remove(choice1 - 1);
+													System.out.println("Group has been deleted.");
+												}
+												else
+												{
+													System.out.println("Not allowed to delete group with students inside");
+												}
 											}
 											break;
 										}
@@ -455,7 +461,7 @@ public class MySTARS {
 						System.out.print("Enter Course Id: ");
 						in_string = in.next();
 
-						if (!Objects.equals(null, course = getCourse(courseList, in_string)))
+						if (!Objects.equals(null, course = courseExist(courseList, in_string)))
 						{
 							if (course.countStudentInGroups() > 0)
 							{
@@ -596,7 +602,7 @@ public class MySTARS {
 						if (student.getRegisteredGroup().size() > 0)
 						{
 							student.listCourses(courseList);
-							if ((in_int1 = Formatter.withinRange("index number", 0, student.getRegisteredGroup().size() + 1)) > 0)
+							if ((in_int1 = Formatter.withinRange("index number", 0, student.getRegisteredGroup().size())) > 0)
 							{
 								group1 = groupExist(courseList, student.getRegisteredGroup().get(in_int1 - 1));
 								course = group1.getCourse(courseList);
@@ -1035,6 +1041,12 @@ public class MySTARS {
 
 	}
 
+	/**
+	 * Checks user credentials is entered correctly, and if student can access
+	 * 
+	 * @param userList
+	 * @return
+	 */
 	public static Comparable login(ArrayList<Logger> userList)
 	{
 		String username, password;
@@ -1060,7 +1072,7 @@ public class MySTARS {
 						else
 						{
 							System.out.println("You can only access between "
-									+ Formatter.getTimePeriod(lo.getAccessSTime(), lo.getAccessETime(), "dd-MM-yyyy hh:mm a", " to "));
+									+ Formatter.getPeriod(lo.getAccessSTime(), lo.getAccessETime(), "dd-MM-yyyy hh:mm a", " to "));
 							return null;
 						}
 					}
@@ -1074,6 +1086,12 @@ public class MySTARS {
 		return null;
 	}
 
+	/**
+	 * Gets students from user list
+	 * 
+	 * @param userList
+	 * @return
+	 */
 	public static ArrayList<Student> getStudentList(ArrayList<Logger> userList)
 	{
 		ArrayList<Student> std = new ArrayList<Student>();
@@ -1087,7 +1105,14 @@ public class MySTARS {
 		return std;
 	}
 
-	public static Course getCourse(ArrayList<Course> courseList, String courseId)
+	/**
+	 * Checks if course exist
+	 * 
+	 * @param courseList
+	 * @param courseId
+	 * @return
+	 */
+	public static Course courseExist(ArrayList<Course> courseList, String courseId)
 	{
 		for (Course co : courseList)
 		{
@@ -1099,6 +1124,13 @@ public class MySTARS {
 		return null;
 	}
 
+	/**
+	 * Checks if group exist
+	 * 
+	 * @param courseList
+	 * @param indexNo
+	 * @return
+	 */
 	public static Group groupExist(ArrayList<Course> courseList, int indexNo)
 	{
 		Group gr;
@@ -1112,6 +1144,11 @@ public class MySTARS {
 		return null;
 	}
 
+	/**
+	 * Get the password based on input
+	 * 
+	 * @return
+	 */
 	public static String inputPassword()
 	{
 		// return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));

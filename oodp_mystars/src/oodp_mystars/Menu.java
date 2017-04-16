@@ -7,6 +7,11 @@ package oodp_mystars;
  */
 public class Menu {
 
+	/**
+	 * Print the Main menu according to user type
+	 * 
+	 * @param user
+	 */
 	public static void printMenu(Comparable user)
 	{
 		printHeader(user);
@@ -35,6 +40,11 @@ public class Menu {
 		System.out.println("0. Exit");
 	}
 
+	/**
+	 * Print the header depending on user type
+	 * 
+	 * @param user
+	 */
 	public static void printHeader(Comparable user)
 	{
 		System.out.println("   _____   _____   _____   _____   _____   _____   _____  ");
@@ -58,6 +68,13 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Print the Table header according to different option
+	 * 
+	 * @param delimiter
+	 * @param table
+	 * @return
+	 */
 	public static String getTableHeader(String delimiter, String table)
 	{
 		String header = delimiter;
@@ -95,6 +112,13 @@ public class Menu {
 		return header;
 	}
 
+	/**
+	 * To form the border for the table
+	 * 
+	 * @param tabs
+	 * @param character
+	 * @return
+	 */
 	public static String getBar(int tabs, String character)
 	{
 		int count = 8 * tabs + 1;

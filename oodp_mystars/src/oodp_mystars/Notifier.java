@@ -8,7 +8,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
-
 import oodp_mystars.Enumerator.*;
 
 /**
@@ -16,14 +15,22 @@ import oodp_mystars.Enumerator.*;
  * @version 1.0
  * @since 2017-04-13
  */
-public class Notifier
-{
+public class Notifier {
 
+	/**
+	 * The credential for system's email
+	 */
 	private static String senderEmail = "cz2002.fsp2.agrp3@gmail.com";
 	private static String senderPassword = "Assignmentgrp3";
 
-	// Send notification to student to notify them that they are in waitlist or
-	// officially registered under course.
+	/**
+	 * Send notification to student to notify them that they are officially registered under course.
+	 * 
+	 * @param studentEmail
+	 * @param courseId
+	 * @param indexNo
+	 * @param message
+	 */
 	public static void sendEmail(String studentEmail, String courseId, int indexNo, Group_Status message)
 	{
 		// Setup Properties for the email session
@@ -34,14 +41,13 @@ public class Notifier
 		properties.setProperty("mail.smtp.starttls.enable", "true");
 
 		// Establish connection with the account you wish to login to
-		javax.mail.Session emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator()
-		{
+		javax.mail.Session emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication()
 			{
 				return new PasswordAuthentication(senderEmail, senderPassword);
 			}
 		});
-		
+
 		MimeMessage email;
 		try
 		{
@@ -76,13 +82,19 @@ public class Notifier
 			}
 			Transport.send(email);
 			System.out.println("[System] Mail have been sent successfully.");
-		} catch (MessagingException e)
+		}
+		catch (MessagingException e)
 		{
 			e.printStackTrace();
 			System.out.println("[System] Mail cannot be sent.");
 		}
 	}
 
+	/**
+	 * Send a SMS to the given phone number
+	 * 
+	 * @param phoneNo
+	 */
 	public static void sendSMS(String phoneNo)
 	{
 		System.out.println("SMS was sent to " + phoneNo);

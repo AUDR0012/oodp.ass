@@ -38,6 +38,9 @@ public class Course implements Serializable {
 	 */
 	private ArrayList<Group> groups;
 
+	/**
+	 * Default Constructor
+	 */
 	public Course()
 	{
 		this.id = null;
@@ -47,6 +50,15 @@ public class Course implements Serializable {
 		this.groups = new ArrayList<Group>();
 	}
 
+	/**
+	 * Constructor with parameter
+	 * 
+	 * @param id
+	 * @param name
+	 * @param type
+	 * @param credit
+	 * @param groups
+	 */
 	public Course(String id, String name, Course_Type type, int credit, ArrayList<Group> groups)
 	{
 		this.id = id;
@@ -56,6 +68,12 @@ public class Course implements Serializable {
 		this.groups = groups;
 	}
 
+	/**
+	 * Search for group within the course
+	 * 
+	 * @param indexNo
+	 * @return
+	 */
 	public Group findGroup(int indexNo)
 	{
 		for (Group gr : groups)
@@ -68,6 +86,12 @@ public class Course implements Serializable {
 		return null;
 	}
 
+	/**
+	 * Search for specified student within the course
+	 * 
+	 * @param matricNo
+	 * @return
+	 */
 	public boolean findStudent(String matricNo)
 	{
 		for (Group gr : groups)
@@ -80,11 +104,16 @@ public class Course implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Print course information
+	 * 
+	 * @param delimiter
+	 */
 	public void printCourse(String delimiter)
 	{
 		String bar = Menu.getBar(9, "="), header = Menu.getTableHeader(delimiter, "course");
 		System.out.println(bar + "\n" + header + "\n" + bar);
-		System.out.println(delimiter 
+		System.out.println(delimiter
 				+ Formatter.tabs(2, delimiter, this.getId())
 				+ Formatter.tabs(1, delimiter, String.valueOf(this.getCredit()))
 				+ Formatter.tabs(3, delimiter, this.getName())
@@ -92,9 +121,16 @@ public class Course implements Serializable {
 		System.out.println(bar);
 	}
 
+	/**
+	 * Print Course information
+	 * 
+	 * @param gr
+	 * @param delimiter
+	 * @param status
+	 */
 	public void printCourseGroup(String gr, String delimiter, String status)
 	{
-		System.out.print(delimiter 
+		System.out.print(delimiter
 				+ Formatter.tabs(2, delimiter, this.getId())
 				+ Formatter.tabs(1, delimiter, String.valueOf(this.getCredit()))
 				+ Formatter.tabs(3, delimiter, this.getName())
@@ -103,6 +139,13 @@ public class Course implements Serializable {
 				+ Formatter.tabs(3, delimiter, status));
 	}
 
+	/**
+	 * Print all the group that are in the course
+	 * 
+	 * @param gr1
+	 * @param gr2
+	 * @param delimiter
+	 */
 	public void printGroups(int gr1, int gr2, String delimiter)
 	{
 		String bar = Menu.getBar(12, "="), header = Menu.getTableHeader(delimiter, "group");
@@ -131,7 +174,11 @@ public class Course implements Serializable {
 		}
 	}
 
-	// Print all student in current course
+	/**
+	 * Get the list of student in the course
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getStudentList()
 	{
 		ArrayList<String> studentList = new ArrayList<String>();
@@ -142,6 +189,11 @@ public class Course implements Serializable {
 		return studentList;
 	}
 
+	/**
+	 * Get the number of student in the course
+	 * 
+	 * @return
+	 */
 	public int countStudentInGroups()
 	{
 		int count = 0;
@@ -152,6 +204,11 @@ public class Course implements Serializable {
 		return count;
 	}
 
+	/**
+	 * Add group to the course
+	 * 
+	 * @param gr
+	 */
 	public void addGroup(Group gr)
 	{
 		boolean duplicate = false;
@@ -169,53 +226,91 @@ public class Course implements Serializable {
 		}
 	}
 
+	/**
+	 * @return the id
+	 */
 	public String getId()
 	{
 		return id;
 	}
 
+	/**
+	 * @param id
+	 *            the id to set
+	 */
 	public void setId(String id)
 	{
 		this.id = id;
 	}
 
+	/**
+	 * @return the name
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * @param name
+	 *            the name to set
+	 */
 	public void setName(String name)
 	{
 		this.name = name;
 	}
 
+	/**
+	 * @return the type
+	 */
 	public String getType()
+	// public Course_Type getType()
 	{
 		return Enumerator.string(type);
+		// return type;
 	}
 
+	/**
+	 * @param type
+	 *            the type to set
+	 */
 	public void setType(Course_Type type)
 	{
 		this.type = type;
 	}
 
+	/**
+	 * @return the credit
+	 */
 	public int getCredit()
 	{
 		return credit;
 	}
 
+	/**
+	 * @param credit
+	 *            the credit to set
+	 */
 	public void setCredit(int credit)
 	{
 		this.credit = credit;
 	}
 
+	/**
+	 * @return the groups
+	 */
 	public ArrayList<Group> getGroups()
 	{
 		return groups;
 	}
 
+	/**
+	 * @param groups
+	 *            the groups to set
+	 */
 	public void setGroups(ArrayList<Group> groups)
 	{
 		this.groups = groups;
 	}
+
 }

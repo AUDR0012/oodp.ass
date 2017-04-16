@@ -14,9 +14,14 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2017-04-13
  */
-public class FileIO
-{
+public class FileIO {
 
+	/**
+	 * Read Object from file
+	 * 
+	 * @param filename
+	 * @return
+	 */
 	public static Object readSerializedObject(String filename)
 	{
 		Object pDetails = null;
@@ -30,16 +35,24 @@ public class FileIO
 			in = new ObjectInputStream(bis);
 			pDetails = in.readObject();
 			in.close();
-		} catch (IOException ex)
+		}
+		catch (IOException ex)
 		{
 			ex.printStackTrace();
-		} catch (ClassNotFoundException ex)
+		}
+		catch (ClassNotFoundException ex)
 		{
 			ex.printStackTrace();
 		}
 		return pDetails;
 	}
 
+	/**
+	 * Write object to file
+	 * 
+	 * @param filename
+	 * @param obj
+	 */
 	public static void writeSerializedObject(String filename, Object obj)
 	{
 		FileOutputStream fos = null;
@@ -52,12 +65,19 @@ public class FileIO
 			out = new ObjectOutputStream(fos);
 			out.writeObject(obj);
 			out.close();
-		} catch (IOException ex)
+		}
+		catch (IOException ex)
 		{
 			ex.printStackTrace();
 		}
 	}
 
+	/**
+	 * Retrieve information
+	 * 
+	 * @param userList
+	 * @param courseList
+	 */
 	public static void readData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{
 		// Logger
@@ -71,6 +91,12 @@ public class FileIO
 		courseList.addAll((ArrayList<Course>) FileIO.readSerializedObject("list_course"));
 	}
 
+	/**
+	 * Write info
+	 * 
+	 * @param userList
+	 * @param courseList
+	 */
 	public static void writeData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{
 		FileIO.writeSerializedObject("list_user", userList);

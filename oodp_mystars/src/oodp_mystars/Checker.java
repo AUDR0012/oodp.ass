@@ -4,9 +4,23 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import oodp_mystars.Enumerator.*;
 
-public class Checker
-{
+/**
+ * 
+ * 
+ * @author Audrey KinSum Kelvin JianHao
+ * @version 1.0
+ * @since 2017-04-13
+ */
+public class Checker {
 
+	/**
+	 * Check overlap between overlap
+	 * 
+	 * @param registeredGroup
+	 * @param newGroup
+	 * @param exclude
+	 * @return
+	 */
 	public static boolean isOverlap(Group registeredGroup, Group newGroup, Group exclude)
 	{
 		if (exclude != null)
@@ -30,6 +44,13 @@ public class Checker
 		return false;
 	}
 
+	/**
+	 * Check overlap between session
+	 * 
+	 * @param session1
+	 * @param session2
+	 * @return
+	 */
 	public static boolean isOverlap(Session session1, Session session2)
 	{
 		if (session1.getDay().equals(session2.getDay())
@@ -37,21 +58,21 @@ public class Checker
 						|| session1.getAlternateWeek().equals(Alternate_Week.NONE)
 						|| session2.getAlternateWeek().equals(Alternate_Week.NONE)))
 		{
-			if ((session1.getSTime().equals(session2.getSTime()) && session1.getETime().equals(session2.getETime())) 	/* session1 [__] 
+			if ((session1.getSTime().equals(session2.getSTime()) && session1.getETime().equals(session2.getETime())) /* session1 [__] 
 																														 * session2 [__]
 																														 */
-				|| (session1.getSTime().before(session2.getSTime()) && session1.getETime().after(session2.getSTime()))	/* session1 [__] 
-																														 * session2   [__]
-																														 */
-				|| (session1.getSTime().before(session2.getETime()) && session1.getETime().after(session2.getETime()))	/* session1   [__] 
-																														 * session2 [__]
-																														 */
-				|| (session1.getSTime().after(session2.getSTime()) && session1.getETime().before(session2.getETime()))	/* session1   [__] 
-																														 * session2 [______]
-																														 */
-				|| (session1.getSTime().before(session2.getSTime()) && session1.getETime().after(session2.getETime())))	/* session1 [______] 
-																														 * session2   [__]
-																														 */
+					|| (session1.getSTime().before(session2.getSTime()) && session1.getETime().after(session2.getSTime())) /* session1 [__] 
+																															 * session2   [__]
+																															 */
+					|| (session1.getSTime().before(session2.getETime()) && session1.getETime().after(session2.getETime())) /* session1   [__] 
+																															 * session2 [__]
+																															 */
+					|| (session1.getSTime().after(session2.getSTime()) && session1.getETime().before(session2.getETime())) /* session1   [__] 
+																															 * session2 [______]
+																															 */
+					|| (session1.getSTime().before(session2.getSTime()) && session1.getETime().after(session2.getETime()))) /* session1 [______] 
+																															 * session2   [__]
+																															 */
 			{
 				return true;
 			}
@@ -59,6 +80,13 @@ public class Checker
 		return false;
 	}
 
+	/**
+	 * Check if the course already exist
+	 * 
+	 * @param courseList
+	 * @param indexNo
+	 * @return
+	 */
 	public static boolean isDuplicate(ArrayList<Course> courseList, int indexNo)
 	{
 		for (Course co : courseList)
@@ -75,6 +103,11 @@ public class Checker
 		return false;
 	}
 
+	/**
+	 * Check if the email is in correct format
+	 * @param email
+	 * @return
+	 */
 	public static boolean emailValid(String email)
 	{
 		// "^(.+)@(.+)$"

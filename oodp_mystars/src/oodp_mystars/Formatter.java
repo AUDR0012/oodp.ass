@@ -18,6 +18,12 @@ import java.util.regex.Pattern;
  */
 public class Formatter {
 
+	/**
+	 * Convert clear text password to hashed
+	 * 
+	 * @param password
+	 * @return
+	 */
 	public static String hashPassword(String password)
 	{
 		try
@@ -33,6 +39,13 @@ public class Formatter {
 		}
 	}
 
+	/**
+	 * Parse string to date based on format given
+	 * 
+	 * @param dateTime
+	 * @param format
+	 * @return
+	 */
 	public static Date getDate(String dateTime, String format)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -52,6 +65,12 @@ public class Formatter {
 		return null;
 	}
 
+	/**
+	 * Prompt user for input for adding of date
+	 * 
+	 * @param type
+	 * @return
+	 */
 	public static Date enterDateTime(String type)
 	{
 		int day = 0, month = 0, year = 0, hour = 0, minute = 0;
@@ -72,11 +91,25 @@ public class Formatter {
 				+ minute, "dd-MM-yyyy hh:mm");
 	}
 
+	/**
+	 * Adding hours to the date given
+	 * 
+	 * @param date
+	 * @param hours
+	 * @return
+	 */
 	public static Date addHours(Date date, int hours)
 	{
 		return new Date(date.getTime() + TimeUnit.HOURS.toMillis(hours));
 	}
 
+	/**
+	 * Parse string to date based on format given
+	 * 
+	 * @param dateTime
+	 * @param format
+	 * @return
+	 */
 	public static String getString(Date dateTime, String format)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -86,15 +119,32 @@ public class Formatter {
 			return "";
 	}
 
-	public static String getTimePeriod(Date time1, Date time2, String format, String joint)
+	/**
+	 * Gets string of 2 date joint together based on format given
+	 * 
+	 * @param date1
+	 * @param date2
+	 * @param format
+	 * @param joint
+	 * @return
+	 */
+	public static String getPeriod(Date date1, Date date2, String format, String joint)
 	{
-		if (!Objects.equals(null, time1) && !Objects.equals(null, time2))
+		if (!Objects.equals(null, date1) && !Objects.equals(null, date2))
 		{
-			return Formatter.getString(time1, format) + joint + Formatter.getString(time2, format);
+			return Formatter.getString(date1, format) + joint + Formatter.getString(date2, format);
 		}
 		return "";
 	}
 
+	/**
+	 * Adding tabs to text fit column
+	 * 
+	 * @param count
+	 * @param delimiter
+	 * @param text
+	 * @return
+	 */
 	public static String tabs(int count, String delimiter, String text)
 	{
 		int length = 8;
@@ -108,11 +158,25 @@ public class Formatter {
 		return text + tabs + delimiter;
 	}
 
-	public static String replaceString(String text, String tCur, String tNew)
+	/**
+	 * Replace c1 with c2 that is found in text
+	 * 
+	 * @param text
+	 * @param c1
+	 * @param c2
+	 * @return
+	 */
+	public static String replaceString(String text, String c1, String c2)
 	{
-		return text.replaceAll(tCur, tNew);
+		return text.replaceAll(c1, c2);
 	}
 
+	/**
+	 * Loops till user input a integer
+	 * 
+	 * @param message
+	 * @return
+	 */
 	public static int getIntegerInput(String message)
 	{
 		Scanner in = new Scanner(System.in);
@@ -138,6 +202,14 @@ public class Formatter {
 		}
 	}
 
+	/**
+	 * Checks if item is within the range
+	 * 
+	 * @param item
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	public static int withinRange(String item, int min, int max)
 	{
 		int input;

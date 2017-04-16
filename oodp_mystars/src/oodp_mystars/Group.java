@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
-
 import oodp_mystars.Enumerator.*;
 
 /**
@@ -14,8 +13,7 @@ import oodp_mystars.Enumerator.*;
  * @version 1.0
  * @since 2017-04-13
  */
-public class Group implements Serializable
-{
+public class Group implements Serializable {
 	/**
 	 * The index number of this Group
 	 */
@@ -41,6 +39,9 @@ public class Group implements Serializable
 	 */
 	private ArrayList<String> waitlist;
 
+	/**
+	 * Default constructor
+	 */
 	public Group()
 	{
 		this.indexNo = 0;
@@ -50,6 +51,13 @@ public class Group implements Serializable
 		this.waitlist = new ArrayList<String>();
 	}
 
+	/**
+	 * Constructor with specified parameter
+	 * 
+	 * @param indexNo
+	 * @param vacancy
+	 * @param sessions
+	 */
 	public Group(int indexNo, int vacancy, ArrayList<Session> sessions)
 	{
 		this.indexNo = indexNo;
@@ -59,6 +67,12 @@ public class Group implements Serializable
 		this.waitlist = new ArrayList<String>();
 	}
 
+	/**
+	 * Get the course that this group is currently in
+	 * 
+	 * @param courseList
+	 * @return
+	 */
 	public Course getCourse(ArrayList<Course> courseList)
 	{
 		for (Course co : courseList)
@@ -71,6 +85,12 @@ public class Group implements Serializable
 		return null;
 	}
 
+	/**
+	 * Add student to the group
+	 * 
+	 * @param matricNumber
+	 * @return
+	 */
 	public Group_Status addStudentToGroup(String matricNumber)
 	{
 		if (vacancy > 0)
@@ -78,13 +98,20 @@ public class Group implements Serializable
 			registered.add(matricNumber);
 			vacancy--;
 			return Group_Status.REGISTERED;
-		} else
+		}
+		else
 		{
 			waitlist.add(matricNumber);
 			return Group_Status.WAITLIST;
 		}
 	}
 
+	/**
+	 * Remove student from the group
+	 * 
+	 * @param matricNumber
+	 * @return
+	 */
 	public Group_Status dropStudent(String matricNumber)
 	{
 		if (Enumerator.string(Group_Status.WAITLIST).equals(this.findStudent(matricNumber, "status")))
@@ -98,7 +125,8 @@ public class Group implements Serializable
 				}
 			}
 			return Group_Status.WAITLIST;
-		} else
+		}
+		else
 		{
 			for (String r : registered)
 			{
@@ -113,6 +141,12 @@ public class Group implements Serializable
 		}
 	}
 
+	/**
+	 * Update the waitlist of the group
+	 * 
+	 * @param studentList
+	 * @param courseList
+	 */
 	public void updateWaitlist(ArrayList<Student> studentList, ArrayList<Course> courseList)
 	{
 		while (waitlist.size() > 0 && vacancy > 0)
@@ -131,17 +165,31 @@ public class Group implements Serializable
 		}
 	}
 
+	/**
+	 * Notify student that move to registered from the waitlist
+	 * 
+	 * @param student
+	 * @param courseList
+	 */
 	public void notify(Student student, ArrayList<Course> courseList)
 	{
 		if (student.getNotification().equals(Enumerator.string(Notification_Status.SMS)))
 		{
 			Notifier.sendSMS(student.getPhoneNo());
-		} else
+		}
+		else
 		{
 			Notifier.sendEmail(student.getEmail(), this.getCourse(courseList).getId(), indexNo, Group_Status.REGISTERED); // Change
 		}
 	}
 
+	/**
+	 * Find the student that are currently in the group
+	 * 
+	 * @param matricNo
+	 * @param returning
+	 * @return
+	 */
 	public Comparable findStudent(String matricNo, String returning)
 	{
 		Group_Status status = Group_Status.NOT_FOUND;
@@ -162,6 +210,12 @@ public class Group implements Serializable
 		return returning.equals("boolean") ? status != Group_Status.NOT_FOUND : Enumerator.string(status);
 	}
 
+	/**
+	 * Add a session for the group
+	 * 
+	 * @param index
+	 * @return
+	 */
 	public Session addSession(int index)
 	{
 		Scanner in = new Scanner(System.in);
@@ -169,7 +223,8 @@ public class Group implements Serializable
 		if (index == -1)
 		{
 			session = new Session();
-		} else
+		}
+		else
 		{
 			session = this.getSessions().get(index);
 		}
@@ -191,7 +246,6 @@ public class Group implements Serializable
 		session.setVenue(in.nextLine());
 		// Remark
 		System.out.print("Enter Remarks: ");
-		in.nextLine(); // TODO: Necessary?
 		session.setRemark(in.nextLine());
 
 		for (Session se : this.getSessions())
@@ -209,53 +263,89 @@ public class Group implements Serializable
 		return session;
 	}
 
+	/**
+	 * @return the indexNo
+	 */
 	public int getIndexNo()
 	{
 		return indexNo;
 	}
 
+	/**
+	 * @param indexNo
+	 *            the indexNo to set
+	 */
 	public void setIndexNo(int indexNo)
 	{
 		this.indexNo = indexNo;
 	}
 
+	/**
+	 * @return the vacancy
+	 */
 	public int getVacancy()
 	{
 		return vacancy;
 	}
 
+	/**
+	 * @param vacancy
+	 *            the vacancy to set
+	 */
 	public void setVacancy(int vacancy)
 	{
 		this.vacancy = vacancy;
 	}
 
+	/**
+	 * @return the sessions
+	 */
 	public ArrayList<Session> getSessions()
 	{
 		return sessions;
 	}
 
+	/**
+	 * @param sessions
+	 *            the sessions to set
+	 */
 	public void setSessions(ArrayList<Session> sessions)
 	{
 		this.sessions = sessions;
 	}
 
+	/**
+	 * @return the registered
+	 */
 	public ArrayList<String> getRegistered()
 	{
 		return registered;
 	}
 
+	/**
+	 * @param registered
+	 *            the registered to set
+	 */
 	public void setRegistered(ArrayList<String> registered)
 	{
 		this.registered = registered;
 	}
 
+	/**
+	 * @return the waitlist
+	 */
 	public ArrayList<String> getWaitlist()
 	{
 		return waitlist;
 	}
 
+	/**
+	 * @param waitlist
+	 *            the waitlist to set
+	 */
 	public void setWaitlist(ArrayList<String> waitlist)
 	{
 		this.waitlist = waitlist;
 	}
+
 }
