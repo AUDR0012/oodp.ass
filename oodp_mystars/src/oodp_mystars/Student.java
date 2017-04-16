@@ -92,9 +92,9 @@ public class Student implements Comparable, Serializable
 		this.registeredGroup = new ArrayList<Integer>();
 	}
 
-	public void printInfo(String delimiter)
+	public void printStudent(String delimiter)
 	{
-		System.out.println(delimiter + Formatter.tabs(3, delimiter, this.getName())
+		System.out.print(delimiter + Formatter.tabs(3, delimiter, this.getName())
 				+ Formatter.tabs(1, delimiter, this.getGender())
 				+ Formatter.tabs(2, delimiter, this.getNationality()));
 	}
@@ -133,7 +133,7 @@ public class Student implements Comparable, Serializable
 	public void printCourses(ArrayList<Course> courseList, String delimiter)
 	{
 		int total_au = 0;
-		String bar = Menu.getBar(97, "="), header = Menu.getTableHeader(delimiter, "coursegroup");
+		String bar = Menu.getBar(12, "="), header = Menu.getTableHeader(delimiter, "coursegroup");
 		System.out.println(bar + "\n" + header + "\n" + bar);
 		for (int gr : registeredGroup)
 		{

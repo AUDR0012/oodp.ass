@@ -62,23 +62,23 @@ public class Menu {
 	{
 		String header = delimiter;
 		if (table.equals("course"))
-		{
+		{ //8 tabs
 			header += Formatter.tabs(2, delimiter, "Course")
 					+ Formatter.tabs(1, delimiter, "AU")
 					+ Formatter.tabs(3, delimiter, "Title")
 					+ Formatter.tabs(2, delimiter, "Course Type");
 		}
 		else if (table.equals("coursegroup"))
-		{
+		{ //12 tabs
 			header += Formatter.tabs(2, delimiter, "Course")
 					+ Formatter.tabs(1, delimiter, "AU")
 					+ Formatter.tabs(3, delimiter, "Title")
 					+ Formatter.tabs(2, delimiter, "Course Type")
-					+ Formatter.tabs(1, delimiter, "Index") 
+					+ Formatter.tabs(1, delimiter, "Index")
 					+ Formatter.tabs(3, delimiter, "Status");
 		}
 		else if (table.equals("group"))
-		{
+		{ //12 tabs
 			header += Formatter.tabs(2, delimiter, "Class Type")
 					+ Formatter.tabs(1, delimiter, "Group")
 					+ Formatter.tabs(2, delimiter, "Day")
@@ -87,7 +87,7 @@ public class Menu {
 					+ Formatter.tabs(3, delimiter, "Remark");
 		}
 		else if (table.equals("student"))
-		{
+		{ //6 tabs
 			header += Formatter.tabs(3, delimiter, "Name")
 					+ Formatter.tabs(1, delimiter, "Gender")
 					+ Formatter.tabs(2, delimiter, "Nationality");
@@ -95,8 +95,9 @@ public class Menu {
 		return header;
 	}
 
-	public static String getBar(int count, String character)
+	public static String getBar(int tabs, String character)
 	{
+		int count = 8 * tabs + 1;
 		String bar = character;
 		for (int i = 1; i < count; i++)
 		{

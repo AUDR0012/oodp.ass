@@ -30,9 +30,8 @@ public class MySTARS {
 		int option = 0, in_int1 = 0, in_int2 = 0, in_int3 = 0;
 		int choice1 = 0, choice2 = 0;
 		String in_string;
-		boolean found, alreadyExist, overlap;
-		
-		
+		boolean alreadyExist, overlap;
+
 		//Developer.addData(userList, courseList);
 		do
 		{
@@ -139,8 +138,7 @@ public class MySTARS {
 						{
 							if (course.getId() != null)
 							{
-								System.out.println(
-										"Course Id " + course.getId().toUpperCase() + " has already been used.");
+								System.out.println("Course Id " + course.getId().toUpperCase() + " has already been used.");
 							}
 							System.out.print("Enter Course Id: ");
 							course.setId(in.next());
@@ -427,16 +425,19 @@ public class MySTARS {
 						{
 							if (group1.getRegistered().size() > 0)
 							{
+								String bar = Menu.getBar(6, "="), header = Menu.getTableHeader(PARSE_DELIMITER, "student");
+								System.out.println(bar + "\n" + header + "\n" + bar);
 								for (Student std : getStudentList(userList))
 								{
 									for (String registered : group1.getRegistered())
 									{
 										if (std.getMatricNo().equalsIgnoreCase(registered))
 										{
-											std.printInfo(PARSE_DELIMITER);
+											std.printStudent(PARSE_DELIMITER);
 										}
 									}
 								}
+								System.out.println(bar);
 							}
 							else
 							{
@@ -458,21 +459,27 @@ public class MySTARS {
 						{
 							if (course.countStudentInGroups() > 0)
 							{
+								String bar = Menu.getBar(6, "="), header = Menu.getTableHeader(PARSE_DELIMITER, "student");
+								System.out.println(bar + "\n" + header + "\n" + bar);
 								for (String registered : course.getStudentList())
 								{
 									for (Student student : getStudentList(userList))
 									{
 										if (student.getMatricNo().equalsIgnoreCase(registered))
 										{
-											student.printInfo(PARSE_DELIMITER);
+											student.printStudent(PARSE_DELIMITER);
+											System.out.println();
 										}
 									}
 								}
-							} else
+								System.out.println(bar);
+							}
+							else
 							{
 								System.out.println("Course Id " + in_string.toUpperCase() + " has no students.");
 							}
-						} else
+						}
+						else
 						{
 							System.out.println("Course Id " + in_string.toUpperCase() + " is not found.");
 						}
@@ -570,7 +577,7 @@ public class MySTARS {
 								}
 								else
 								{
-									System.out.println("Overlaps with an session already registered.");
+									System.out.println("Overlaps with an group already registered.");
 								}
 							}
 							else
@@ -714,10 +721,10 @@ public class MySTARS {
 													if (group2.getIndexNo() != group1.getIndexNo())
 													{
 														System.out.println("Subject: " + course.getId());
-														System.out.println(Formatter.tabs(11, "", "Current Index Number: " + String.valueOf(group1.getIndexNo()))
+														System.out.println(Formatter.tabs(13, "", "Current Index Number: " + String.valueOf(group1.getIndexNo()))
 																+ "New Index Number: " + String.valueOf(group2.getIndexNo()));
 														course.printGroups(group1.getIndexNo(), group2.getIndexNo(), PARSE_DELIMITER);
-														System.out.println(Formatter.tabs(6, "", "Subject Type: " + course.getType()) + "Status: " + Enumerator.string(Group_Status.REGISTERED));
+														System.out.println(Formatter.tabs(7, "", "Subject Type: " + course.getType()) + "Status: " + Enumerator.string(Group_Status.REGISTERED));
 														System.out.print("Confirm to Change Index Number? (Y/N) ");
 														if (in.next().equalsIgnoreCase("Y"))
 														{
@@ -741,7 +748,7 @@ public class MySTARS {
 												}
 												else
 												{
-													System.out.println("Overlaps with an session already registered.");
+													System.out.println("Overlaps with an group already registered.");
 												}
 											}
 											else
@@ -825,7 +832,7 @@ public class MySTARS {
 										{
 											// Check overlap
 											overlap = false;
-											overlapCheckLoop: for (Course c : courseList)	//TODO: Check if overlap how
+											overlapCheckLoop: for (Course c : courseList)
 											{
 												for (Group g1 : c.getGroups())
 												{
@@ -836,6 +843,7 @@ public class MySTARS {
 															overlap = Checker.isOverlap(g1, group2, c.findGroup(in_int1));
 															if (overlap)
 															{
+																System.out.println("Student " + student.getMatricNo() + " has an group that overlaps.");
 																break overlapCheckLoop;
 															}
 														}
@@ -848,41 +856,44 @@ public class MySTARS {
 															overlap = Checker.isOverlap(group2, group1, c.findGroup(in_int2));
 															if (overlap)
 															{
+																System.out.println("Student " + ((Student) peer).getMatricNo() + " has an group that overlaps.");
 																break overlapCheckLoop;
 															}
 														}
 													}
 												}
 											} // Overlapcheck loop
-
-											if (group1.getIndexNo() != group2.getIndexNo())
+											if (!overlap)
 											{
-												System.out.println("Subject: " + course.getId());
-												System.out.println(Formatter.tabs(11, "", "Student #1 ") + "Student #2");
-												System.out.println(Formatter.tabs(11, "", "Matric Number: " + student.getMatricNo() + " Index Number: " + group1.getIndexNo())
-														+ "Matric Number: " + ((Student) peer).getMatricNo() + " Index Number: " + group2.getIndexNo());
-												course.printGroups(group1.getIndexNo(), group2.getIndexNo(), PARSE_DELIMITER);
-												System.out.println(Formatter.tabs(11, "", "Subject Type: " + course.getType()) + "Subject Type: " + course.getType());
-												System.out.print("Confirm to Swop Index Number? (Y/N) ");
-												if (in.next().equalsIgnoreCase("Y"))
+												if (group1.getIndexNo() != group2.getIndexNo())
 												{
-													group1.dropStudent(student.getMatricNo());
-													group2.dropStudent(((Student) peer).getMatricNo());
+													System.out.println("Subject: " + course.getId());
+													System.out.println(Formatter.tabs(13, "", "Student #1 ") + "Student #2");
+													System.out.println(Formatter.tabs(13, "", "Matric Number: " + student.getMatricNo() + Menu.getBar(2, " ") + "Index Number: " + group1.getIndexNo())
+															+ "Matric Number: " + ((Student) peer).getMatricNo() + Menu.getBar(2, " ") + "Index Number: " + group2.getIndexNo());
+													course.printGroups(group1.getIndexNo(), group2.getIndexNo(), PARSE_DELIMITER);
+													System.out.println(Formatter.tabs(13, "", "Subject Type: " + course.getType()) + "Subject Type: " + course.getType());
+													System.out.print("Confirm to Swop Index Number? (Y/N) ");
+													if (in.next().equalsIgnoreCase("Y"))
+													{
+														group1.dropStudent(student.getMatricNo());
+														group2.dropStudent(((Student) peer).getMatricNo());
 
-													group1.addStudentToGroup(((Student) peer).getMatricNo());
-													group2.addStudentToGroup(student.getMatricNo());
+														group1.addStudentToGroup(((Student) peer).getMatricNo());
+														group2.addStudentToGroup(student.getMatricNo());
 
-													student.replaceGroup(group1.getIndexNo(), group2.getIndexNo());
-													((Student) peer).replaceGroup(group2.getIndexNo(), group1.getIndexNo());
+														student.replaceGroup(group1.getIndexNo(), group2.getIndexNo());
+														((Student) peer).replaceGroup(group2.getIndexNo(), group1.getIndexNo());
+													}
+													else
+													{
+														System.out.println(student.getMatricNo() + " and " + ((Student) peer).getMatricNo() + " is not swoped");
+													}
 												}
 												else
 												{
-													System.out.println(student.getMatricNo() + " and " + ((Student) peer).getMatricNo() + " is not swoped");
+													System.out.println("You are already in this group.");
 												}
-											}
-											else
-											{
-												System.out.println("You are already in this group.");
 											}
 										}
 										else
