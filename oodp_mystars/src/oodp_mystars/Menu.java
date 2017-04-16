@@ -62,23 +62,23 @@ public class Menu {
 	{
 		String header = delimiter;
 		if (table.equals("course"))
-		{ //8 tabs
+		{ //9 tabs
 			header += Formatter.tabs(2, delimiter, "Course")
 					+ Formatter.tabs(1, delimiter, "AU")
 					+ Formatter.tabs(3, delimiter, "Title")
-					+ Formatter.tabs(2, delimiter, "Course Type");
+					+ Formatter.tabs(3, delimiter, "Course Type");
 		}
 		else if (table.equals("coursegroup"))
-		{ //12 tabs
+		{ //13 tabs
 			header += Formatter.tabs(2, delimiter, "Course")
 					+ Formatter.tabs(1, delimiter, "AU")
 					+ Formatter.tabs(3, delimiter, "Title")
-					+ Formatter.tabs(2, delimiter, "Course Type")
+					+ Formatter.tabs(3, delimiter, "Course Type")
 					+ Formatter.tabs(1, delimiter, "Index")
 					+ Formatter.tabs(3, delimiter, "Status");
 		}
 		else if (table.equals("group"))
-		{ //12 tabs
+		{ //13 tabs
 			header += Formatter.tabs(2, delimiter, "Class Type")
 					+ Formatter.tabs(1, delimiter, "Group")
 					+ Formatter.tabs(2, delimiter, "Day")

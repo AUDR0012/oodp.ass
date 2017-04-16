@@ -133,7 +133,7 @@ public class Student implements Comparable, Serializable
 	public void printCourses(ArrayList<Course> courseList, String delimiter)
 	{
 		int total_au = 0;
-		String bar = Menu.getBar(12, "="), header = Menu.getTableHeader(delimiter, "coursegroup");
+		String bar = Menu.getBar(13, "="), header = Menu.getTableHeader(delimiter, "coursegroup");
 		System.out.println(bar + "\n" + header + "\n" + bar);
 		for (int gr : registeredGroup)
 		{

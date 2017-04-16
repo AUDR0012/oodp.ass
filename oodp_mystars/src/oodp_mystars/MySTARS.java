@@ -215,7 +215,6 @@ public class MySTARS {
 									System.out.println("Current Course Type: " + course.getType());
 									System.out.println("New Course Type: "); //TODO: Necessary?
 									course.setType(Enumerator.nextEnum(Course_Type.class));
-									course.setName(in.nextLine());
 
 									// Course Credits
 									System.out.println("Current Credits: " + course.getCredit());

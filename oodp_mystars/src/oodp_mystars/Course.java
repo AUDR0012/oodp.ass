@@ -82,7 +82,7 @@ public class Course implements Serializable {
 
 	public void printCourse(String delimiter)
 	{
-		String bar = Menu.getBar(8, "="), header = Menu.getTableHeader(delimiter, "course");
+		String bar = Menu.getBar(9, "="), header = Menu.getTableHeader(delimiter, "course");
 		System.out.println(bar + "\n" + header + "\n" + bar);
 		System.out.println(delimiter 
 				+ Formatter.tabs(2, delimiter, this.getId())
