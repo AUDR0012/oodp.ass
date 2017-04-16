@@ -11,6 +11,8 @@ import javax.mail.internet.MimeMessage.RecipientType;
 import oodp_mystars.Enumerator.*;
 
 /**
+ * Represent a class that handles email and SMS functions
+ * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
  * @since 2017-04-13
@@ -27,9 +29,13 @@ public class Notifier {
 	 * Send notification to student to notify them that they are officially registered under course.
 	 * 
 	 * @param studentEmail
+	 *            The email address of the student to be notified
 	 * @param courseId
+	 *            The course in to be display in the email
 	 * @param indexNo
+	 *            The index number of the group to be displayed in the email
 	 * @param message
+	 *            The type of message that is to be sent
 	 */
 	public static void sendEmail(String studentEmail, String courseId, int indexNo, Group_Status message)
 	{
@@ -94,6 +100,7 @@ public class Notifier {
 	 * Send a SMS to the given phone number
 	 * 
 	 * @param phoneNo
+	 *            The phone number of student that the system will send notification to
 	 */
 	public static void sendSMS(String phoneNo)
 	{

@@ -7,6 +7,8 @@ import java.util.Scanner;
 import oodp_mystars.Enumerator.*;
 
 /**
+ * Represent the class where program start and main logic is located
+ * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
  * @since 2017-04-13
@@ -32,7 +34,6 @@ public class MySTARS {
 		String in_string, bar, header;
 		boolean alreadyExist, overlap;
 
-		//Developer.addData(userList, courseList);
 		do
 		{
 			if (userList.isEmpty() || courseList.isEmpty())
@@ -130,7 +131,7 @@ public class MySTARS {
 
 						userList.add(newLogger);
 						System.out.println("New user has been added");
-						
+
 						bar = Menu.getBorder(57, "=");
 						header = Menu.getTableHeader(PARSE_DELIMITER, "student");
 						System.out.println(bar + "\n" + header + "\n" + bar);
@@ -186,21 +187,16 @@ public class MySTARS {
 							{
 								System.out.println("Group #" + course.getGroups().size() + 1
 										+ " Session #" + group1.getSessions().size() + 1);
-								if (!Objects.equals(null, session = group1.addSession(-1)))
+								if (group1.addSession(-1))
 								{
-									group1.getSessions().add(session);
 									break;
-								}
-								else
-								{
-									System.out.println("Session overlaps with an session in this Group.");
 								}
 							}
 							course.addGroup(group1);
 						}
 						courseList.add(course);
 						System.out.println("New course has been added.");
-						
+
 						bar = Menu.getBorder(73, "=");
 						header = Menu.getTableHeader(PARSE_DELIMITER, "course");
 						System.out.println(bar + "\n" + header + "\n" + bar);
@@ -324,16 +320,11 @@ public class MySTARS {
 													}
 													case 2:
 													{ // Add Session
-														if (!Objects.equals(null, session = group1.addSession(-1)))
+														if (group1.addSession(-1))
 														{
-															group1.getSessions().add(session);
 															System.out.println("Session has been added.");
 
 															FileIO.writeData(userList, courseList);
-														}
-														else
-														{
-															System.out.println("Session overlaps with an session in this Group.");
 														}
 														break editGroupLoop;
 													}
@@ -353,16 +344,11 @@ public class MySTARS {
 														System.out.println("\t\t\t0. Back");
 														if ((choice2 = Formatter.withinRange("choice", 0, group1.getSessions().size())) != 0)
 														{
-															if (Objects.equals(null, session = group1.addSession(choice2 - 1)))
+															if (group1.addSession(choice2 - 1))
 															{
-																group1.getSessions().set(choice2 - 1, session);
 																System.out.println("Session is updated.");
 
 																FileIO.writeData(userList, courseList);
-															}
-															else
-															{
-																System.out.println("Session overlaps with an session in this Group.");
 															}
 														}
 														break editGroupLoop;
@@ -509,7 +495,7 @@ public class MySTARS {
 
 						if (!Objects.equals(null, course = courseExist(courseList, in_string)))
 						{
-							if (course.countStudentInGroups() > 0)
+							if (course.getStudentList().size() > 0)
 							{
 								bar = Menu.getBorder(57, "=");
 								header = Menu.getTableHeader(PARSE_DELIMITER, "student");
@@ -592,7 +578,7 @@ public class MySTARS {
 										}
 										else
 										{
-											if (Checker.isOverlap(c.findGroup(registeredIndex), group1, null))
+											if (Checker.overlapGroup(c.findGroup(registeredIndex), group1, null))
 											{
 												overlap = true;
 												break checkOverlapLoop;
@@ -658,7 +644,7 @@ public class MySTARS {
 										+ "Course: " + course.getId());
 								course.printGroups(group1.getIndexNo(), -1, PARSE_DELIMITER);
 								System.out.println(Formatter.tabs(5, "", "Course Type: " + course.getType())
-										+ "Status: " + group1.findStudent(student.getMatricNo(), "status"));
+										+ "Status: " + group1.findStudentStatus(student.getMatricNo()));
 
 								System.out.print("Confirm to Drop Course? (Y/N) ");
 
@@ -742,7 +728,7 @@ public class MySTARS {
 							if (student.getRegisteredGroup().contains(group1.getIndexNo()))
 							{
 								if (Enumerator.string(Group_Status.REGISTERED)
-										.equals(group1.findStudent(student.getMatricNo(), "status")))
+										.equals(group1.findStudentStatus(student.getMatricNo())))
 								{
 									in_int2 = Formatter.getIntegerInput("Enter New Index Number of Group: ");
 									if (in_int1 != in_int2)
@@ -761,7 +747,7 @@ public class MySTARS {
 														{
 															if (rg == g1.getIndexNo())
 															{
-																overlap = Checker.isOverlap(g1, group2, course.findGroup(in_int1));
+																overlap = Checker.overlapGroup(g1, group2, course.findGroup(in_int1));
 																if (overlap)
 																{
 																	break;
@@ -868,7 +854,7 @@ public class MySTARS {
 						}
 						if (student.getRegisteredGroup().contains(in_int1))
 						{
-							if (Enumerator.string(Group_Status.REGISTERED).equals(group1.findStudent(student.getMatricNo(), "status")))
+							if (Enumerator.string(Group_Status.REGISTERED).equals(group1.findStudentStatus(student.getMatricNo())))
 							{
 								System.out.println("Please ask your Peer to Log in");
 								if (!Objects.equals(null, peer = login(userList)) && peer instanceof Student)
@@ -884,7 +870,7 @@ public class MySTARS {
 												break;
 											}
 										}
-										if (Enumerator.string(Group_Status.REGISTERED).equals(group2.findStudent(((Student) peer).getMatricNo(), "status")))
+										if (Enumerator.string(Group_Status.REGISTERED).equals(group2.findStudentStatus(((Student) peer).getMatricNo())))
 										{
 											//Check for different course
 											if (group1.getCourse(courseList).getId().equalsIgnoreCase(group2.getCourse(courseList).getId()))
@@ -899,7 +885,7 @@ public class MySTARS {
 														{
 															if (rg == g1.getIndexNo())
 															{
-																overlap = Checker.isOverlap(g1, group2, c.findGroup(in_int1));
+																overlap = Checker.overlapGroup(g1, group2, c.findGroup(in_int1));
 																if (overlap)
 																{
 																	System.out.println("Student " + student.getMatricNo() + " has a group that overlaps.");
@@ -912,7 +898,7 @@ public class MySTARS {
 														{
 															if (rg == g1.getIndexNo())
 															{
-																overlap = Checker.isOverlap(group2, group1, c.findGroup(in_int2));
+																overlap = Checker.overlapGroup(group2, group1, c.findGroup(in_int2));
 																if (overlap)
 																{
 																	System.out.println("Student " + ((Student) peer).getMatricNo() + " has a group that overlaps.");
@@ -1115,7 +1101,8 @@ public class MySTARS {
 	 * Checks user credentials is entered correctly, and if student can access
 	 * 
 	 * @param userList
-	 * @return
+	 *            list of users
+	 * @return Logger account if credentials entered correctly/ null if entered wrongly
 	 */
 	public static Comparable login(ArrayList<Logger> userList)
 	{
@@ -1160,7 +1147,8 @@ public class MySTARS {
 	 * Gets students from user list
 	 * 
 	 * @param userList
-	 * @return
+	 *            list of all the users
+	 * @return list of students
 	 */
 	public static ArrayList<Student> getStudentList(ArrayList<Logger> userList)
 	{
@@ -1179,8 +1167,10 @@ public class MySTARS {
 	 * Checks if course exist
 	 * 
 	 * @param courseList
+	 *            list of all the course
 	 * @param courseId
-	 * @return
+	 *            course id that is searching for
+	 * @return course that is looking for/ null if course cant be found
 	 */
 	public static Course courseExist(ArrayList<Course> courseList, String courseId)
 	{
@@ -1198,8 +1188,10 @@ public class MySTARS {
 	 * Checks if group exist
 	 * 
 	 * @param courseList
+	 *            list of all the course
 	 * @param indexNo
-	 * @return
+	 *            group index number that is searching for
+	 * @return group that is looking for/ null if group cant be found
 	 */
 	public static Group groupExist(ArrayList<Course> courseList, int indexNo)
 	{
@@ -1217,11 +1209,11 @@ public class MySTARS {
 	/**
 	 * Get the password based on input
 	 * 
-	 * @return
+	 * @return hashed password
 	 */
 	public static String inputPassword()
 	{
-		//return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
-		return Formatter.hashPassword((new Scanner(System.in)).next());
+		return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
+		//return Formatter.hashPassword((new Scanner(System.in)).next());
 	}
 }

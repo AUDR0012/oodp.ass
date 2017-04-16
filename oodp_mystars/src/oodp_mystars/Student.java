@@ -7,7 +7,7 @@ import java.util.Objects;
 import oodp_mystars.Enumerator.*;
 
 /**
- * Represents a student enrolled in the school.
+ * Represent a student enrolled in the school
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
@@ -85,14 +85,23 @@ public class Student implements Comparable, Serializable {
 	 * Constructor with specified parameter
 	 * 
 	 * @param name
+	 *            The name of the new student
 	 * @param gender
+	 *            The gender of the new student
 	 * @param matricNo
+	 *            The matric number of the new student
 	 * @param studyYear
+	 *            The current study year of the new student
 	 * @param email
+	 *            The email address of the new student
 	 * @param dob
+	 *            The birth date of the new student
 	 * @param nationality
+	 *            The nationality of the new student
 	 * @param phoneNo
+	 *            The phone number of the new student
 	 * @param notification
+	 *            The preferred way to be notified by the student
 	 */
 	public Student(String name, Gender gender, String matricNo, int studyYear, String email, Date dob,
 			String nationality, String phoneNo, Notification_Status notification)
@@ -113,6 +122,7 @@ public class Student implements Comparable, Serializable {
 	 * Print the student information
 	 * 
 	 * @param delimiter
+	 *            The character to separate the data fields
 	 */
 	public void printStudent(String delimiter)
 	{
@@ -121,6 +131,12 @@ public class Student implements Comparable, Serializable {
 				+ Formatter.tabs(2, delimiter, this.getNationality()));
 	}
 
+	/**
+	 * 
+	 * @param indexNo
+	 *            Index number of the group
+	 * @return ID of a group
+	 */
 	public int findGroup(int indexNo)
 	{
 		for (int gr : registeredGroup)
@@ -137,11 +153,11 @@ public class Student implements Comparable, Serializable {
 	 * Display all the courses that the student is currently in
 	 * 
 	 * @param courseList
+	 *            The list of all available courses
 	 */
 	public void listCourses(ArrayList<Course> courseList)
 	{
 		int i = 1;
-		Course co;
 		for (int rg : registeredGroup)
 		{
 			for (Course course : courseList)
@@ -149,7 +165,7 @@ public class Student implements Comparable, Serializable {
 				if (course.findGroup(rg) != null)
 				{
 					System.out.println("\t" + i++ + ". " + course.findGroup(rg).getIndexNo() + " " + course.getId()
-							+ " " + course.findGroup(rg).findStudent(this.matricNo, "status"));
+							+ " " + course.findGroup(rg).findStudentStatus(matricNo));
 				}
 			}
 
@@ -161,7 +177,9 @@ public class Student implements Comparable, Serializable {
 	 * Display all the course information that the student is currently in
 	 * 
 	 * @param courseList
+	 *            The list of all available courses
 	 * @param delimiter
+	 *            The Delimiter to separate different variables
 	 */
 	public void printCourses(ArrayList<Course> courseList, String delimiter)
 	{
@@ -174,7 +192,7 @@ public class Student implements Comparable, Serializable {
 			{
 				if (!Objects.equals(null, co.findGroup(gr)))
 				{
-					co.printCourseGroup(Integer.toString(gr), delimiter, (String) co.findGroup(gr).findStudent(this.getMatricNo(), "status"));
+					co.printCourseGroup(Integer.toString(gr), delimiter, (String) co.findGroup(gr).findStudentStatus(this.getMatricNo()));
 					System.out.println();
 					total_au += co.getCredit();
 					break;
@@ -189,7 +207,9 @@ public class Student implements Comparable, Serializable {
 	 * Swap the group when the student change index
 	 * 
 	 * @param oldGroup
+	 *            The index number of old group
 	 * @param newGroup
+	 *            The index number of new group
 	 */
 	public void replaceGroup(int oldGroup, int newGroup)
 	{

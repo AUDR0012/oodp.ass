@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
+ * Represent a class that provide methods to format data
+ * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
  * @since 2017-04-13
@@ -22,7 +24,8 @@ public class Formatter {
 	 * Convert clear text password to hashed
 	 * 
 	 * @param password
-	 * @return
+	 *            The password in plain text
+	 * @return hashed password
 	 */
 	public static String hashPassword(String password)
 	{
@@ -43,8 +46,28 @@ public class Formatter {
 	 * Parse string to date based on format given
 	 * 
 	 * @param dateTime
+	 *            The date object to be formatted
 	 * @param format
-	 * @return
+	 *            The formatted to be changed to
+	 * @return string parsed date
+	 */
+	public static String getString(Date dateTime, String format)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		if (!Objects.equals(null, dateTime))
+			return sdf.format(dateTime);
+		else
+			return "";
+	}
+
+	/**
+	 * Parse string to date based on format given
+	 * 
+	 * @param dateTime
+	 *            The date object to be retrieved
+	 * @param format
+	 *            The format requested
+	 * @return date parsed string
 	 */
 	public static Date getDate(String dateTime, String format)
 	{
@@ -69,7 +92,8 @@ public class Formatter {
 	 * Prompt user for input for adding of date
 	 * 
 	 * @param type
-	 * @return
+	 *            The type of date / time to be added
+	 * @return date based on the input
 	 */
 	public static Date enterDateTime(String type)
 	{
@@ -95,8 +119,10 @@ public class Formatter {
 	 * Adding hours to the date given
 	 * 
 	 * @param date
+	 *            The date object to add hours to
 	 * @param hours
-	 * @return
+	 *            The number of hourse to add to the date object
+	 * @return date after certain hours
 	 */
 	public static Date addHours(Date date, int hours)
 	{
@@ -104,29 +130,17 @@ public class Formatter {
 	}
 
 	/**
-	 * Parse string to date based on format given
-	 * 
-	 * @param dateTime
-	 * @param format
-	 * @return
-	 */
-	public static String getString(Date dateTime, String format)
-	{
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		if (!Objects.equals(null, dateTime))
-			return sdf.format(dateTime);
-		else
-			return "";
-	}
-
-	/**
 	 * Gets string of 2 date joint together based on format given
 	 * 
 	 * @param date1
+	 *            first date
 	 * @param date2
+	 *            second date
 	 * @param format
+	 *            date format
 	 * @param joint
-	 * @return
+	 *            conjunction word
+	 * @return string concatenated of date parsed string
 	 */
 	public static String getPeriod(Date date1, Date date2, String format, String joint)
 	{
@@ -141,9 +155,12 @@ public class Formatter {
 	 * Adding tabs to text fit column
 	 * 
 	 * @param count
+	 *            The number of tab to be executed
 	 * @param delimiter
+	 *            The character to separate data fields
 	 * @param text
-	 * @return
+	 *            The value or data to be displayed
+	 * @return string after tab based on length
 	 */
 	public static String tabs(int count, String delimiter, String text)
 	{
@@ -162,9 +179,12 @@ public class Formatter {
 	 * Replace c1 with c2 that is found in text
 	 * 
 	 * @param text
+	 *            The string of text
 	 * @param c1
+	 *            The existing text to be replaced
 	 * @param c2
-	 * @return
+	 *            The new text to replace the old text
+	 * @return replaced string
 	 */
 	public static String replaceString(String text, String c1, String c2)
 	{
@@ -175,7 +195,8 @@ public class Formatter {
 	 * Loops till user input a integer
 	 * 
 	 * @param message
-	 * @return
+	 *            The message to prompt before asking the user for a integer input
+	 * @return valid int input
 	 */
 	public static int getIntegerInput(String message)
 	{
@@ -206,9 +227,12 @@ public class Formatter {
 	 * Checks if item is within the range
 	 * 
 	 * @param item
+	 *            The message to be displayed before asking for input
 	 * @param min
+	 *            The minimum value that the input are allowed to be
 	 * @param max
-	 * @return
+	 *            The maximum value that the input are allowed to be
+	 * @return valid int input within range
 	 */
 	public static int withinRange(String item, int min, int max)
 	{

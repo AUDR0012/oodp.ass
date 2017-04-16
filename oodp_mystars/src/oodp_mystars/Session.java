@@ -5,7 +5,7 @@ import java.util.Date;
 import oodp_mystars.Enumerator.*;
 
 /**
- * Represents a session in the group for the student to attend.
+ * Represent a session in the group for the student to attend
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
@@ -64,12 +64,19 @@ public class Session implements Serializable {
 	 * Constructor with specified parameter
 	 * 
 	 * @param type
+	 *            The type of session from enum, either lecture or lab or tutorial
 	 * @param group
+	 *            The group name for this session
 	 * @param day
+	 *            The day where the session will be held, the value from enum
 	 * @param sTime
+	 *            The starting time of the lesson
 	 * @param hours
+	 *            The number of hours the lesson
 	 * @param venue
+	 *            The location where the lesson is held
 	 * @param remark
+	 *            The conducting week for the lesson, either odd or even or none from enum
 	 */
 	public Session(Session_Type type, String group, Day day, Date sTime, int hours, String venue, String remark)
 	{
@@ -86,10 +93,11 @@ public class Session implements Serializable {
 	 * Print the session information
 	 * 
 	 * @param delimiter
+	 *            character to separate the data field
 	 */
 	public void printSession(String delimiter)
 	{
-		System.out.print(delimiter 
+		System.out.print(delimiter
 				+ Formatter.tabs(2, delimiter, this.getType())
 				+ Formatter.tabs(1, delimiter, this.getGroup())
 				+ Formatter.tabs(2, delimiter, this.getDay())
@@ -101,7 +109,7 @@ public class Session implements Serializable {
 	/**
 	 * Check if session is in odd or even week or every
 	 * 
-	 * @return
+	 * @return Odd/ Even/ None
 	 */
 	public Alternate_Week getAlternateWeek()
 	{

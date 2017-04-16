@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 import oodp_mystars.Enumerator.*;
 
 /**
- * 
+ * Represent a custom class to check items
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
@@ -17,11 +17,14 @@ public class Checker {
 	 * Check overlap between overlap
 	 * 
 	 * @param registeredGroup
+	 *            Currently registered group
 	 * @param newGroup
+	 *            The new group that is going to be added in
 	 * @param exclude
-	 * @return
+	 *            Which group to be exclude from checking
+	 * @return true if overlap/ false if never overlap
 	 */
-	public static boolean isOverlap(Group registeredGroup, Group newGroup, Group exclude)
+	public static boolean overlapGroup(Group registeredGroup, Group newGroup, Group exclude)
 	{
 		if (exclude != null)
 		{
@@ -35,7 +38,7 @@ public class Checker {
 		{
 			for (Session newSession : newGroup.getSessions())
 			{
-				if (isOverlap(currentSession, newSession))
+				if (overlapSession(currentSession, newSession))
 				{
 					return true;
 				}
@@ -48,10 +51,12 @@ public class Checker {
 	 * Check overlap between session
 	 * 
 	 * @param session1
+	 *            The 1st session to be compared to
 	 * @param session2
-	 * @return
+	 *            The 2nd session to be compared to
+	 * @return true if overlap/ false if never overlap
 	 */
-	public static boolean isOverlap(Session session1, Session session2)
+	public static boolean overlapSession(Session session1, Session session2)
 	{
 		if (session1.getDay().equals(session2.getDay())
 				&& (session1.getAlternateWeek().equals(session2.getAlternateWeek())
@@ -84,8 +89,10 @@ public class Checker {
 	 * Check if the course already exist
 	 * 
 	 * @param courseList
+	 *            The list of all available courses
 	 * @param indexNo
-	 * @return
+	 *            The index number of the new course that is going to be created
+	 * @return true if indexNo exist/ false if indexNo do not exist
 	 */
 	public static boolean isDuplicate(ArrayList<Course> courseList, int indexNo)
 	{
@@ -105,8 +112,10 @@ public class Checker {
 
 	/**
 	 * Check if the email is in correct format
+	 * 
 	 * @param email
-	 * @return
+	 *            The email address to be checked
+	 * @return true if valid email/ false if invalid email
 	 */
 	public static boolean emailValid(String email)
 	{

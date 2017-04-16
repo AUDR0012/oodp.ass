@@ -1,6 +1,8 @@
 package oodp_mystars;
 
 /**
+ * Represent a class that contain methods to print different menus and table headers
+ * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
  * @since 2017-04-13
@@ -11,6 +13,7 @@ public class Menu {
 	 * Print the Main menu according to user type
 	 * 
 	 * @param user
+	 *            The user for checking which menu to show
 	 */
 	public static void printMenu(Comparable user)
 	{
@@ -44,6 +47,7 @@ public class Menu {
 	 * Print the header depending on user type
 	 * 
 	 * @param user
+	 *            The user for checking which menu to show
 	 */
 	public static void printHeader(Comparable user)
 	{
@@ -72,8 +76,10 @@ public class Menu {
 	 * Print the Table header according to different option
 	 * 
 	 * @param delimiter
+	 *            The character to separate data fields
 	 * @param table
-	 * @return
+	 *            The type table header to be requested
+	 * @return header text
 	 */
 	public static String getTableHeader(String delimiter, String table)
 	{
@@ -115,9 +121,11 @@ public class Menu {
 	/**
 	 * To form the border for the table
 	 * 
-	 * @param tabs
+	 * @param count
+	 *            The number of time the character is added
 	 * @param character
-	 * @return
+	 *            The character to add on
+	 * @return border text
 	 */
 	public static String getBorder(int count, String character)
 	{

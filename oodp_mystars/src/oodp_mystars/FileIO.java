@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
+ * Represent a class that handles reading and writing of data
+ * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
  * @since 2017-04-13
@@ -20,7 +22,8 @@ public class FileIO {
 	 * Read Object from file
 	 * 
 	 * @param filename
-	 * @return
+	 *            The file name of where the serialized object should be stored
+	 * @return deserialize object
 	 */
 	public static Object readSerializedObject(String filename)
 	{
@@ -51,7 +54,8 @@ public class FileIO {
 	 * Write object to file
 	 * 
 	 * @param filename
-	 * @param obj
+	 *            The file name of the serialized object should be retrieved from
+	 * @param obj The object to be serialized
 	 */
 	public static void writeSerializedObject(String filename, Object obj)
 	{
@@ -76,19 +80,20 @@ public class FileIO {
 	 * Retrieve information
 	 * 
 	 * @param userList
-	 * @param courseList
+	 *            The list of all user including admin and student
+	 * @param courseList The list of all courses available
 	 */
 	public static void readData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{
 		// Logger
-		if (userList.size() == 0 )
+		if (userList.size() == 0)
 		{
 			userList.clear();
 		}
 		userList.addAll((ArrayList<Logger>) FileIO.readSerializedObject("list_user"));
 
 		// Course
-		if (courseList.size() == 0 )
+		if (courseList.size() == 0)
 		{
 			courseList.clear();
 		}
@@ -99,7 +104,9 @@ public class FileIO {
 	 * Write info
 	 * 
 	 * @param userList
+	 *            The list of all user
 	 * @param courseList
+	 *            The list of all the available courses
 	 */
 	public static void writeData(ArrayList<Logger> userList, ArrayList<Course> courseList)
 	{

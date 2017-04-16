@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Represents a logger that stores the user's credentials and access period.
+ * Represent a logger that stores the user's credentials and access period
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
@@ -49,8 +49,11 @@ public class Logger implements Serializable {
 	 * Constructor with specified parameter
 	 * 
 	 * @param username
+	 *            The user name of the user
 	 * @param password
+	 *            The password of the user
 	 * @param user
+	 *            The user type, either admin or student
 	 */
 	public Logger(String username, String password, Comparable user)
 	{

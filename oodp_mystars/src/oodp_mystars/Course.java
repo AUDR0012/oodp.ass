@@ -6,7 +6,7 @@ import java.util.Objects;
 import oodp_mystars.Enumerator.*;
 
 /**
- * Represents a course offered by the school.
+ * Represent a course offered by the school
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
@@ -54,10 +54,15 @@ public class Course implements Serializable {
 	 * Constructor with parameter
 	 * 
 	 * @param id
+	 *            The identification value of the course
 	 * @param name
+	 *            The name of the course
 	 * @param type
+	 *            The type of course it is
 	 * @param credit
+	 *            The number of credit for this course
 	 * @param groups
+	 *            The list of group that are in the course
 	 */
 	public Course(String id, String name, Course_Type type, int credit, ArrayList<Group> groups)
 	{
@@ -72,7 +77,8 @@ public class Course implements Serializable {
 	 * Search for group within the course
 	 * 
 	 * @param indexNo
-	 * @return
+	 *            The index number of the group to find
+	 * @return group with this indexNo
 	 */
 	public Group findGroup(int indexNo)
 	{
@@ -90,13 +96,14 @@ public class Course implements Serializable {
 	 * Search for specified student within the course
 	 * 
 	 * @param matricNo
-	 * @return
+	 *            The matric number of student to find in the course
+	 * @return true if student resides in this group
 	 */
 	public boolean findStudent(String matricNo)
 	{
 		for (Group gr : groups)
 		{
-			if ((boolean) gr.findStudent(matricNo, "boolean"))
+			if (!Enumerator.string(Group_Status.NOT_FOUND).equals(gr.findStudentStatus(matricNo)))
 			{
 				return true;
 			}
@@ -108,6 +115,7 @@ public class Course implements Serializable {
 	 * Print course information
 	 * 
 	 * @param delimiter
+	 *            The character to seperate data field
 	 */
 	public void printCourse(String delimiter)
 	{
@@ -122,8 +130,11 @@ public class Course implements Serializable {
 	 * Print Course information
 	 * 
 	 * @param gr
+	 *            The group id
 	 * @param delimiter
+	 *            The character to separate the data fields
 	 * @param status
+	 *            The status of the user, either registered or waitlist
 	 */
 	public void printCourseGroup(String gr, String delimiter, String status)
 	{
@@ -140,8 +151,11 @@ public class Course implements Serializable {
 	 * Print all the group that are in the course
 	 * 
 	 * @param gr1
+	 *            The first group to be printed
 	 * @param gr2
+	 *            The second group to be printed
 	 * @param delimiter
+	 *            The character to separate data fields
 	 */
 	public void printGroups(int gr1, int gr2, String delimiter)
 	{
@@ -160,7 +174,7 @@ public class Course implements Serializable {
 		else
 		{
 			System.out.println(bar + "\t\t" + bar + "\n"
-					+ header + "\t\t" + header + "\n" 
+					+ header + "\t\t" + header + "\n"
 					+ bar + "\t\t" + bar);
 			for (Session s : this.findGroup(gr1).getSessions())
 			{
@@ -176,37 +190,23 @@ public class Course implements Serializable {
 	/**
 	 * Get the list of student in the course
 	 * 
-	 * @return
+	 * @return students that resides in this course
 	 */
 	public ArrayList<String> getStudentList()
 	{
 		ArrayList<String> studentList = new ArrayList<String>();
-		for (Group g : groups)
-		{
-			studentList.addAll(g.getRegistered());
-		}
-		return studentList;
-	}
-
-	/**
-	 * Get the number of student in the course
-	 * 
-	 * @return
-	 */
-	public int countStudentInGroups()
-	{
-		int count = 0;
 		for (Group gr : groups)
 		{
-			count += gr.getRegistered().size();
+			studentList.addAll(gr.getRegistered());
 		}
-		return count;
+		return studentList;
 	}
 
 	/**
 	 * Add group to the course
 	 * 
 	 * @param gr
+	 *            The group to be added to the course
 	 */
 	public void addGroup(Group gr)
 	{

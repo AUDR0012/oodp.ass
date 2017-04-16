@@ -7,7 +7,7 @@ import java.util.Scanner;
 import oodp_mystars.Enumerator.*;
 
 /**
- * Represents a group within a course.
+ * Represent a group within a course
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
@@ -55,8 +55,11 @@ public class Group implements Serializable {
 	 * Constructor with specified parameter
 	 * 
 	 * @param indexNo
+	 *            The index number attached to this group
 	 * @param vacancy
+	 *            The number of vacancy in this group
 	 * @param sessions
+	 *            The list of session inside the group
 	 */
 	public Group(int indexNo, int vacancy, ArrayList<Session> sessions)
 	{
@@ -71,7 +74,8 @@ public class Group implements Serializable {
 	 * Get the course that this group is currently in
 	 * 
 	 * @param courseList
-	 * @return
+	 *            The list of all available courses
+	 * @return course the group resides in
 	 */
 	public Course getCourse(ArrayList<Course> courseList)
 	{
@@ -89,7 +93,8 @@ public class Group implements Serializable {
 	 * Add student to the group
 	 * 
 	 * @param matricNumber
-	 * @return
+	 *            The matric number of student to be added to the group
+	 * @return the student's status that has added to
 	 */
 	public Group_Status addStudentToGroup(String matricNumber)
 	{
@@ -110,11 +115,12 @@ public class Group implements Serializable {
 	 * Remove student from the group
 	 * 
 	 * @param matricNumber
-	 * @return
+	 *            The matric number of student to be dropped from the group
+	 * @return the student's status that has dropped
 	 */
 	public Group_Status dropStudent(String matricNumber)
 	{
-		if (Enumerator.string(Group_Status.WAITLIST).equals(this.findStudent(matricNumber, "status")))
+		if (Enumerator.string(Group_Status.WAITLIST).equals(this.findStudentStatus(matricNumber)))
 		{
 			for (String w : waitlist)
 			{
@@ -145,7 +151,9 @@ public class Group implements Serializable {
 	 * Update the waitlist of the group
 	 * 
 	 * @param studentList
+	 *            The list of all available students
 	 * @param courseList
+	 *            The list of all available courses
 	 */
 	public void updateWaitlist(ArrayList<Student> studentList, ArrayList<Course> courseList)
 	{
@@ -169,7 +177,9 @@ public class Group implements Serializable {
 	 * Notify student that move to registered from the waitlist
 	 * 
 	 * @param student
+	 *            The list of all available students
 	 * @param courseList
+	 *            The list of all available courses
 	 */
 	public void notify(Student student, ArrayList<Course> courseList)
 	{
@@ -184,13 +194,13 @@ public class Group implements Serializable {
 	}
 
 	/**
-	 * Find the student that are currently in the group
+	 * Find the student's status currently in the group
 	 * 
 	 * @param matricNo
-	 * @param returning
-	 * @return
+	 *            The matric number of student to search inside the group
+	 * @return student's status in group
 	 */
-	public Comparable findStudent(String matricNo, String returning)
+	public Comparable findStudentStatus(String matricNo)
 	{
 		Group_Status status = Group_Status.NOT_FOUND;
 		for (String s : registered)
@@ -207,16 +217,17 @@ public class Group implements Serializable {
 				status = Group_Status.WAITLIST;
 			}
 		}
-		return returning.equals("boolean") ? status != Group_Status.NOT_FOUND : Enumerator.string(status);
+		return Enumerator.string(status);
 	}
 
 	/**
 	 * Add a session for the group
 	 * 
 	 * @param index
-	 * @return
+	 *            The index number of the session to be added to the group
+	 * @return true if session is added successfully
 	 */
-	public Session addSession(int index)
+	public Boolean addSession(int index)
 	{
 		Scanner in = new Scanner(System.in);
 		Session session;
@@ -254,13 +265,22 @@ public class Group implements Serializable {
 			{
 				continue;
 			}
-			if (Checker.isOverlap(se, session))
+			if (Checker.overlapSession(se, session))
 			{
-				return null;
+				System.out.println("Session overlaps with an session in this Group.");
+				return false;
 			}
 		}
 
-		return session;
+		if (index == -1)
+		{
+			sessions.add(session);
+		}
+		else
+		{
+			sessions.set(index, session);
+		}
+		return true;
 	}
 
 	/**

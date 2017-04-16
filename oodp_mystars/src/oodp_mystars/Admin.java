@@ -3,22 +3,21 @@ package oodp_mystars;
 import java.io.Serializable;
 
 /**
- * Represents a administrator working in the school.
+ * Represent a administrator working in the school
  * 
  * @author Audrey KinSum Kelvin JianHao
  * @version 1.0
  * @since 2017-04-13
  */
-public class Admin implements Comparable, Serializable
-{
+public class Admin implements Comparable, Serializable {
 	/**
 	 * The first and last name of this Administrator
 	 */
 	private String name;
 
 	/**
-	 * Creates a new Administrator with no name. This Administrator's name will
-	 * be set to null by default.
+	 * Creates a new Administrator with no name. This Administrator's name will be set to null by
+	 * default.
 	 */
 	public Admin()
 	{
@@ -26,8 +25,8 @@ public class Admin implements Comparable, Serializable
 	}
 
 	/**
-	 * Creates a new Administrator with the given name. The name should include
-	 * both first and last name.
+	 * Creates a new Administrator with the given name. The name should include both first and last
+	 * name.
 	 * 
 	 * @param name
 	 *            This Administrator's name.
@@ -58,8 +57,7 @@ public class Admin implements Comparable, Serializable
 	 * Changes the name of this Administrator.
 	 * 
 	 * @param newName
-	 *            This Administrator's new name. Should include both first and
-	 *            last name.
+	 *            This Administrator's new name. Should include both first and last name.
 	 */
 	public void setName(String newName)
 	{
