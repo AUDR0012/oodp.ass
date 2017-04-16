@@ -33,7 +33,7 @@ public class MySTARS {
 		boolean found, alreadyExist, overlap;
 		
 		
-		// Developer.addData(userList, courseList);
+		//Developer.addData(userList, courseList);
 		do
 		{
 			if (userList.isEmpty() || courseList.isEmpty())
@@ -1024,12 +1024,6 @@ public class MySTARS {
 
 	}
 
-	public static String inputPassword()
-	{
-		// return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
-		return Formatter.hashPassword((new Scanner(System.in)).next());
-	}
-
 	public static Comparable login(ArrayList<Logger> userList)
 	{
 		String username, password;
@@ -1107,4 +1101,9 @@ public class MySTARS {
 		return null;
 	}
 
+	public static String inputPassword()
+	{
+		// return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
+		return Formatter.hashPassword((new Scanner(System.in)).next());
+	}
 }

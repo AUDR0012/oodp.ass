@@ -19,27 +19,12 @@ import oodp_mystars.Enumerator.*;
 public class Notifier
 {
 
-	private static String senderEmail;
-	private static String senderPassword;
-	private static javax.mail.Session emailSession;
+	private static String senderEmail = "cz2002.fsp2.agrp3@gmail.com";
+	private static String senderPassword = "Assignmentgrp3";
 
-	public Notifier()
-	{
-		this.senderEmail = "cz2002.fsp2.agrp3@gmail.com";
-		this.senderPassword = "Assignmentgrp3";
-
-		setupEmail();
-	}
-
-	public Notifier(String senderEmail, String senderPassword)
-	{
-		this.senderEmail = senderEmail;
-		this.senderPassword = senderPassword;
-
-		setupEmail();
-	}
-
-	private static void setupEmail()
+	// Send notification to student to notify them that they are in waitlist or
+	// officially registered under course.
+	public static void sendEmail(String studentEmail, String courseId, int indexNo, Group_Status message)
 	{
 		// Setup Properties for the email session
 		Properties properties = new Properties();
@@ -49,19 +34,14 @@ public class Notifier
 		properties.setProperty("mail.smtp.starttls.enable", "true");
 
 		// Establish connection with the account you wish to login to
-		emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator()
+		javax.mail.Session emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator()
 		{
 			protected PasswordAuthentication getPasswordAuthentication()
 			{
 				return new PasswordAuthentication(senderEmail, senderPassword);
 			}
 		});
-	}
-
-	// Send notification to student to notify them that they are in waitlist or
-	// officially registered under course.
-	public static void sendEmail(String studentEmail, String courseId, int indexNo, Group_Status message)
-	{
+		
 		MimeMessage email;
 		try
 		{
