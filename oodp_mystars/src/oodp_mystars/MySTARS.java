@@ -433,7 +433,7 @@ public class MySTARS {
 									{
 										if (std.getMatricNo().equalsIgnoreCase(registered))
 										{
-											std.printStudent(PARSE_DELIMITER);
+											std.printInfo(PARSE_DELIMITER);
 										}
 									}
 								}
@@ -451,35 +451,28 @@ public class MySTARS {
 					}
 					case 7:
 					{ // Print Student List of Course
-						found = false;
 						System.out.print("Enter Course Id: ");
 						in_string = in.next();
-						for (Course co : courseList)
+
+						if (!Objects.equals(null, course = getCourse(courseList, in_string)))
 						{
-							if (co.getId().equalsIgnoreCase(in_string))
+							if (course.countStudentInGroups() > 0)
 							{
-								if (co.countStudentInGroups() > 0)
+								for (String registered : course.getStudentList())
 								{
-									for (String registered : co.getStudentList())
+									for (Student student : getStudentList(userList))
 									{
-										for (Student std : getStudentList(userList))
+										if (student.getMatricNo().equalsIgnoreCase(registered))
 										{
-											if (std.getMatricNo().equalsIgnoreCase(registered))
-											{
-												std.printStudent(PARSE_DELIMITER);
-											}
+											student.printInfo(PARSE_DELIMITER);
 										}
 									}
 								}
-								else
-								{
-									System.out.println("Course Id " + in_string.toUpperCase() + " has no students.");
-								}
-								found = true;
-								break;
+							} else
+							{
+								System.out.println("Course Id " + in_string.toUpperCase() + " has no students.");
 							}
-						}
-						if (!found)
+						} else
 						{
 							System.out.println("Course Id " + in_string.toUpperCase() + " is not found.");
 						}
@@ -1033,8 +1026,8 @@ public class MySTARS {
 
 	public static String inputPassword()
 	{
-		return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
-		// return Formatter.hashPassword((new Scanner(System.in)).next());
+		// return Formatter.hashPassword(String.copyValueOf(System.console().readPassword()));
+		return Formatter.hashPassword((new Scanner(System.in)).next());
 	}
 
 	public static Comparable login(ArrayList<Logger> userList)

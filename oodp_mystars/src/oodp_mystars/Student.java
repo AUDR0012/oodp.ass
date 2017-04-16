@@ -92,7 +92,7 @@ public class Student implements Comparable, Serializable
 		this.registeredGroup = new ArrayList<Integer>();
 	}
 
-	public void printStudent(String delimiter)
+	public void printInfo(String delimiter)
 	{
 		System.out.println(delimiter + Formatter.tabs(3, delimiter, this.getName())
 				+ Formatter.tabs(1, delimiter, this.getGender())
