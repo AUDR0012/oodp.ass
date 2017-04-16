@@ -104,9 +104,9 @@ public class Menu {
 					+ Formatter.tabs(3, delimiter, "Remark");
 		}
 		else if (table.equals("student"))
-		{ //6 tabs
+		{ //7 tabs
 			header += Formatter.tabs(3, delimiter, "Name")
-					+ Formatter.tabs(1, delimiter, "Gender")
+					+ Formatter.tabs(2, delimiter, "Gender")
 					+ Formatter.tabs(2, delimiter, "Nationality");
 		}
 		return header;

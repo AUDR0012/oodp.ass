@@ -149,7 +149,7 @@ public class Formatter {
 	{
 		int length = 8;
 		String tabs = "\t";
-		int size = length * count - text.length() - delimiter.length() - 1;
+		int size = (length * count) - (text.length() + delimiter.length() + 1);
 		while (size > length - 1)
 		{
 			tabs += "\t";

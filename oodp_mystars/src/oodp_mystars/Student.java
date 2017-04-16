@@ -117,7 +117,7 @@ public class Student implements Comparable, Serializable {
 	public void printStudent(String delimiter)
 	{
 		System.out.print(delimiter + Formatter.tabs(3, delimiter, this.getName())
-				+ Formatter.tabs(1, delimiter, this.getGender())
+				+ Formatter.tabs(2, delimiter, this.getGender())
 				+ Formatter.tabs(2, delimiter, this.getNationality()));
 	}
 

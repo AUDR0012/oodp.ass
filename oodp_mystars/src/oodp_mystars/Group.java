@@ -231,7 +231,7 @@ public class Group implements Serializable {
 		// Type
 		session.setType(Enumerator.nextEnum(Session_Type.class));
 		// Group
-		System.out.print("Enter Group name: ");
+		System.out.print("Enter Group Name: ");
 		session.setGroup(in.next());
 		// Day
 		session.setDay(Enumerator.nextEnum(Day.class));
